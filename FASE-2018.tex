@@ -264,6 +264,8 @@ Events captured in the Alg. \ref{alg:capture_events} are stored into a  history 
 \label{fig:object_history}
 \end{figure}
 
+To save events captured in Alg. \ref{alg:capture_events}, we follow steps in Alg. \ref{alg:fill_history}. The algorithm requires three input: \emph{modelHistory}, \emph{event}, \emph{lineNumber}.  Inside the procedure \emph{addEventToHistory}, the algorithm starts by retrieving the \emph{object} affected by the occurring event from the \emph{event} using the get \emph{objectFunction} (line 3). The procedure then checks if the \emph{object}'s\emph{objectHistory} does not exists yet in the \emph{modelHistory} (line 4). If it is true then it creates a new one (line 5). If it is false then it retrieves the \emph{objectHistory} from the \emph{modelHistory} (line 7). 
+
 \begin{algorithm}
 \begin{small}
 \SetKwInOut{Input}{input}
@@ -299,6 +301,8 @@ Events captured in the Alg. \ref{alg:capture_events} are stored into a  history 
 \label{alg:fill_history}
 \end{algorithm}
 
+Lines 9 to 14 are specified to handle events that modify any feature -- an attribute or a containment reference -- of the object (for example, set a value to an attribute, add an object to a containment reference). From the \emph{event}, we can get the \emph{affectedFeature} using \emph{getAffectedFeature} function. If the \emph{affectedFeature} is attribute then the algorithm executes procedure \emph{addEventToAttributeHistory} (lines 10 and 11). If the \emph{affectedFeature} is reference then the algorithm executes procedure \emph{AddEventToReferenceHistory} (lines 12 and 13). Both \emph{addEventToAttributeHistory} and \emph{AddEventToReferenceHistory} are procedures that works similarly to procedure \emph{addEventToHistory} except that they create and add object history instances, as well as their event histories and lines, for the attribute and reference relationships in Fig. \ref{fig:object_history}. The object history instances represents the history of attributes and references that belongs to an object.
+
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]
@@ -307,10 +311,6 @@ Events captured in the Alg. \ref{alg:capture_events} are stored into a  history 
 \caption{An object diagram showing the structure of object history of the model in Fig. \ref{fig:initial_model}. The red rectangles contain line numbers that are going to ignored when loading CBP.}
 \label{fig:history_structure}
 \end{figure}
-
-To save events captured in Alg. \ref{alg:capture_events}, we follow steps in Alg. \ref{alg:fill_history}. The algorithm requires three input: \emph{modelHistory}, \emph{event}, \emph{lineNumber}.  Inside the procedure \emph{addEventToHistory}, the algorithm starts by retrieving the \emph{object} affected by the occurring event from the \emph{event} using the get \emph{objectFunction} (line 3). The procedure then checks if the \emph{object}'s\emph{objectHistory} does not exists yet in the \emph{modelHistory} (line 4). If it is true then it creates a new one (line 5). If it is false then it retrieves the \emph{objectHistory} from the \emph{modelHistory} (line 7). 
-
-Lines 9 to 14 are specified to handle events that modify any feature -- an attribute or a containment reference -- of the object (for example, set a value to an attribute, add an object to a containment reference). From the \emph{event}, we can get the \emph{affectedFeature} using \emph{getAffectedFeature} function. If the \emph{affectedFeature} is attribute then the algorithm executes procedure \emph{addEventToAttributeHistory} (lines 10 and 11). If the \emph{affectedFeature} is reference then the algorithm executes procedure \emph{AddEventToReferenceHistory} (lines 12 and 13). Both \emph{addEventToAttributeHistory} and \emph{AddEventToReferenceHistory} are procedures that works similarly to procedure \emph{addEventToHistory} except that they create and add object history instances, as well as their event histories and lines, for the attribute and reference relationships in Fig. \ref{fig:object_history}. The object history instances represents the history of attributes and references that belongs to an object.
 
 After handling affected features, the algorithm retrieves\emph{eventType} that is held by the \emph{event} using \emph{getEventType} function (line 15). If the \emph{eventType}'s \emph{eventHistory} does not exists in the \emph{objectHistory} then the algorithm creates a new \emph{eventHistory} of the \emph{eventType} in the \emph{objectEvent}  using \emph{createEventHistory} function (lines 16 and 17). Otherwise, it retrieves the \emph{eventHistory} from the \emph{objectHistory} (lines 18 and 19). Using \emph{getValue} function, the algorithm gets any operand's \emph{value} used in the event (the \emph{value} can be null if the event does not use any value) (line 21). The algorithm then uses the \emph{lineNumber}, the \emph{value}, and \emph{createLine} function, to create an instance \emph{line} of class Line and adds it into \emph{eventHistory} (lines 22 and 23).   
 
@@ -387,6 +387,8 @@ $unsetLastLine$ $\leftarrow$ getLastLine($unsetEventLines$)\;
 
 The algorithm to execute this argument is shown in Alg. \ref{alg:set_unset_optimisation}. It takes three inputs: two list of \emph{Line}, \emph{setEventLines} and \emph{unsetEventLines}, and a list of Integer, \emph{ignoreList}. The \emph{Line} is a structure that represents an event. It carries the \emph{lineNumber} of the event in its CBP representation as well as the \emph{value} involved. The \emph{setEventLines} and \emph{unsetEventLines} are lists that contains the \emph{Line}s where the event \emph{setAttributeEvent} and \emph{unsetAttributeEvent} appear in a CBP representation and the operand's value included in the event. The algorithm starts by retrieving the last lines of \emph{setEventLines} and \emph{unsetEventLines} using the \emph{getLastLine} function and assigning them to variables \emph{setLastLine} and \emph{unsetLastLine} (lines 5 and 6). If \emph{setLastLine} is larger than \emph{unsetLastLine} then every line number that is in the \emph{setEventLines} are put into the \emph{ignoreList} excluding the last value since the last line still has to be executed to produce the same end model (lines 7-9). If \emph{unsetLastLine} is larger than \emph{setLastLine} then \emph{unset} operation is the last operation that is executed (line 10). Therefore, there is no need to executes all \emph{set} and \emph{unset} operations -- all lines can be ignored. Every line numbers in \emph{setEventLines} and \emph{unsetEventLines} are put into the \emph{ignoreList}. The \emph{ignoredList} is then returned for further processes.
 
+The algorithm (Alg. \ref{alg:set_unset_optimisation}) can also be applied to set and unset operations of a containment reference for CBP described in Lst. \ref{lst:set_unset_reference}. For nodes \emph{n1}, \emph{n2}, \emph{n3}, and \emph{n4} are created at the beginning of the creation of its model (line 1-4). The \emph{n1}'s single containment reference, \emph{associate}, is then assigned \emph{n2} and \emph{n3} accordingly (lines 5-6), before nullified or unset (line 7). Finally, the \emph{n1.associate} is set to \emph{n4}. 
+
 \begin{lstlisting}[style=eol,caption={Example of CBP representation of \emph{name} reference assignments.},label=lst:set_unset_reference]
 create n1 of Node
 create n2 of Node
@@ -397,8 +399,6 @@ set n1.associate to n3    //node.associate=n3
 unset n1.associate        //node.associate=null
 set n1.associate to n4    //node.associate=n4
 \end{lstlisting}
-
-The algorithm (Alg. \ref{alg:set_unset_optimisation}) can also be applied to set and unset operations of a containment reference for CBP described in Lst. \ref{lst:set_unset_reference}. For nodes \emph{n1}, \emph{n2}, \emph{n3}, and \emph{n4} are created at the beginning of the creation of its model (line 1-4). The \emph{n1}'s single containment reference, \emph{associate}, is then assigned \emph{n2} and \emph{n3} accordingly (lines 5-6), before nullified or unset (line 7). Finally, the \emph{n1.associate} is set to \emph{n4}. 
 
 Using the same optimisation to set and unset operations of containment reference \emph{associate}, we can omit lines 5 to 7 to produce the same end model. In in their event histories, the lines for set and unset operations are \emph{setEventLines = [[5, n2], [6, n3], [8, n4]]} and \emph{unsetEventLines = [[7, null]]} respectively. Since only the last value of set or unset operations that is significant, using the two lists, we can identify that line 8 is the last line of set and unset operations that is significant for the containment reference \emph{associate}. Therefore, lines 5 to 7 can be put into the ignore list.
 
