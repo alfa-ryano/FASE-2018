@@ -45,3 +45,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.bak
+*.gz
+FASE-2018.pdf
