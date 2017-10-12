@@ -1,0 +1,372 @@
+<register epackage="conference"/>
+<create eclass="Conference" epackage="conference" id="0"/>
+<add-to-resource position="0"><value eobject="0"/></add-to-resource>
+<create eclass="Person" epackage="conference" id="1"/>
+<add-to-ereference name="participants" position="0" target="0"><value eobject="1"/></add-to-ereference>
+<set-eattribute name="fullName" target="1"><value literal="Amsterdam"/></set-eattribute>
+<set-eattribute name="affiliation" target="1"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="1"><value literal="University of Leiden"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="2"/>
+<add-to-ereference name="participants" position="1" target="0"><value eobject="2"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="3"/>
+<add-to-ereference name="participants" position="2" target="0"><value eobject="3"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="4"/>
+<add-to-ereference name="participants" position="3" target="0"><value eobject="4"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="5"/>
+<add-to-ereference name="participants" position="4" target="0"><value eobject="5"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="6"/>
+<add-to-ereference name="participants" position="5" target="0"><value eobject="6"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="7"/>
+<add-to-ereference name="participants" position="6" target="0"><value eobject="7"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="8"/>
+<add-to-ereference name="participants" position="7" target="0"><value eobject="8"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="9"/>
+<add-to-ereference name="participants" position="8" target="0"><value eobject="9"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="10"/>
+<add-to-ereference name="participants" position="9" target="0"><value eobject="10"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="11"/>
+<add-to-ereference name="participants" position="10" target="0"><value eobject="11"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="12"/>
+<add-to-ereference name="participants" position="11" target="0"><value eobject="12"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="13"/>
+<add-to-ereference name="participants" position="12" target="0"><value eobject="13"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="14"/>
+<add-to-ereference name="participants" position="13" target="0"><value eobject="14"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="15"/>
+<add-to-ereference name="participants" position="14" target="0"><value eobject="15"/></add-to-ereference>
+<set-eattribute name="fullName" target="2"><value literal="Paris"/></set-eattribute>
+<set-eattribute name="affiliation" target="2"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="2"><value literal="University of Strasbourg"/></set-eattribute>
+<set-eattribute name="fullName" target="3"><value literal="Lisbon"/></set-eattribute>
+<set-eattribute name="affiliation" target="3"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="3"><value literal="University of Portugal"/></set-eattribute>
+<set-eattribute name="fullName" target="4"><value literal="Monaco"/></set-eattribute>
+<set-eattribute name="affiliation" target="4"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="4"><value literal="University of Monter Carlo"/></set-eattribute>
+<set-eattribute name="fullName" target="5"><value literal="Nice"/></set-eattribute>
+<set-eattribute name="affiliation" target="5"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="5"><value literal="Institute of Technology"/></set-eattribute>
+<set-eattribute name="fullName" target="6"><value literal="Copenhagen"/></set-eattribute>
+<set-eattribute name="affiliation" target="6"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="6"><value literal="Salmon Company"/></set-eattribute>
+<set-eattribute name="fullName" target="7"><value literal="Berlin"/></set-eattribute>
+<set-eattribute name="affiliation" target="7"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="7"><value literal="War Museum"/></set-eattribute>
+<set-eattribute name="fullName" target="8"><value literal="Beijing"/></set-eattribute>
+<set-eattribute name="affiliation" target="8"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="8"><value literal="Great Wall Foundation"/></set-eattribute>
+<set-eattribute name="fullName" target="9"><value literal="Bandung"/></set-eattribute>
+<set-eattribute name="affiliation" target="9"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="9"><value literal="Maranatha Christian University"/></set-eattribute>
+<set-eattribute name="fullName" target="10"><value literal="Tokyo"/></set-eattribute>
+<set-eattribute name="affiliation" target="10"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="10"><value literal="Tokyo University"/></set-eattribute>
+<set-eattribute name="fullName" target="11"><value literal="York"/></set-eattribute>
+<set-eattribute name="affiliation" target="11"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="11"><value literal="University of York"/></set-eattribute>
+<set-eattribute name="fullName" target="12"><value literal="Bali"/></set-eattribute>
+<set-eattribute name="affiliation" target="12"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="12"><value literal="Enhaii Institute"/></set-eattribute>
+<set-eattribute name="fullName" target="13"><value literal="Singapura"/></set-eattribute>
+<set-eattribute name="affiliation" target="13"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="13"><value literal="Nanyang University"/></set-eattribute>
+<set-eattribute name="fullName" target="14"><value literal="Leeds"/></set-eattribute>
+<set-eattribute name="affiliation" target="14"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="14"><value literal="University of Leeds"/></set-eattribute>
+<set-eattribute name="fullName" target="15"><value literal="Iceland"/></set-eattribute>
+<set-eattribute name="affiliation" target="15"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="15"><value literal="Aurora Tour and Travel"/></set-eattribute>
+<create eclass="Room" epackage="conference" id="16"/>
+<add-to-ereference name="rooms" position="0" target="0"><value eobject="16"/></add-to-ereference>
+<create eclass="Room" epackage="conference" id="17"/>
+<add-to-ereference name="rooms" position="1" target="0"><value eobject="17"/></add-to-ereference>
+<create eclass="Room" epackage="conference" id="18"/>
+<add-to-ereference name="rooms" position="2" target="0"><value eobject="18"/></add-to-ereference>
+<create eclass="Room" epackage="conference" id="19"/>
+<add-to-ereference name="rooms" position="3" target="0"><value eobject="19"/></add-to-ereference>
+<set-eattribute name="name" target="16"><value literal="100"/></set-eattribute>
+<set-eattribute name="name" target="17"><value literal="101"/></set-eattribute>
+<set-eattribute name="name" target="18"><value literal="102"/></set-eattribute>
+<set-eattribute name="name" target="19"><value literal="103"/></set-eattribute>
+<create eclass="Day" epackage="conference" id="20"/>
+<add-to-ereference name="days" position="0" target="0"><value eobject="20"/></add-to-ereference>
+<create eclass="Day" epackage="conference" id="21"/>
+<add-to-ereference name="days" position="1" target="0"><value eobject="21"/></add-to-ereference>
+<set-eattribute name="name" target="20"><value literal="Thursday"/></set-eattribute>
+<set-eattribute name="name" target="21"><value literal="Friday"/></set-eattribute>
+<create eclass="Track" epackage="conference" id="22"/>
+<add-to-ereference name="slots" position="0" target="20"><value eobject="22"/></add-to-ereference>
+<create eclass="Track" epackage="conference" id="23"/>
+<add-to-ereference name="slots" position="1" target="20"><value eobject="23"/></add-to-ereference>
+<create eclass="Track" epackage="conference" id="24"/>
+<add-to-ereference name="slots" position="2" target="20"><value eobject="24"/></add-to-ereference>
+<create eclass="Track" epackage="conference" id="25"/>
+<add-to-ereference name="slots" position="0" target="21"><value eobject="25"/></add-to-ereference>
+<create eclass="Track" epackage="conference" id="26"/>
+<add-to-ereference name="slots" position="1" target="21"><value eobject="26"/></add-to-ereference>
+<set-eattribute name="title" target="22"><value literal="Travelling"/></set-eattribute>
+<set-eattribute name="start" target="22"><value literal="09.00"/></set-eattribute>
+<set-eattribute name="end" target="22"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="22"><value literal="11.00"/></set-eattribute>
+<set-ereference name="room" target="22"><value eobject="16"/></set-ereference>
+<create eclass="Talk" epackage="conference" id="27"/>
+<add-to-ereference name="talks" position="0" target="22"><value eobject="27"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="28"/>
+<add-to-ereference name="talks" position="1" target="22"><value eobject="28"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="29"/>
+<add-to-ereference name="talks" position="2" target="22"><value eobject="29"/></add-to-ereference>
+<set-eattribute name="title" target="27"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="27"><value literal="Controversy of Travelling"/></set-eattribute>
+<set-ereference name="speaker" target="27"><value eobject="15"/></set-ereference>
+<set-eattribute name="index" target="27"><value literal=""/></set-eattribute>
+<set-eattribute name="duration" target="27"><value literal="60"/></set-eattribute>
+<set-ereference name="discussant" target="27"><value eobject="12"/></set-ereference>
+<set-eattribute name="title" target="27"><value literal="1. Controversy of Travelling"/></set-eattribute>
+<set-eattribute name="title" target="28"><value literal="2. Travelling in Europe"/></set-eattribute>
+<set-ereference name="speaker" target="28"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="28"><value literal="30"/></set-eattribute>
+<set-ereference name="discussant" target="28"><value eobject="11"/></set-ereference>
+<set-eattribute name="title" target="29"><value literal="3. Travelling in Asia"/></set-eattribute>
+<set-ereference name="speaker" target="29"><value eobject="9"/></set-ereference>
+<set-eattribute name="duration" target="29"><value literal="30"/></set-eattribute>
+<set-ereference name="discussant" target="29"><value eobject="11"/></set-ereference>
+<create eclass="Break" epackage="conference" id="30"/>
+<add-to-ereference name="slots" position="3" target="20"><value eobject="30"/></add-to-ereference>
+<move-in-ereference from="3" name="slots" target="20" to="1"><value eobject="30"/></move-in-ereference>
+<set-ereference name="room" target="30"><value eobject="19"/></set-ereference>
+<set-eattribute name="start" target="30"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="30"><value literal="11.00"/></set-eattribute>
+<set-eattribute name="end" target="30"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="30"><value literal="12.30"/></set-eattribute>
+<set-eattribute name="reason" target="30"><value literal=""/></set-eattribute>
+<set-eattribute name="reason" target="30"><value literal="Lunch"/></set-eattribute>
+<create eclass="Talk" epackage="conference" id="31"/>
+<add-to-ereference name="talks" position="0" target="23"><value eobject="31"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="32"/>
+<add-to-ereference name="talks" position="1" target="23"><value eobject="32"/></add-to-ereference>
+<set-eattribute name="title" target="23"><value literal="Economy Growth "/></set-eattribute>
+<set-eattribute name="start" target="23"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="23"><value literal="12.30"/></set-eattribute>
+<set-eattribute name="end" target="23"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="23"><value literal="14.30"/></set-eattribute>
+<set-ereference name="room" target="23"><value eobject="17"/></set-ereference>
+<set-eattribute name="end" target="23"><value literal="13.30"/></set-eattribute>
+<set-eattribute name="title" target="31"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="32"><value literal="Effects on Small Industry"/></set-eattribute>
+<set-ereference name="speaker" target="32"><value eobject="6"/></set-ereference>
+<set-ereference name="discussant" target="32"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="32"><value literal="30"/></set-eattribute>
+<move-in-ereference from="1" name="talks" target="23" to="0"><value eobject="32"/></move-in-ereference>
+<set-eattribute name="title" target="31"><value literal="Impact on Environment"/></set-eattribute>
+<set-ereference name="speaker" target="31"><value eobject="13"/></set-ereference>
+<set-ereference name="discussant" target="31"><value eobject="10"/></set-ereference>
+<set-eattribute name="duration" target="31"><value literal="30"/></set-eattribute>
+<create eclass="Break" epackage="conference" id="33"/>
+<add-to-ereference name="slots" position="4" target="20"><value eobject="33"/></add-to-ereference>
+<move-in-ereference from="4" name="slots" target="20" to="3"><value eobject="33"/></move-in-ereference>
+<set-eattribute name="reason" target="33"><value literal="Coffee Break"/></set-eattribute>
+<set-eattribute name="start" target="33"><value literal="13.30"/></set-eattribute>
+<set-eattribute name="end" target="33"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="33"><value literal="14.00"/></set-eattribute>
+<set-eattribute name="index" target="33"><value literal=""/></set-eattribute>
+<set-ereference name="room" target="33"><value eobject="19"/></set-ereference>
+<set-eattribute name="title" target="24"><value literal="Climate Change"/></set-eattribute>
+<set-eattribute name="start" target="24"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="24"><value literal="14.00"/></set-eattribute>
+<set-eattribute name="end" target="24"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="24"><value literal="16.00"/></set-eattribute>
+<set-ereference name="room" target="24"><value eobject="18"/></set-ereference>
+<set-eattribute name="key" target="24"><value literal=""/></set-eattribute>
+<create eclass="Talk" epackage="conference" id="34"/>
+<add-to-ereference name="talks" position="0" target="24"><value eobject="34"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="35"/>
+<add-to-ereference name="talks" position="1" target="24"><value eobject="35"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="36"/>
+<add-to-ereference name="talks" position="2" target="24"><value eobject="36"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="37"/>
+<add-to-ereference name="talks" position="3" target="24"><value eobject="37"/></add-to-ereference>
+<set-eattribute name="title" target="34"><value literal="Is it real?"/></set-eattribute>
+<set-ereference name="speaker" target="34"><value eobject="11"/></set-ereference>
+<set-eattribute name="key" target="34"><value literal=""/></set-eattribute>
+<set-ereference name="discussant" target="34"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="34"><value literal="20"/></set-eattribute>
+<set-eattribute name="title" target="35"><value literal="The Cause"/></set-eattribute>
+<set-ereference name="speaker" target="35"><value eobject="8"/></set-ereference>
+<set-ereference name="discussant" target="35"><value eobject="9"/></set-ereference>
+<set-eattribute name="key" target="35"><value literal=""/></set-eattribute>
+<set-eattribute name="duration" target="35"><value literal="20"/></set-eattribute>
+<set-eattribute name="title" target="36"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="36"><value literal="Impact on Industry"/></set-eattribute>
+<set-ereference name="speaker" target="36"><value eobject="10"/></set-ereference>
+<set-eattribute name="title" target="36"><value literal="Impact of Industry"/></set-eattribute>
+<set-eattribute name="key" target="36"><value literal=""/></set-eattribute>
+<set-ereference name="discussant" target="36"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="36"><value literal="20"/></set-eattribute>
+<set-eattribute name="title" target="37"><value literal="What to Do?"/></set-eattribute>
+<set-ereference name="speaker" target="37"><value eobject="13"/></set-ereference>
+<set-ereference name="discussant" target="37"><value eobject="5"/></set-ereference>
+<set-eattribute name="duration" target="37"><value literal="20"/></set-eattribute>
+<set-eattribute name="end" target="24"><value literal="15.20"/></set-eattribute>
+<remove-from-ereference name="days" target="0"><value eobject="21"/></remove-from-ereference>
+<delete eclass="Day" epackage="conference" id="21"/>
+<create eclass="Break" epackage="conference" id="38"/>
+<add-to-ereference name="slots" position="5" target="20"><value eobject="38"/></add-to-ereference>
+<set-eattribute name="start" target="38"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="38"><value literal="15.20"/></set-eattribute>
+<set-eattribute name="end" target="38"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="38"><value literal="16.00"/></set-eattribute>
+<set-ereference name="room" target="38"><value eobject="19"/></set-ereference>
+<set-eattribute name="reason" target="38"><value literal="Coffee Break"/></set-eattribute>
+<set-eattribute name="key" target="38"><value literal=""/></set-eattribute>
+<set-eattribute name="index" target="38"><value literal=""/></set-eattribute>
+<create eclass="Track" epackage="conference" id="39"/>
+<add-to-ereference name="slots" position="6" target="20"><value eobject="39"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="40"/>
+<add-to-ereference name="talks" position="0" target="39"><value eobject="40"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="41"/>
+<add-to-ereference name="talks" position="1" target="39"><value eobject="41"/></add-to-ereference>
+<set-eattribute name="title" target="39"><value literal="Nutshell Session"/></set-eattribute>
+<set-eattribute name="start" target="39"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="39"><value literal="16.00"/></set-eattribute>
+<set-eattribute name="end" target="39"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="39"><value literal="17.00"/></set-eattribute>
+<set-ereference name="room" target="39"><value eobject="16"/></set-ereference>
+<set-eattribute name="title" target="40"><value literal="In a nutshell"/></set-eattribute>
+<set-ereference name="speaker" target="40"><value eobject="11"/></set-ereference>
+<set-eattribute name="duration" target="40"><value literal="30"/></set-eattribute>
+<remove-from-ereference name="talks" target="39"><value eobject="41"/></remove-from-ereference>
+<delete eclass="Talk" epackage="conference" id="41"/>
+<set-eattribute name="end" target="39"><value literal="16.30"/></set-eattribute>
+<create eclass="Track" epackage="conference" id="42"/>
+<add-to-ereference name="slots" position="7" target="20"><value eobject="42"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="43"/>
+<add-to-ereference name="talks" position="0" target="42"><value eobject="43"/></add-to-ereference>
+<set-eattribute name="title" target="42"><value literal="Follow Up Session"/></set-eattribute>
+<set-eattribute name="start" target="42"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="42"><value literal="16.00"/></set-eattribute>
+<set-eattribute name="end" target="42"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="42"><value literal="16.40"/></set-eattribute>
+<set-ereference name="room" target="42"><value eobject="17"/></set-ereference>
+<create eclass="Talk" epackage="conference" id="44"/>
+<add-to-ereference name="talks" position="1" target="42"><value eobject="44"/></add-to-ereference>
+<set-eattribute name="title" target="43"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="43"><value literal="Worldwide Foundation"/></set-eattribute>
+<set-ereference name="speaker" target="43"><value eobject="14"/></set-ereference>
+<set-ereference name="discussant" target="43"><value eobject="15"/></set-ereference>
+<set-eattribute name="duration" target="43"><value literal="20"/></set-eattribute>
+<set-eattribute name="title" target="44"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="44"><value literal="What's next?"/></set-eattribute>
+<set-ereference name="speaker" target="44"><value eobject="1"/></set-ereference>
+<set-ereference name="discussant" target="44"><value eobject="15"/></set-ereference>
+<set-eattribute name="key" target="44"><value literal=""/></set-eattribute>
+<set-eattribute name="duration" target="44"><value literal="20"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="45"/>
+<add-to-ereference name="participants" position="15" target="0"><value eobject="45"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="46"/>
+<add-to-ereference name="participants" position="16" target="0"><value eobject="46"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="47"/>
+<add-to-ereference name="participants" position="17" target="0"><value eobject="47"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="48"/>
+<add-to-ereference name="participants" position="18" target="0"><value eobject="48"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="49"/>
+<add-to-ereference name="participants" position="19" target="0"><value eobject="49"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="50"/>
+<add-to-ereference name="participants" position="20" target="0"><value eobject="50"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="51"/>
+<add-to-ereference name="participants" position="21" target="0"><value eobject="51"/></add-to-ereference>
+<set-eattribute name="fullName" target="45"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="45"><value literal="Marocco"/></set-eattribute>
+<set-eattribute name="affiliation" target="45"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="45"><value literal="University of Ma"/></set-eattribute>
+<set-eattribute name="affiliation" target="45"><value literal="University of Marrakesh"/></set-eattribute>
+<set-eattribute name="fullName" target="46"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="46"><value literal="Seoul"/></set-eattribute>
+<set-eattribute name="affiliation" target="46"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="46"><value literal="Ehwa Women University"/></set-eattribute>
+<set-eattribute name="fullName" target="47"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="47"><value literal="Taipei"/></set-eattribute>
+<set-eattribute name="affiliation" target="47"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="47"><value literal="University of Ingte"/></set-eattribute>
+<set-eattribute name="fullName" target="48"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="48"><value literal="Melbourne"/></set-eattribute>
+<set-eattribute name="affiliation" target="48"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="48"><value literal="University of Melbourne"/></set-eattribute>
+<set-eattribute name="fullName" target="49"><value literal="Queenstown"/></set-eattribute>
+<set-eattribute name="affiliation" target="49"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="49"><value literal="University of New Zealand"/></set-eattribute>
+<set-eattribute name="fullName" target="50"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="50"><value literal="Capetown"/></set-eattribute>
+<set-eattribute name="affiliation" target="50"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="50"><value literal="University of South Africa"/></set-eattribute>
+<set-eattribute name="fullName" target="51"><value literal="London"/></set-eattribute>
+<set-eattribute name="affiliation" target="51"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="51"><value literal="University College of London"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="52"/>
+<add-to-ereference name="participants" position="22" target="0"><value eobject="52"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="53"/>
+<add-to-ereference name="participants" position="23" target="0"><value eobject="53"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="54"/>
+<add-to-ereference name="participants" position="24" target="0"><value eobject="54"/></add-to-ereference>
+<set-eattribute name="fullName" target="52"><value literal="Lampung"/></set-eattribute>
+<set-eattribute name="affiliation" target="52"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="52"><value literal="University of Sumatera"/></set-eattribute>
+<set-eattribute name="fullName" target="53"><value literal="New York"/></set-eattribute>
+<set-eattribute name="affiliation" target="53"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="53"><value literal="University of Washington"/></set-eattribute>
+<set-eattribute name="fullName" target="54"><value literal="Mumbai"/></set-eattribute>
+<set-eattribute name="affiliation" target="54"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="54"><value literal="University of India"/></set-eattribute>
+<set-eattribute name="name" target="20"><value literal="Friday"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="55"/>
+<add-to-ereference name="participants" position="25" target="0"><value eobject="55"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="56"/>
+<add-to-ereference name="participants" position="26" target="0"><value eobject="56"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="57"/>
+<add-to-ereference name="participants" position="27" target="0"><value eobject="57"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="58"/>
+<add-to-ereference name="participants" position="28" target="0"><value eobject="58"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="59"/>
+<add-to-ereference name="participants" position="29" target="0"><value eobject="59"/></add-to-ereference>
+<set-eattribute name="fullName" target="55"><value literal="Hallstat"/></set-eattribute>
+<set-eattribute name="affiliation" target="55"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="55"><value literal="University of Austria"/></set-eattribute>
+<set-eattribute name="fullName" target="55"><value literal="Hallstatt"/></set-eattribute>
+<set-eattribute name="fullName" target="56"><value literal="Zurich"/></set-eattribute>
+<set-eattribute name="affiliation" target="56"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="56"><value literal="University of Switzerland"/></set-eattribute>
+<set-eattribute name="fullName" target="57"><value literal="Incheon"/></set-eattribute>
+<set-eattribute name="affiliation" target="57"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="57"><value literal="University of Korea"/></set-eattribute>
+<set-eattribute name="fullName" target="58"><value literal="Kairo"/></set-eattribute>
+<set-eattribute name="affiliation" target="58"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="58"><value literal="University of Al-Azhar"/></set-eattribute>
+<set-eattribute name="fullName" target="59"><value literal="Florence"/></set-eattribute>
+<set-eattribute name="affiliation" target="59"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="59"><value literal="University of Italy"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="60"/>
+<add-to-ereference name="participants" position="30" target="0"><value eobject="60"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="61"/>
+<add-to-ereference name="participants" position="31" target="0"><value eobject="61"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="62"/>
+<add-to-ereference name="participants" position="32" target="0"><value eobject="62"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="63"/>
+<add-to-ereference name="participants" position="33" target="0"><value eobject="63"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="64"/>
+<add-to-ereference name="participants" position="34" target="0"><value eobject="64"/></add-to-ereference>
+<set-eattribute name="fullName" target="60"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="60"><value literal="Dublin"/></set-eattribute>
+<set-eattribute name="affiliation" target="60"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="60"><value literal="Trinity College Dublin"/></set-eattribute>
+<set-eattribute name="fullName" target="61"><value literal="Sofia"/></set-eattribute>
+<set-eattribute name="affiliation" target="61"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="61"><value literal="Bulgaria"/></set-eattribute>
+<set-eattribute name="fullName" target="62"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="62"><value literal="Warsawa"/></set-eattribute>
+<set-eattribute name="affiliation" target="62"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="62"><value literal="Poland Insitute"/></set-eattribute>
+<set-eattribute name="fullName" target="63"><value literal="Madagaskar"/></set-eattribute>
+<set-eattribute name="affiliation" target="63"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="63"><value literal="University of Madagaskar"/></set-eattribute>
+<set-eattribute name="fullName" target="64"><value literal="Yogyakarta"/></set-eattribute>
+<set-eattribute name="affiliation" target="64"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="64"><value literal="Gajah Mada University"/></set-eattribute>

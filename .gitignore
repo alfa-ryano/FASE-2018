@@ -4,3 +4,9 @@ tmp
 **/.DS_Store
 .texlipse
 .project
+*.out
+*.log
+*.blg
+*.bak
+*.bbl
+*.aux

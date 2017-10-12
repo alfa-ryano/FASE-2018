@@ -1,0 +1,818 @@
+<register epackage="conference"/>
+<create eclass="Conference" epackage="conference" id="0"/>
+<add-to-resource position="0"><value eobject="0"/></add-to-resource>
+<create eclass="Person" epackage="conference" id="1"/>
+<add-to-ereference name="participants" position="0" target="0"><value eobject="1"/></add-to-ereference>
+<set-eattribute name="affiliation" target="1"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="1"><value literal="University of Cambridge"/></set-eattribute>
+<set-eattribute name="fullName" target="1"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="1"><value literal="Pietro Lio"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="2"/>
+<add-to-ereference name="participants" position="1" target="0"><value eobject="2"/></add-to-ereference>
+<set-eattribute name="affiliation" target="2"><value literal="Universitas Indonesia"/></set-eattribute>
+<set-eattribute name="fullName" target="2"><value literal="Ito Wasito"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="3"/>
+<add-to-ereference name="participants" position="2" target="0"><value eobject="3"/></add-to-ereference>
+<set-eattribute name="affiliation" target="3"><value literal="Google Japan"/></set-eattribute>
+<set-eattribute name="fullName" target="3"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="3"><value literal="Ruli Manurung"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="4"/>
+<add-to-ereference name="participants" position="3" target="0"><value eobject="4"/></add-to-ereference>
+<set-eattribute name="affiliation" target="4"><value literal="Gilang Kusuma"/></set-eattribute>
+<set-eattribute name="fullName" target="4"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="4"><value literal="University of Convetry"/></set-eattribute>
+<set-eattribute name="fullName" target="4"><value literal="Edy Suardiana"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="5"/>
+<add-to-ereference name="participants" position="4" target="0"><value eobject="5"/></add-to-ereference>
+<remove-from-ereference name="participants" target="0"><value eobject="5"/></remove-from-ereference>
+<delete eclass="Person" epackage="conference" id="5"/>
+<create eclass="Person" epackage="conference" id="6"/>
+<add-to-ereference name="participants" position="4" target="0"><value eobject="6"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="7"/>
+<add-to-ereference name="participants" position="5" target="0"><value eobject="7"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="8"/>
+<add-to-ereference name="participants" position="6" target="0"><value eobject="8"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="9"/>
+<add-to-ereference name="participants" position="7" target="0"><value eobject="9"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="10"/>
+<add-to-ereference name="participants" position="8" target="0"><value eobject="10"/></add-to-ereference>
+<set-eattribute name="affiliation" target="6"><value literal=""/></set-eattribute>
+<create eclass="Person" epackage="conference" id="11"/>
+<add-to-ereference name="participants" position="9" target="0"><value eobject="11"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="12"/>
+<add-to-ereference name="participants" position="10" target="0"><value eobject="12"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="13"/>
+<set-eattribute name="affiliation" target="13"><value literal=""/></set-eattribute>
+<add-to-ereference name="participants" position="11" target="0"><value eobject="13"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="14"/>
+<add-to-ereference name="participants" position="12" target="0"><value eobject="14"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="15"/>
+<add-to-ereference name="participants" position="13" target="0"><value eobject="15"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="16"/>
+<add-to-ereference name="participants" position="14" target="0"><value eobject="16"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="17"/>
+<add-to-ereference name="participants" position="15" target="0"><value eobject="17"/></add-to-ereference>
+<set-eattribute name="affiliation" target="6"><value literal="Univ 1"/></set-eattribute>
+<set-eattribute name="fullName" target="6"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="6"><value literal="a1"/></set-eattribute>
+<set-eattribute name="affiliation" target="7"><value literal="a2"/></set-eattribute>
+<set-eattribute name="affiliation" target="7"><value literal="U2"/></set-eattribute>
+<set-eattribute name="fullName" target="7"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="7"><value literal="a2"/></set-eattribute>
+<set-eattribute name="fullName" target="8"><value literal="a3"/></set-eattribute>
+<set-eattribute name="fullName" target="9"><value literal="a4"/></set-eattribute>
+<set-eattribute name="fullName" target="10"><value literal="a5"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="18"/>
+<add-to-ereference name="participants" position="16" target="0"><value eobject="18"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="19"/>
+<add-to-ereference name="participants" position="17" target="0"><value eobject="19"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="20"/>
+<set-eattribute name="affiliation" target="20"><value literal=""/></set-eattribute>
+<add-to-ereference name="participants" position="18" target="0"><value eobject="20"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="21"/>
+<add-to-ereference name="participants" position="19" target="0"><value eobject="21"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="22"/>
+<add-to-ereference name="participants" position="20" target="0"><value eobject="22"/></add-to-ereference>
+<set-eattribute name="fullName" target="11"><value literal="b1"/></set-eattribute>
+<set-eattribute name="fullName" target="12"><value literal="b2"/></set-eattribute>
+<set-eattribute name="fullName" target="13"><value literal="b3"/></set-eattribute>
+<set-eattribute name="fullName" target="14"><value literal="b4"/></set-eattribute>
+<set-eattribute name="fullName" target="15"><value literal="b5"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="23"/>
+<add-to-ereference name="participants" position="21" target="0"><value eobject="23"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="24"/>
+<add-to-ereference name="participants" position="22" target="0"><value eobject="24"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="25"/>
+<add-to-ereference name="participants" position="23" target="0"><value eobject="25"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="26"/>
+<add-to-ereference name="participants" position="24" target="0"><value eobject="26"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="27"/>
+<set-eattribute name="affiliation" target="27"><value literal=""/></set-eattribute>
+<add-to-ereference name="participants" position="25" target="0"><value eobject="27"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="28"/>
+<add-to-ereference name="participants" position="26" target="0"><value eobject="28"/></add-to-ereference>
+<set-eattribute name="fullName" target="16"><value literal="c1"/></set-eattribute>
+<set-eattribute name="fullName" target="17"><value literal="c2"/></set-eattribute>
+<set-eattribute name="fullName" target="18"><value literal="c3"/></set-eattribute>
+<set-eattribute name="fullName" target="19"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="19"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="19"><value literal="c4"/></set-eattribute>
+<set-eattribute name="fullName" target="20"><value literal="c5"/></set-eattribute>
+<set-eattribute name="affiliation" target="21"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="21"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="21"><value literal="d1"/></set-eattribute>
+<set-eattribute name="fullName" target="22"><value literal="d2"/></set-eattribute>
+<set-eattribute name="fullName" target="23"><value literal="d3"/></set-eattribute>
+<set-eattribute name="affiliation" target="24"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="24"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="24"><value literal="d4"/></set-eattribute>
+<set-eattribute name="fullName" target="25"><value literal="d5"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="29"/>
+<add-to-ereference name="participants" position="27" target="0"><value eobject="29"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="30"/>
+<add-to-ereference name="participants" position="28" target="0"><value eobject="30"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="31"/>
+<add-to-ereference name="participants" position="29" target="0"><value eobject="31"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="32"/>
+<add-to-ereference name="participants" position="30" target="0"><value eobject="32"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="33"/>
+<set-eattribute name="affiliation" target="33"><value literal=""/></set-eattribute>
+<add-to-ereference name="participants" position="31" target="0"><value eobject="33"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="34"/>
+<add-to-ereference name="participants" position="32" target="0"><value eobject="34"/></add-to-ereference>
+<set-eattribute name="fullName" target="26"><value literal="e1"/></set-eattribute>
+<set-eattribute name="fullName" target="27"><value literal="e2"/></set-eattribute>
+<set-eattribute name="fullName" target="28"><value literal="e3"/></set-eattribute>
+<set-eattribute name="index" target="29"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="29"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="29"><value literal="e4"/></set-eattribute>
+<set-eattribute name="fullName" target="30"><value literal="e5"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="35"/>
+<add-to-ereference name="participants" position="33" target="0"><value eobject="35"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="36"/>
+<add-to-ereference name="participants" position="34" target="0"><value eobject="36"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="37"/>
+<add-to-ereference name="participants" position="35" target="0"><value eobject="37"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="38"/>
+<add-to-ereference name="participants" position="36" target="0"><value eobject="38"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="39"/>
+<set-eattribute name="affiliation" target="39"><value literal=""/></set-eattribute>
+<add-to-ereference name="participants" position="37" target="0"><value eobject="39"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="40"/>
+<add-to-ereference name="participants" position="38" target="0"><value eobject="40"/></add-to-ereference>
+<set-eattribute name="fullName" target="31"><value literal="f1"/></set-eattribute>
+<set-eattribute name="fullName" target="32"><value literal="f2"/></set-eattribute>
+<set-eattribute name="fullName" target="33"><value literal="f3"/></set-eattribute>
+<set-eattribute name="fullName" target="34"><value literal="f4"/></set-eattribute>
+<set-eattribute name="fullName" target="35"><value literal="f5"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="41"/>
+<add-to-ereference name="participants" position="39" target="0"><value eobject="41"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="42"/>
+<add-to-ereference name="participants" position="40" target="0"><value eobject="42"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="43"/>
+<add-to-ereference name="participants" position="41" target="0"><value eobject="43"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="44"/>
+<add-to-ereference name="participants" position="42" target="0"><value eobject="44"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="45"/>
+<set-eattribute name="affiliation" target="45"><value literal=""/></set-eattribute>
+<add-to-ereference name="participants" position="43" target="0"><value eobject="45"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="46"/>
+<add-to-ereference name="participants" position="44" target="0"><value eobject="46"/></add-to-ereference>
+<set-eattribute name="affiliation" target="36"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="36"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="36"><value literal="g1"/></set-eattribute>
+<set-eattribute name="fullName" target="37"><value literal="g2"/></set-eattribute>
+<set-eattribute name="fullName" target="38"><value literal="g3"/></set-eattribute>
+<set-eattribute name="fullName" target="39"><value literal="g4"/></set-eattribute>
+<set-eattribute name="fullName" target="40"><value literal="g5"/></set-eattribute>
+<set-eattribute name="fullName" target="41"><value literal="h1"/></set-eattribute>
+<set-eattribute name="index" target="42"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="42"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="42"><value literal="h2"/></set-eattribute>
+<set-eattribute name="fullName" target="43"><value literal="h3"/></set-eattribute>
+<set-eattribute name="fullName" target="44"><value literal="h4"/></set-eattribute>
+<set-eattribute name="fullName" target="45"><value literal="h5"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="47"/>
+<add-to-ereference name="participants" position="45" target="0"><value eobject="47"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="48"/>
+<add-to-ereference name="participants" position="46" target="0"><value eobject="48"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="49"/>
+<add-to-ereference name="participants" position="47" target="0"><value eobject="49"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="50"/>
+<add-to-ereference name="participants" position="48" target="0"><value eobject="50"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="51"/>
+<set-eattribute name="affiliation" target="51"><value literal=""/></set-eattribute>
+<add-to-ereference name="participants" position="49" target="0"><value eobject="51"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="52"/>
+<add-to-ereference name="participants" position="50" target="0"><value eobject="52"/></add-to-ereference>
+<set-eattribute name="fullName" target="46"><value literal="i1"/></set-eattribute>
+<set-eattribute name="affiliation" target="47"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="47"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="47"><value literal="i2"/></set-eattribute>
+<set-eattribute name="affiliation" target="48"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="48"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="48"><value literal="i3"/></set-eattribute>
+<set-eattribute name="fullName" target="49"><value literal="i4"/></set-eattribute>
+<set-eattribute name="fullName" target="50"><value literal="i5"/></set-eattribute>
+<remove-from-ereference name="participants" target="0"><value eobject="52"/></remove-from-ereference>
+<delete eclass="Person" epackage="conference" id="52"/>
+<remove-from-ereference name="participants" target="0"><value eobject="51"/></remove-from-ereference>
+<delete eclass="Person" epackage="conference" id="51"/>
+<create eclass="Room" epackage="conference" id="53"/>
+<add-to-ereference name="rooms" position="0" target="0"><value eobject="53"/></add-to-ereference>
+<set-eattribute name="name" target="53"><value literal="R1"/></set-eattribute>
+<create eclass="Room" epackage="conference" id="54"/>
+<add-to-ereference name="rooms" position="1" target="0"><value eobject="54"/></add-to-ereference>
+<set-eattribute name="key" target="54"><value literal="R2"/></set-eattribute>
+<create eclass="Room" epackage="conference" id="55"/>
+<add-to-ereference name="rooms" position="2" target="0"><value eobject="55"/></add-to-ereference>
+<set-eattribute name="key" target="55"><value literal="R3"/></set-eattribute>
+<set-eattribute name="key" target="54"><value literal=""/></set-eattribute>
+<set-eattribute name="name" target="54"><value literal=""/></set-eattribute>
+<set-eattribute name="name" target="54"><value literal="R2"/></set-eattribute>
+<set-eattribute name="key" target="55"><value literal=""/></set-eattribute>
+<set-eattribute name="name" target="55"><value literal=""/></set-eattribute>
+<set-eattribute name="name" target="55"><value literal="R3"/></set-eattribute>
+<create eclass="Day" epackage="conference" id="56"/>
+<add-to-ereference name="days" position="0" target="0"><value eobject="56"/></add-to-ereference>
+<set-eattribute name="name" target="56"><value literal="Friday"/></set-eattribute>
+<create eclass="Track" epackage="conference" id="57"/>
+<add-to-ereference name="slots" position="0" target="56"><value eobject="57"/></add-to-ereference>
+<set-ereference name="room" target="57"><value eobject="53"/></set-ereference>
+<set-eattribute name="title" target="57"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="57"><value literal="Artificial Intelligence"/></set-eattribute>
+<set-eattribute name="end" target="57"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="57"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="57"><value literal="Keynote Speaker"/></set-eattribute>
+<set-eattribute name="start" target="57"><value literal="09:00"/></set-eattribute>
+<set-eattribute name="end" target="57"><value literal="10:00"/></set-eattribute>
+<set-eattribute name="title" target="57"><value literal="Keynote Speaker: "/></set-eattribute>
+<create eclass="Talk" epackage="conference" id="58"/>
+<add-to-ereference name="talks" position="0" target="57"><value eobject="58"/></add-to-ereference>
+<set-eattribute name="title" target="58"><value literal="The power of Machine Learning"/></set-eattribute>
+<set-eattribute name="duration" target="58"><value literal="60"/></set-eattribute>
+<set-ereference name="discussant" target="58"><value eobject="1"/></set-ereference>
+<set-ereference name="discussant" target="58"><value eobject="2"/></set-ereference>
+<set-eattribute name="key" target="58"><value literal=""/></set-eattribute>
+<set-ereference name="speaker" target="58"><value eobject="1"/></set-ereference>
+<create eclass="Track" epackage="conference" id="59"/>
+<add-to-ereference name="slots" position="1" target="56"><value eobject="59"/></add-to-ereference>
+<set-eattribute name="title" target="59"><value literal="Paralel 1"/></set-eattribute>
+<set-eattribute name="start" target="59"><value literal="10:00"/></set-eattribute>
+<set-eattribute name="end" target="59"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="59"><value literal="12:00"/></set-eattribute>
+<set-eattribute name="start" target="59"><value literal=""/></set-eattribute>
+<create eclass="Break" epackage="conference" id="60"/>
+<add-to-ereference name="slots" position="2" target="56"><value eobject="60"/></add-to-ereference>
+<remove-from-ereference name="slots" target="56"><value eobject="59"/></remove-from-ereference>
+<delete eclass="Track" epackage="conference" id="59"/>
+<set-eattribute name="start" target="60"><value literal=""/></set-eattribute>
+<create eclass="Room" epackage="conference" id="61"/>
+<add-to-ereference name="rooms" position="3" target="0"><value eobject="61"/></add-to-ereference>
+<set-eattribute name="name" target="61"><value literal="RR"/></set-eattribute>
+<set-ereference name="room" target="60"><value eobject="61"/></set-ereference>
+<set-eattribute name="reason" target="60"><value literal=""/></set-eattribute>
+<set-eattribute name="reason" target="60"><value literal="Coffee Break "/></set-eattribute>
+<set-eattribute name="start" target="60"><value literal="10:00"/></set-eattribute>
+<set-eattribute name="end" target="60"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="60"><value literal="10:15"/></set-eattribute>
+<create eclass="Track" epackage="conference" id="62"/>
+<add-to-ereference name="slots" position="2" target="56"><value eobject="62"/></add-to-ereference>
+<set-eattribute name="start" target="62"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="62"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="62"><value literal="Artificial Intelligence"/></set-eattribute>
+<set-eattribute name="start" target="62"><value literal="10:15"/></set-eattribute>
+<set-ereference name="room" target="62"><value eobject="53"/></set-ereference>
+<set-eattribute name="end" target="62"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="62"><value literal="12:15"/></set-eattribute>
+<create eclass="Talk" epackage="conference" id="63"/>
+<add-to-ereference name="talks" position="0" target="62"><value eobject="63"/></add-to-ereference>
+<set-ereference name="discussant" target="63"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="63"><value literal="120"/></set-eattribute>
+<set-eattribute name="title" target="63"><value literal=""/></set-eattribute>
+<set-ereference name="speaker" target="63"><value eobject="6"/></set-ereference>
+<set-eattribute name="title" target="63"><value literal="x1"/></set-eattribute>
+<create eclass="Talk" epackage="conference" id="64"/>
+<add-to-ereference name="talks" position="1" target="62"><value eobject="64"/></add-to-ereference>
+<set-ereference name="discussant" target="64"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="64"><value literal="15"/></set-eattribute>
+<set-eattribute name="duration" target="63"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="64"><value eobject="7"/></set-ereference>
+<create eclass="Talk" epackage="conference" id="65"/>
+<add-to-ereference name="talks" position="2" target="62"><value eobject="65"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="66"/>
+<add-to-ereference name="talks" position="3" target="62"><value eobject="66"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="67"/>
+<add-to-ereference name="talks" position="4" target="62"><value eobject="67"/></add-to-ereference>
+<set-ereference name="speaker" target="65"><value eobject="8"/></set-ereference>
+<set-ereference name="discussant" target="65"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="65"><value literal="15"/></set-eattribute>
+<set-eattribute name="title" target="65"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="65"><value literal="xx2"/></set-eattribute>
+<set-ereference name="discussant" target="66"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="66"><value literal="15"/></set-eattribute>
+<set-eattribute name="key" target="66"><value literal=""/></set-eattribute>
+<set-ereference name="speaker" target="66"><value eobject="9"/></set-ereference>
+<set-eattribute name="title" target="66"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="66"><value literal="cvf"/></set-eattribute>
+<set-ereference name="discussant" target="67"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="67"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="67"><value eobject="10"/></set-ereference>
+<set-eattribute name="title" target="67"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="67"><value literal="mbh"/></set-eattribute>
+<create eclass="Break" epackage="conference" id="68"/>
+<add-to-ereference name="slots" position="3" target="56"><value eobject="68"/></add-to-ereference>
+<set-ereference name="room" target="68"><value eobject="61"/></set-ereference>
+<set-eattribute name="start" target="68"><value literal="12:15"/></set-eattribute>
+<set-eattribute name="end" target="68"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="68"><value literal="13:00"/></set-eattribute>
+<set-eattribute name="key" target="68"><value literal=""/></set-eattribute>
+<set-eattribute name="reason" target="68"><value literal="Lunch"/></set-eattribute>
+<create eclass="Track" epackage="conference" id="69"/>
+<add-to-ereference name="slots" position="4" target="56"><value eobject="69"/></add-to-ereference>
+<remove-from-ereference name="slots" target="56"><value eobject="68"/></remove-from-ereference>
+<delete eclass="Break" epackage="conference" id="68"/>
+<create eclass="Talk" epackage="conference" id="70"/>
+<add-to-ereference name="talks" position="0" target="69"><value eobject="70"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="71"/>
+<add-to-ereference name="talks" position="1" target="69"><value eobject="71"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="72"/>
+<add-to-ereference name="talks" position="2" target="69"><value eobject="72"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="73"/>
+<add-to-ereference name="talks" position="3" target="69"><value eobject="73"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="74"/>
+<add-to-ereference name="talks" position="4" target="69"><value eobject="74"/></add-to-ereference>
+<create eclass="Track" epackage="conference" id="75"/>
+<add-to-ereference name="slots" position="4" target="56"><value eobject="75"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="76"/>
+<add-to-ereference name="talks" position="0" target="75"><value eobject="76"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="77"/>
+<add-to-ereference name="talks" position="1" target="75"><value eobject="77"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="78"/>
+<add-to-ereference name="talks" position="2" target="75"><value eobject="78"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="79"/>
+<add-to-ereference name="talks" position="3" target="75"><value eobject="79"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="80"/>
+<add-to-ereference name="talks" position="4" target="75"><value eobject="80"/></add-to-ereference>
+<set-eattribute name="start" target="69"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="69"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="69"><value literal="Information Retrieval"/></set-eattribute>
+<set-eattribute name="start" target="69"><value literal="10:15"/></set-eattribute>
+<set-eattribute name="end" target="69"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="69"><value literal="12:00"/></set-eattribute>
+<set-ereference name="room" target="69"><value eobject="54"/></set-ereference>
+<set-ereference name="speaker" target="70"><value eobject="11"/></set-ereference>
+<set-ereference name="discussant" target="70"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="70"><value literal="120"/></set-eattribute>
+<set-eattribute name="title" target="70"><value literal=""/></set-eattribute>
+<set-eattribute name="duration" target="70"><value literal="15"/></set-eattribute>
+<set-eattribute name="title" target="70"><value literal="fggfsd"/></set-eattribute>
+<set-ereference name="discussant" target="71"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="71"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="71"><value eobject="12"/></set-ereference>
+<set-eattribute name="title" target="71"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="71"><value literal="dsd"/></set-eattribute>
+<set-ereference name="discussant" target="72"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="72"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="72"><value eobject="12"/></set-ereference>
+<set-eattribute name="title" target="72"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="72"><value literal="gg"/></set-eattribute>
+<set-ereference name="discussant" target="73"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="73"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="73"><value eobject="14"/></set-ereference>
+<set-eattribute name="title" target="73"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="73"><value literal="shds"/></set-eattribute>
+<set-ereference name="discussant" target="74"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="74"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="74"><value eobject="15"/></set-ereference>
+<set-eattribute name="title" target="74"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="74"><value literal="fhghg"/></set-eattribute>
+<set-ereference name="discussant" target="76"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="76"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="76"><value eobject="16"/></set-ereference>
+<set-eattribute name="title" target="76"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="76"><value literal="ghg"/></set-eattribute>
+<set-ereference name="discussant" target="77"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="77"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="77"><value eobject="17"/></set-ereference>
+<set-eattribute name="title" target="77"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="77"><value literal="ggjgj"/></set-eattribute>
+<set-ereference name="discussant" target="78"><value eobject="4"/></set-ereference>
+<set-eattribute name="index" target="78"><value literal=""/></set-eattribute>
+<set-eattribute name="duration" target="78"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="78"><value eobject="18"/></set-ereference>
+<set-eattribute name="title" target="78"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="78"><value literal="hghg"/></set-eattribute>
+<set-ereference name="discussant" target="79"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="79"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="79"><value eobject="19"/></set-ereference>
+<set-eattribute name="title" target="79"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="79"><value literal="gfgf"/></set-eattribute>
+<set-ereference name="discussant" target="80"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="80"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="80"><value eobject="20"/></set-ereference>
+<set-eattribute name="title" target="80"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="80"><value literal="fgfgf"/></set-eattribute>
+<create eclass="Break" epackage="conference" id="81"/>
+<add-to-ereference name="slots" position="5" target="56"><value eobject="81"/></add-to-ereference>
+<set-eattribute name="end" target="81"><value literal=""/></set-eattribute>
+<set-eattribute name="reason" target="81"><value literal=""/></set-eattribute>
+<set-eattribute name="reason" target="81"><value literal="Lunch"/></set-eattribute>
+<set-ereference name="room" target="81"><value eobject="61"/></set-ereference>
+<set-eattribute name="start" target="81"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="81"><value literal="12:15"/></set-eattribute>
+<set-eattribute name="end" target="81"><value literal="13:00"/></set-eattribute>
+<create eclass="Track" epackage="conference" id="82"/>
+<add-to-ereference name="slots" position="6" target="56"><value eobject="82"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="83"/>
+<add-to-ereference name="talks" position="0" target="82"><value eobject="83"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="84"/>
+<add-to-ereference name="talks" position="1" target="82"><value eobject="84"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="85"/>
+<add-to-ereference name="talks" position="2" target="82"><value eobject="85"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="86"/>
+<add-to-ereference name="talks" position="3" target="82"><value eobject="86"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="87"/>
+<add-to-ereference name="talks" position="4" target="82"><value eobject="87"/></add-to-ereference>
+<set-ereference name="discussant" target="83"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="83"><value literal="15"/></set-eattribute>
+<set-eattribute name="index" target="83"><value literal=""/></set-eattribute>
+<set-eattribute name="key" target="83"><value literal=""/></set-eattribute>
+<set-ereference name="speaker" target="83"><value eobject="21"/></set-ereference>
+<set-eattribute name="title" target="83"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="83"><value literal="fhf"/></set-eattribute>
+<set-ereference name="discussant" target="84"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="84"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="84"><value eobject="22"/></set-ereference>
+<set-eattribute name="title" target="84"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="84"><value literal="gfgf"/></set-eattribute>
+<set-ereference name="discussant" target="85"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="85"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="85"><value eobject="23"/></set-ereference>
+<set-eattribute name="title" target="85"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="85"><value literal="fgfgf"/></set-eattribute>
+<set-ereference name="discussant" target="86"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="86"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="86"><value eobject="24"/></set-ereference>
+<set-eattribute name="title" target="86"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="86"><value literal="fgfgf"/></set-eattribute>
+<set-ereference name="discussant" target="87"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="87"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="87"><value eobject="25"/></set-ereference>
+<set-eattribute name="title" target="87"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="87"><value literal="fgff"/></set-eattribute>
+<create eclass="Track" epackage="conference" id="88"/>
+<add-to-ereference name="slots" position="7" target="56"><value eobject="88"/></add-to-ereference>
+<create eclass="Track" epackage="conference" id="89"/>
+<add-to-ereference name="slots" position="8" target="56"><value eobject="89"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="90"/>
+<add-to-ereference name="talks" position="0" target="88"><value eobject="90"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="91"/>
+<add-to-ereference name="talks" position="1" target="88"><value eobject="91"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="92"/>
+<add-to-ereference name="talks" position="2" target="88"><value eobject="92"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="93"/>
+<add-to-ereference name="talks" position="3" target="88"><value eobject="93"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="94"/>
+<add-to-ereference name="talks" position="4" target="88"><value eobject="94"/></add-to-ereference>
+<set-ereference name="discussant" target="90"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="90"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="90"><value eobject="26"/></set-ereference>
+<set-eattribute name="title" target="90"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="90"><value literal="fdfd"/></set-eattribute>
+<set-ereference name="discussant" target="91"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="91"><value literal="15"/></set-eattribute>
+<set-eattribute name="index" target="91"><value literal=""/></set-eattribute>
+<set-ereference name="speaker" target="91"><value eobject="27"/></set-ereference>
+<set-eattribute name="title" target="91"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="91"><value literal="sfsfs"/></set-eattribute>
+<set-ereference name="discussant" target="92"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="92"><value literal="15"/></set-eattribute>
+<set-eattribute name="index" target="92"><value literal=""/></set-eattribute>
+<set-ereference name="speaker" target="92"><value eobject="28"/></set-ereference>
+<set-eattribute name="title" target="92"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="92"><value literal="dfd"/></set-eattribute>
+<set-ereference name="discussant" target="93"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="93"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="93"><value eobject="29"/></set-ereference>
+<set-eattribute name="title" target="93"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="93"><value literal="dfd"/></set-eattribute>
+<set-ereference name="discussant" target="94"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="94"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="94"><value eobject="30"/></set-ereference>
+<set-eattribute name="title" target="94"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="94"><value literal="dfdfd"/></set-eattribute>
+<create eclass="Talk" epackage="conference" id="95"/>
+<add-to-ereference name="talks" position="0" target="89"><value eobject="95"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="96"/>
+<add-to-ereference name="talks" position="1" target="89"><value eobject="96"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="97"/>
+<add-to-ereference name="talks" position="2" target="89"><value eobject="97"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="98"/>
+<add-to-ereference name="talks" position="3" target="89"><value eobject="98"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="99"/>
+<add-to-ereference name="talks" position="4" target="89"><value eobject="99"/></add-to-ereference>
+<set-eattribute name="title" target="75"><value literal="Biomedical Informatics"/></set-eattribute>
+<set-eattribute name="start" target="75"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="75"><value literal="10:15"/></set-eattribute>
+<set-eattribute name="end" target="75"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="75"><value literal="12:00"/></set-eattribute>
+<set-eattribute name="end" target="82"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="82"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="82"><value literal="Artificial Intelligence"/></set-eattribute>
+<set-eattribute name="start" target="82"><value literal="13:00"/></set-eattribute>
+<set-eattribute name="end" target="82"><value literal="15:00"/></set-eattribute>
+<set-eattribute name="key" target="82"><value literal=""/></set-eattribute>
+<set-ereference name="room" target="82"><value eobject="53"/></set-ereference>
+<set-ereference name="room" target="75"><value eobject="55"/></set-ereference>
+<set-eattribute name="end" target="69"><value literal="12:15"/></set-eattribute>
+<set-eattribute name="title" target="88"><value literal="Information Retrievel"/></set-eattribute>
+<set-eattribute name="start" target="88"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="88"><value literal="13:00"/></set-eattribute>
+<set-eattribute name="index" target="88"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="88"><value literal="15:00"/></set-eattribute>
+<set-ereference name="room" target="88"><value eobject="54"/></set-ereference>
+<set-eattribute name="end" target="89"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="89"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="89"><value literal="Biomedical Informatics"/></set-eattribute>
+<set-eattribute name="start" target="89"><value literal="13:00"/></set-eattribute>
+<set-ereference name="room" target="89"><value eobject="55"/></set-ereference>
+<set-eattribute name="key" target="89"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="89"><value literal="15:00"/></set-eattribute>
+<set-ereference name="discussant" target="95"><value eobject="31"/></set-ereference>
+<set-eattribute name="duration" target="95"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="95"><value eobject="31"/></set-ereference>
+<set-eattribute name="title" target="95"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="95"><value literal="ccv"/></set-eattribute>
+<set-ereference name="discussant" target="96"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="96"><value literal="15"/></set-eattribute>
+<set-eattribute name="index" target="96"><value literal=""/></set-eattribute>
+<set-ereference name="speaker" target="96"><value eobject="32"/></set-ereference>
+<set-eattribute name="title" target="96"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="96"><value literal="vdd"/></set-eattribute>
+<set-ereference name="discussant" target="97"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="97"><value literal="15"/></set-eattribute>
+<set-eattribute name="key" target="97"><value literal=""/></set-eattribute>
+<set-ereference name="speaker" target="97"><value eobject="33"/></set-ereference>
+<set-eattribute name="title" target="97"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="97"><value literal="ghgh"/></set-eattribute>
+<set-ereference name="discussant" target="98"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="98"><value literal="15"/></set-eattribute>
+<set-eattribute name="key" target="98"><value literal=""/></set-eattribute>
+<set-ereference name="speaker" target="98"><value eobject="34"/></set-ereference>
+<set-eattribute name="title" target="98"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="98"><value literal="hghg"/></set-eattribute>
+<set-ereference name="discussant" target="99"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="99"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="99"><value eobject="35"/></set-ereference>
+<set-eattribute name="title" target="99"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="99"><value literal="bnbnb"/></set-eattribute>
+<create eclass="Break" epackage="conference" id="100"/>
+<add-to-ereference name="slots" position="9" target="56"><value eobject="100"/></add-to-ereference>
+<create eclass="Break" epackage="conference" id="101"/>
+<add-to-ereference name="slots" position="10" target="56"><value eobject="101"/></add-to-ereference>
+<create eclass="Track" epackage="conference" id="102"/>
+<add-to-ereference name="slots" position="11" target="56"><value eobject="102"/></add-to-ereference>
+<create eclass="Track" epackage="conference" id="103"/>
+<add-to-ereference name="slots" position="12" target="56"><value eobject="103"/></add-to-ereference>
+<remove-from-ereference name="slots" target="56"><value eobject="101"/></remove-from-ereference>
+<delete eclass="Break" epackage="conference" id="101"/>
+<set-eattribute name="start" target="100"><value literal="15:00"/></set-eattribute>
+<set-ereference name="room" target="100"><value eobject="61"/></set-ereference>
+<set-eattribute name="reason" target="100"><value literal=""/></set-eattribute>
+<set-eattribute name="reason" target="100"><value literal="Coffee Break"/></set-eattribute>
+<set-eattribute name="end" target="100"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="100"><value literal="15:00"/></set-eattribute>
+<create eclass="Track" epackage="conference" id="104"/>
+<add-to-ereference name="slots" position="12" target="56"><value eobject="104"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="105"/>
+<add-to-ereference name="talks" position="0" target="102"><value eobject="105"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="106"/>
+<add-to-ereference name="talks" position="1" target="102"><value eobject="106"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="107"/>
+<add-to-ereference name="talks" position="2" target="102"><value eobject="107"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="108"/>
+<add-to-ereference name="talks" position="3" target="102"><value eobject="108"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="109"/>
+<add-to-ereference name="talks" position="4" target="102"><value eobject="109"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="110"/>
+<add-to-ereference name="talks" position="0" target="103"><value eobject="110"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="111"/>
+<add-to-ereference name="talks" position="1" target="103"><value eobject="111"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="112"/>
+<add-to-ereference name="talks" position="2" target="103"><value eobject="112"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="113"/>
+<add-to-ereference name="talks" position="3" target="103"><value eobject="113"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="114"/>
+<add-to-ereference name="talks" position="4" target="103"><value eobject="114"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="115"/>
+<add-to-ereference name="talks" position="0" target="104"><value eobject="115"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="116"/>
+<add-to-ereference name="talks" position="1" target="104"><value eobject="116"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="117"/>
+<add-to-ereference name="talks" position="2" target="104"><value eobject="117"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="118"/>
+<add-to-ereference name="talks" position="3" target="104"><value eobject="118"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="119"/>
+<add-to-ereference name="talks" position="4" target="104"><value eobject="119"/></add-to-ereference>
+<set-eattribute name="end" target="102"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="102"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="102"><value literal="Artificial Intelligence"/></set-eattribute>
+<set-eattribute name="start" target="102"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="102"><value literal="15:15"/></set-eattribute>
+<set-eattribute name="end" target="102"><value literal="17:15"/></set-eattribute>
+<set-ereference name="room" target="102"><value eobject="53"/></set-ereference>
+<set-ereference name="discussant" target="105"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="105"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="105"><value eobject="36"/></set-ereference>
+<set-eattribute name="title" target="105"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="105"><value literal="bvbv"/></set-eattribute>
+<set-ereference name="discussant" target="106"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="106"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="106"><value eobject="37"/></set-ereference>
+<set-eattribute name="title" target="106"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="106"><value literal="cvcv"/></set-eattribute>
+<set-ereference name="discussant" target="107"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="107"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="107"><value eobject="1"/></set-ereference>
+<set-eattribute name="key" target="107"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="107"><value literal="vcvc"/></set-eattribute>
+<set-ereference name="discussant" target="108"><value eobject="2"/></set-ereference>
+<set-ereference name="speaker" target="107"><value eobject="38"/></set-ereference>
+<set-eattribute name="duration" target="108"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="108"><value eobject="39"/></set-ereference>
+<set-eattribute name="title" target="108"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="108"><value literal="nbnb"/></set-eattribute>
+<set-ereference name="discussant" target="109"><value eobject="2"/></set-ereference>
+<set-eattribute name="duration" target="109"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="109"><value eobject="40"/></set-ereference>
+<set-eattribute name="title" target="109"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="109"><value literal="dfdfd"/></set-eattribute>
+<set-ereference name="room" target="103"><value eobject="54"/></set-ereference>
+<set-eattribute name="start" target="103"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="103"><value literal="15:15"/></set-eattribute>
+<set-eattribute name="end" target="103"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="103"><value literal="17:15"/></set-eattribute>
+<set-eattribute name="title" target="103"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="103"><value literal="Information Retrievel"/></set-eattribute>
+<set-ereference name="discussant" target="110"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="110"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="110"><value eobject="41"/></set-ereference>
+<set-eattribute name="title" target="110"><value literal="bnbnb"/></set-eattribute>
+<set-ereference name="discussant" target="111"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="111"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="111"><value eobject="42"/></set-ereference>
+<set-eattribute name="title" target="111"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="111"><value literal="vbv"/></set-eattribute>
+<set-ereference name="discussant" target="112"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="112"><value literal="15"/></set-eattribute>
+<set-eattribute name="index" target="112"><value literal=""/></set-eattribute>
+<set-ereference name="speaker" target="112"><value eobject="43"/></set-ereference>
+<set-eattribute name="title" target="112"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="112"><value literal="fgfgf"/></set-eattribute>
+<set-ereference name="discussant" target="113"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="113"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="113"><value eobject="44"/></set-ereference>
+<set-eattribute name="title" target="113"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="113"><value literal="dfdfd"/></set-eattribute>
+<set-ereference name="discussant" target="114"><value eobject="3"/></set-ereference>
+<set-eattribute name="duration" target="114"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="114"><value eobject="45"/></set-ereference>
+<set-eattribute name="title" target="114"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="114"><value literal="fgfgf"/></set-eattribute>
+<set-eattribute name="title" target="104"><value literal="Biomedical Informatics"/></set-eattribute>
+<set-eattribute name="start" target="104"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="104"><value literal="15:15"/></set-eattribute>
+<set-ereference name="room" target="104"><value eobject="55"/></set-ereference>
+<set-eattribute name="end" target="104"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="104"><value literal="17:15"/></set-eattribute>
+<set-ereference name="discussant" target="115"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="115"><value literal="15"/></set-eattribute>
+<set-eattribute name="index" target="115"><value literal=""/></set-eattribute>
+<set-ereference name="speaker" target="115"><value eobject="46"/></set-ereference>
+<set-eattribute name="title" target="115"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="115"><value literal="ff"/></set-eattribute>
+<set-ereference name="discussant" target="116"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="116"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="116"><value eobject="47"/></set-ereference>
+<set-eattribute name="title" target="116"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="116"><value literal="dfdfd"/></set-eattribute>
+<set-ereference name="discussant" target="117"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="117"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="117"><value eobject="48"/></set-ereference>
+<set-eattribute name="title" target="117"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="117"><value literal="dsds"/></set-eattribute>
+<set-ereference name="discussant" target="118"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="118"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="118"><value eobject="49"/></set-ereference>
+<set-eattribute name="title" target="118"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="118"><value literal="dgdgd"/></set-eattribute>
+<set-ereference name="discussant" target="119"><value eobject="4"/></set-ereference>
+<set-eattribute name="duration" target="119"><value literal="15"/></set-eattribute>
+<set-eattribute name="key" target="119"><value literal=""/></set-eattribute>
+<set-ereference name="speaker" target="119"><value eobject="50"/></set-ereference>
+<set-eattribute name="title" target="119"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="119"><value literal="fgfdf"/></set-eattribute>
+<set-eattribute name="affiliation" target="8"><value literal="U2"/></set-eattribute>
+<set-eattribute name="affiliation" target="9"><value literal=""/></set-eattribute>
+<set-eattribute name="affiliation" target="9"><value literal="U6"/></set-eattribute>
+<set-eattribute name="affiliation" target="10"><value literal="U10"/></set-eattribute>
+<set-eattribute name="affiliation" target="11"><value literal="U7"/></set-eattribute>
+<set-eattribute name="affiliation" target="12"><value literal="U3"/></set-eattribute>
+<set-eattribute name="affiliation" target="13"><value literal="U34"/></set-eattribute>
+<move-in-ereference from="13" name="participants" target="0" to="12"><value eobject="15"/></move-in-ereference>
+<set-eattribute name="affiliation" target="15"><value literal="U4"/></set-eattribute>
+<set-eattribute name="affiliation" target="14"><value literal="U5"/></set-eattribute>
+<set-eattribute name="affiliation" target="16"><value literal="U5"/></set-eattribute>
+<set-eattribute name="affiliation" target="17"><value literal="U8"/></set-eattribute>
+<set-eattribute name="affiliation" target="18"><value literal="U9"/></set-eattribute>
+<set-eattribute name="affiliation" target="19"><value literal="U3"/></set-eattribute>
+<set-eattribute name="affiliation" target="20"><value literal="U1"/></set-eattribute>
+<set-eattribute name="affiliation" target="21"><value literal="U3"/></set-eattribute>
+<set-eattribute name="affiliation" target="22"><value literal="U5"/></set-eattribute>
+<set-eattribute name="affiliation" target="23"><value literal="U5"/></set-eattribute>
+<set-eattribute name="affiliation" target="24"><value literal="U7"/></set-eattribute>
+<set-eattribute name="affiliation" target="25"><value literal="U89"/></set-eattribute>
+<set-eattribute name="affiliation" target="26"><value literal="U6"/></set-eattribute>
+<set-eattribute name="affiliation" target="27"><value literal="U7"/></set-eattribute>
+<set-eattribute name="affiliation" target="28"><value literal="U6"/></set-eattribute>
+<set-eattribute name="affiliation" target="29"><value literal="U5"/></set-eattribute>
+<set-eattribute name="affiliation" target="30"><value literal="U4"/></set-eattribute>
+<set-eattribute name="affiliation" target="31"><value literal="U4"/></set-eattribute>
+<set-eattribute name="affiliation" target="32"><value literal="U5"/></set-eattribute>
+<set-eattribute name="affiliation" target="33"><value literal="U6"/></set-eattribute>
+<set-eattribute name="affiliation" target="34"><value literal="U6"/></set-eattribute>
+<set-eattribute name="affiliation" target="35"><value literal="U5"/></set-eattribute>
+<set-eattribute name="affiliation" target="36"><value literal="U2"/></set-eattribute>
+<set-eattribute name="affiliation" target="37"><value literal="U5"/></set-eattribute>
+<set-eattribute name="affiliation" target="38"><value literal="U4"/></set-eattribute>
+<set-eattribute name="affiliation" target="39"><value literal="U5"/></set-eattribute>
+<set-eattribute name="affiliation" target="40"><value literal="U5"/></set-eattribute>
+<set-eattribute name="affiliation" target="41"><value literal="U5"/></set-eattribute>
+<set-eattribute name="affiliation" target="42"><value literal="U8"/></set-eattribute>
+<set-eattribute name="affiliation" target="43"><value literal="U7"/></set-eattribute>
+<set-eattribute name="affiliation" target="44"><value literal="U5"/></set-eattribute>
+<set-eattribute name="affiliation" target="45"><value literal="U7"/></set-eattribute>
+<set-eattribute name="affiliation" target="46"><value literal="U6"/></set-eattribute>
+<set-eattribute name="affiliation" target="47"><value literal="U3"/></set-eattribute>
+<set-eattribute name="affiliation" target="48"><value literal="U3"/></set-eattribute>
+<set-eattribute name="affiliation" target="49"><value literal="U4"/></set-eattribute>
+<set-eattribute name="affiliation" target="50"><value literal="U4"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="120"/>
+<add-to-ereference name="participants" position="49" target="0"><value eobject="120"/></add-to-ereference>
+<set-eattribute name="affiliation" target="120"><value literal="Samsung"/></set-eattribute>
+<set-eattribute name="fullName" target="120"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="120"><value literal="Gilang"/></set-eattribute>
+<create eclass="Room" epackage="conference" id="121"/>
+<add-to-ereference name="rooms" position="4" target="0"><value eobject="121"/></add-to-ereference>
+<set-eattribute name="index" target="121"><value literal=""/></set-eattribute>
+<set-eattribute name="key" target="121"><value literal=""/></set-eattribute>
+<set-eattribute name="name" target="121"><value literal="R4"/></set-eattribute>
+<create eclass="Person" epackage="conference" id="122"/>
+<add-to-ereference name="participants" position="50" target="0"><value eobject="122"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="123"/>
+<add-to-ereference name="participants" position="51" target="0"><value eobject="123"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="124"/>
+<add-to-ereference name="participants" position="52" target="0"><value eobject="124"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="125"/>
+<add-to-ereference name="participants" position="53" target="0"><value eobject="125"/></add-to-ereference>
+<create eclass="Person" epackage="conference" id="126"/>
+<add-to-ereference name="participants" position="54" target="0"><value eobject="126"/></add-to-ereference>
+<set-eattribute name="affiliation" target="122"><value literal="U7"/></set-eattribute>
+<set-eattribute name="fullName" target="122"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="122"><value literal="s1"/></set-eattribute>
+<set-eattribute name="affiliation" target="123"><value literal="U7"/></set-eattribute>
+<set-eattribute name="fullName" target="123"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="123"><value literal="s2"/></set-eattribute>
+<set-eattribute name="affiliation" target="124"><value literal="U6"/></set-eattribute>
+<set-eattribute name="fullName" target="124"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="124"><value literal="s3"/></set-eattribute>
+<set-eattribute name="affiliation" target="125"><value literal="U6"/></set-eattribute>
+<set-eattribute name="fullName" target="125"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="125"><value literal="s4"/></set-eattribute>
+<set-eattribute name="affiliation" target="126"><value literal="U9"/></set-eattribute>
+<set-eattribute name="fullName" target="126"><value literal=""/></set-eattribute>
+<set-eattribute name="fullName" target="126"><value literal="s5"/></set-eattribute>
+<create eclass="Track" epackage="conference" id="127"/>
+<add-to-ereference name="slots" position="13" target="56"><value eobject="127"/></add-to-ereference>
+<set-eattribute name="title" target="127"><value literal="Mobile Computing"/></set-eattribute>
+<set-eattribute name="start" target="127"><value literal=""/></set-eattribute>
+<set-eattribute name="start" target="127"><value literal="10"/></set-eattribute>
+<set-eattribute name="start" target="127"><value literal="10:15"/></set-eattribute>
+<set-eattribute name="end" target="127"><value literal=""/></set-eattribute>
+<set-eattribute name="end" target="127"><value literal="12:15"/></set-eattribute>
+<set-ereference name="room" target="127"><value eobject="121"/></set-ereference>
+<create eclass="Talk" epackage="conference" id="128"/>
+<add-to-ereference name="talks" position="0" target="127"><value eobject="128"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="129"/>
+<add-to-ereference name="talks" position="1" target="127"><value eobject="129"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="130"/>
+<add-to-ereference name="talks" position="2" target="127"><value eobject="130"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="131"/>
+<add-to-ereference name="talks" position="3" target="127"><value eobject="131"/></add-to-ereference>
+<create eclass="Talk" epackage="conference" id="132"/>
+<add-to-ereference name="talks" position="4" target="127"><value eobject="132"/></add-to-ereference>
+<set-ereference name="discussant" target="128"><value eobject="120"/></set-ereference>
+<set-eattribute name="duration" target="128"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="128"><value eobject="122"/></set-ereference>
+<set-eattribute name="title" target="128"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="128"><value literal="gfgf"/></set-eattribute>
+<set-ereference name="discussant" target="129"><value eobject="120"/></set-ereference>
+<set-eattribute name="duration" target="129"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="129"><value eobject="123"/></set-ereference>
+<set-eattribute name="title" target="129"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="129"><value literal="fgff"/></set-eattribute>
+<set-ereference name="discussant" target="130"><value eobject="120"/></set-ereference>
+<set-eattribute name="duration" target="130"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="130"><value eobject="124"/></set-ereference>
+<set-eattribute name="title" target="130"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="130"><value literal="fgff"/></set-eattribute>
+<set-ereference name="discussant" target="131"><value eobject="120"/></set-ereference>
+<set-eattribute name="duration" target="131"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="131"><value eobject="125"/></set-ereference>
+<set-eattribute name="title" target="131"><value literal="gfgfgf"/></set-eattribute>
+<set-ereference name="discussant" target="132"><value eobject="120"/></set-ereference>
+<set-eattribute name="duration" target="132"><value literal="15"/></set-eattribute>
+<set-ereference name="speaker" target="132"><value eobject="126"/></set-ereference>
+<set-eattribute name="title" target="132"><value literal=""/></set-eattribute>
+<set-eattribute name="title" target="132"><value literal="ffgf"/></set-eattribute>
