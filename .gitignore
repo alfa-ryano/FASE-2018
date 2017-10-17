@@ -11,3 +11,5 @@ tmp
 *.bbl
 *.aux
 *.xlsx
+data/Comparison.xlsx
+data/Load Analysis.xlsx
