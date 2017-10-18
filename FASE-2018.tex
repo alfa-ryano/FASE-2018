@@ -195,7 +195,7 @@ A \emph{ModelHistory} has attribute \emph{URI} to identify the model it records 
 
 There are events that do not involved any feature but only affect objects (i.e. ``\emph{create n1 of Node}" event has no feature involved), or events in which an object acts as an operand for a multi-valued feature (i.e. ``\emph{add n3 to n1.children}" event has the \emph{n3} as the operand). These kinds of events can have their \emph{EventHistory} belong to their \emph{ObjectHistory} directly. An \emph{EventHistory} has an attribute \emph{type} to identify its event type and records a set of \emph{Line}. The \emph{Line} has attributes \emph{eventNumber} and \emph{value} that hold its event number in the CBP representation and the value of involved operand respectively. 
 
-Figure \ref{fig:history_structure} shows the object diagram of model history of the CBP in List. \ref{lst:cbpmodel}. The gray rectangles are objects of \emph{*History} that belong to the deleted node \emph{n3}. The red rectangle indicates objects of \emph{Line} that contains unnecessary event numbers.    
+Figure \ref{fig:history_structure} shows the object diagram of model history of the CBP in List. \ref{lst:cbpmodel}. The gray rectangles are objects of \emph{*History} that belong to the deleted node \emph{n3}. The red rectangle indicates objects of \emph{Line} that contains unnecessary event numbers. Some attribute \emph{eventNumber} of \emph{Line} objects are hidden to save space.     
 
 \subsection{Set and Unset Events}
 \label{subsec:set_and_unset_events}
@@ -402,7 +402,7 @@ We have implemented a prototype\footnote{The prototype is available under [hidde
     \label{fig:node_metamodel}
 \end{figure}
 
-In the evaluation, we introduce conference model to evaluate the optimisation closer to the real-world problem since the tree domain in our examples is trivial and not common used in the real-world. The conference model covers more of EMF features; it has more than one class (Conference, People, Room, etc. classes) and it applies inheritance. Figure \ref{fig:node_metamodel} shows its metamodel. 
+In the evaluation, we introduce conference model to evaluate the optimisation closer to the real-world problem since the tree model in our examples is trivial and not common used in the real-world. The conference model covers more of EMF features; it has more than one class (Conference, People, Room, etc. classes) and it applies inheritance. Figure \ref{fig:node_metamodel} shows its metamodel. 
 
 \subsection{Saving Time}
 \label{subsec:saving_time_test}
@@ -418,37 +418,39 @@ We seek the relationship between number of objects in a model and the time requi
 	\hfill
 	\begin{subfigure}[t]{0.5\linewidth}
 		\includegraphics[width=\linewidth]{append_speed_conf}
-		\caption{Conference domain}\label{fig:append_speed_conference}
+		\caption{Conference model}\label{fig:append_speed_conference}
 	\end{subfigure}
-	\caption{A comparison on time used to persist models between CBP and XMI. The y-axis is log\textsc{2} scaled.}
+	\caption{A comparison on time used to persist models between optimised and unoptimised CBPs. The y-axis is log\textsubscript{2} scaled.}
 	\label{fig:append_speed}
 \end{figure}
 
-In Fig. \ref{fig:append_speed}, for both tree and conference domains, the time consumed to persist events in both CBPs is nearly constant, whereas for XMI, the time consumed to persist a model increases linearly along the growth of objects (its graph is not displayed since it is outperformed by both CBPs). The append time of optimised CBP is slightly slower than the unoptimised CBP's since it has additional computation to populate the \emph{ModelHistory} and \emph{IgnoreList}. Based on our measurement, the average time consumed to append events into a CBP representation is 1.16 miliseconds, and the time to save model in XMI is increased 2.25 microseconds for each additional object. This finding suggests persisting changes of a model is significantly faster than persisting its complete eventual state after the model is modified.    
+In Fig. \ref{fig:append_speed}, for both tree and conference domains, the time consumed to persist events in both CBPs is nearly constant, whereas for XMI, the time consumed to persist a model increases linearly along the growth of objects (its graph is not displayed since it is outperformed by both CBPs). The append time of optimised CBP is slightly higher than the unoptimised CBP's since it has additional computation to populate the \emph{ModelHistory} and \emph{IgnoreList}. Based on our measurement, for tree model, the average time consumed to append events into optimised and unoptimised CBPs is 1.08 and 0.98 miliseconds respectively. For conference model, the average time is 1.83 and 1.33 miliseconds respectively. The average time required to save model in XMI for tree and conference models is increased 1.93 and 6.22 microseconds respectively for every additional object. This finding suggests persisting changes of a model is significantly faster than persisting its complete eventual state after the model is modified.    
 
 \subsection{Loading Time}
 \label{subsec:loading_time_test}
-We compare optimised CBP, non-optimised CBP, and XMI on their loading time to evaluate the performance of the optimisation algorithm. The  comparison is depicted in Fig. \ref{fig:loading_speed}. We seek the relationship between number of objects of a model and time required to load the model. We create courses of random operations and execute them to simulate the model construction.   
+We compare optimised CBP, unoptimised CBP, and XMI on their loading time to evaluate the performance of the optimisation algorithm. The  comparison is depicted in Fig. \ref{fig:loading_speed}. We seek the relationship between number of objects of a model and time required to load it. 
 
-In performing the simulation, we create generate a number of random operations (create, set, unset, add, move, delete) to manipulate the objects. The number of the random operations is as many as the number of the initial objects. Also, the probability of the different types of operations to occur is set to 1:1:1:10:5:1. For each iteration, we increase the number of initial objects and the random operations each by 500. For conference model, since it has several classes (Person, Day, Room, Break, Track, Talk), we set ratio 40:1:3:6:8:24 respectively for them to be created in the initial objects and \emph{create} operation to ensure that the model is generated proportionally. For CBP, we measure the time consumed to append events generated for every operation. For XMI, we measure the time used to persist the eventual state for each model generated.
+In performing the simulation, we create initial objects for the model and generate a number of random operations (create, set, unset, add, move, delete) to manipulate it. The number of the random operations is as many as the number of the initial objects. Also, the probability of the different types of operations to occur is set to 1:1:1:10:5:1 respectively. For each iteration, we increase the number of the initial objects and random operations each by 500. For conference model, since it has several classes (Person, Day, Room, Break, Track, Talk), we set ratio 40:1:3:6:8:24 respectively for them to be created in the initial objects and \emph{create} operation to ensure that the model is generated proportionally. For both CBPs, we measure the time to replay all its events. For XMI, we measure the time consumed to load its model.
 
 \begin{figure}	
 	\begin{subfigure}[t]{0.5\linewidth}
 		\includegraphics[width=\linewidth]{loading_speed_tree}
-		\caption{Tree domain}\label{fig:append_speed_tree}		
+		\caption{Tree model}\label{fig:append_speed_tree}		
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{0.5\linewidth}
 		\includegraphics[width=\linewidth]{loading_speed_conf}
-		\caption{Conference domain}\label{fig:append_speed_conference}
+		\caption{Conference model}\label{fig:append_speed_conference}
 	\end{subfigure}
-	\caption{A comparison on load time between XMI, optimised CBP, and non-optimised CBP. The y-axis is log\textsc{10} scaled.}
+	\caption{A comparison on load time between optimised CBP and unoptimised CBP.}
 	\label{fig:loading_speed}
 \end{figure}
 
-Fig. \ref{fig:loading_speed} shows a pattern that the optimised CBP consumes less time than the non-optimised CBP on loading models. However, different domains of models show different efficiency. In the case of conference domain, the optimised CBP's loading time is less efficient than the one in tree domain, even though it is still faster than the non-optimised CBP. Thus, the efficiency depends on the characteristics of the domain's model. We argue that domains that typically perform lots of modifications and deletions will benefit more, such as the tree domain that has multiple levels of containment, which means deleting a node also deleting its direct and indirect nodes, whereas in conference domain, it typically contains hundreds of participants but less likely to have multilevel containment creating a shallow, flat tree-like characteristic. 
+Fig. \ref{fig:loading_speed} shows a pattern that the optimised CBP consumes less time than the unoptimised CBP on loading models (XMI's loading time is not displayed in Fig. \ref{fig:loading_speed} since it outperforms CBP). In the case of tree model, the loading time of the unoptimised CBP tends to grow exponentially which makes it less efficient than the optimised CBP that increases linearly. The same pattern is also shown in the conference model although the rate of the exponential growth of the unoptimised CBP is less subtle than the one in the tree model. 
 
-In the case of tree model, the optimised CBP is becoming more efficient than the non-optimised CBP when the number of loaded objects is increasing. The optimise CBP's loading time is linearly increasing while the non-optimised one tends to grow exponentially. However, still, it cannot outperform the XMI's loading time, since more time is used to de-serialise the CBP format. Optimising the serialised format will reduce the loading time of the optimised CBP.  
+Based on our investigation, we found out that the time cost of removing an object from a containment reference (delete or move/add it to another reference) of an EMF model grows linearly with the number of objects that it directly contains. So, it is more time consuming to remove an object from a containment reference that has hundreds of members than remove it from a reference that only has ten members. This  happens in the three model where a node can contain many other nodes, while in the conference model the proportion of its containment (a day can contain tracks and breaks, a track can contain talks) is kept balanced by the configuration of probability of the instantiation of its classes that is set before. That is why the loading time of the unoptimised CBP in the tree model grows more exponential than the one in the conference model.   
+         
+Even though the optimised CBP is faster than the unoptimised CBP on loading models, still it is outperformed by XMI since it is state-based---no need to replay the construction of its models. For XMI, from our measurement, we obtain that it takes only 5 microseconds in average to load each object in a model. Thus, an XMI with 33,440 objects can be loaded in 0.165 seconds, around 10 times faster than optimised CBP which takes 1.6 seconds for the same number of objects. 
 
 \subsection{Memory Consumption}
 \label{subsec:memory_consumption}
@@ -456,12 +458,12 @@ In the case of tree model, the optimised CBP is becoming more efficient than the
 \begin{figure}	
 	\begin{subfigure}[t]{0.5\linewidth}
 		\includegraphics[width=\linewidth]{memory_use_tree}
-		\caption{Tree domain}\label{fig:append_speed_tree}		
+		\caption{Tree model}\label{fig:append_speed_tree}		
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{0.5\linewidth}
 		\includegraphics[width=\linewidth]{memory_use_conf}
-		\caption{Conference domain}\label{fig:append_speed_conference}
+		\caption{Conference model}\label{fig:append_speed_conference}
 	\end{subfigure}
 	\caption{A comparison on memory consumption between CBP and XMI.}
 	\label{fig:memory_use}
