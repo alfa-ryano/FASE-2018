@@ -194,12 +194,13 @@ Figure \ref{fig:flowchart} illustrates the context of our work, when and where w
 \label{fig:flowchart}
 \end{figure}
 
-During the construction of a model by an agent (i.e. man, software), all the relevant events for CBP are captured and put into a list of change events. When the agent saves the model, the saving process persists all the change events into a CBP representation. While iterating through all the change events to append each of them into the CBP, a model history is populated (the model history is explained in the following subsection). The proposed algorithm are executed and uses the model history as a ``memory" to determine the unnecessary events---events that can be ignored when loading the CBP. The event numbers of the unnecessary events are put into an ignore list and then persisted. 
+During the construction of a model by an agent (i.e. man, software), all the relevant events for CBP are captured and put into a list of change events. When the agent saves the model, the saving process persists all the change events into a CBP representation. While iterating through all the change events to append each of them into the CBP, a model history is populated (the model history is explained in the following subsection). The proposed algorithm is executed and uses the model history as a ``memory" to determine the unnecessary events---events that can be ignored when loading the CBP. The event numbers of the unnecessary events are put into an ignore list and then persisted. 
 
 CBP that already saved can be reloaded to continue the construction of the model. In loading the CBP, the loading process reload the ignore list first and use it as a reference to determine which events in the CBP that do not need to be replayed. If the event number of an event in the CBP exists in the ignore list then the event can be ignored and the load process can continue to subsequent events. 
 
 \subsection{Model History}
-The algorithm needs a data structure that memorises elements' events and their position (line number) in a CBP representation so it knows which events that are cancelled out (later on, the line number/the position of an event in a CBP representation is called event number). We call the data structure "model history", a data structure that memorise elements, their events, and their event numbers. Figure \ref{fig:object_history} shows its class diagram.  
+The proposed algorithm uses a data structure that memorises elements' events and their position (line number) in a CBP representation so it can reason about the events of a particular element and determine which are cancelled out.
+For the rest of the discussions the line number in the CBP representation is referred to as the \emph{event number}. The proposed data structure is presented in figure \ref{fig:object_history} as a class diagram.  
 
 \begin{figure}[ht]
 \centering
@@ -215,11 +216,23 @@ The algorithm needs a data structure that memorises elements' events and their p
 \label{fig:history_structure}
 \end{figure}
 
-A \emph{ModelHistory} has attribute \emph{URI} to identify the model it records and can have many \emph{ElementHistory} as its elements. An \emph{ElementHistory} has an attribute \emph{element} that identify the element that it refers to. The attribute \emph{isMoved} is a flag used to identify the state of the element if the element is already affected by a \emph{move} operation (discussed in subsection \ref{subsec:add_remove_and_move_operations}). Every \emph{ElementHistory} can have more than one \emph{FeatureStory} to represent features (attribute and reference) that are involved in certain events (i.e. ``\emph{add n2 to n1.children}" event has the \emph{children} as the feature). Each \emph{FeatureStory} can have many \emph{EventHistory} to represent the events. A \emph{FeatureHistory} has two attributes \emph{type} to identify its type, an attribute or reference, and \emph{name} to identify the attribute's name.
+A \emph{ModelHistory} has attribute \emph{URI} to identify the model for which it records changes and can have many \emph{ElementHistory} elements.
+An \emph{ElementHistory} has an attribute \emph{element} that identifies the element that it refers to and a \emph{isMoved} is flag.
+The  \emph{isMoved} flag is used to indicate a \emph{move} event for the element (section \ref{subsec:add_remove_and_move_operations} provides details of its use).
+Every \emph{ElementHistory} can have many \emph{FeatureStory} to represent features of an element that are used in the CBP.  	%that are involved in certain events (i.e. ``\emph{add n2 to n1.children}" event has the \emph{children} as the feature).
+A \emph{FeatureHistory} has two attributes \emph{type} to identify its type (attribute or reference) and \emph{name} to identify the feature's name.
 
-There are events that do not involved any element's feature but only affect the element (i.e. ``\emph{create n1 of Node}" event has no feature involved), or events in which an element acts as an operand for a multi-valued feature (i.e. ``\emph{add n3 to n1.children}" event has the \emph{n3} as the operand). These kinds of events can have their \emph{EventHistory} belong to their \emph{ElementHistory} directly. An \emph{EventHistory} has an attribute \emph{type} to identify its event type and records a set of \emph{Line}. The \emph{Line} has attributes \emph{eventNumber} and \emph{value} that hold its event number in the CBP representation and the value of involved operand respectively. 
+An \emph{EventHistory} represents an event in the CBP model.
+An \emph{EventHistory} has an attribute \emph{type} to identify the event's type and can have many \emph{Line}s.
+A \emph{Line} has an \emph{eventNumber} attribute to store the line number in the CBP model and a \emph{value} that is used to store the element involved in the event (it is only used for ADD, REMOVE and MOVE events)
 
-Figure \ref{fig:history_structure} shows the object diagram of model history of the CBP in Listing \ref{lst:cbpmodel}. The gray rectangles are objects of \emph{*History} that belong to the deleted node \emph{n3}. The red rectangle indicates objects of \emph{Line} that contains unnecessary event numbers. Some attribute \emph{eventNumber} of \emph{Line} objects are hidden to save space.     
+Each \emph{FeatureStory} can have many \emph{EventHistory}s  to represent the events that modify the value of the feature.
+Each \emph{ElementHistory}  can have many \emph{EventHistory}s to represent events that affect the state of the element (life-cycle and relations to multivalued features).
+%For events that involve the element individually (e.g. create, add) element's feature but only affect the element (i.e. ``\emph{create n1 of Node}" event has no feature involved), or events in which an element acts as an operand for a multi-valued feature (i.e. ``\emph{add n3 to n1.children}" event has the \emph{n3} as the operand).
+%These kinds of events can have their \emph{EventHistory} belong to their \emph{ElementHistory} directly.
+
+Figure \ref{fig:history_structure} shows the object diagram of the model history of the CBP model in Listing \ref{lst:cbpmodel}.
+The gray rectangles are objects of \emph{*History} that belong to the deleted node \emph{n3}. The red rectangle indicates objects of \emph{Line} that contains unnecessary event numbers. Some attribute \emph{eventNumber} of \emph{Line} objects are hidden to save space.     
 
 \subsection{Set and Unset Events}
 \label{subsec:set_and_unset_events}
