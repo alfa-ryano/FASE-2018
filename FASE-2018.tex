@@ -475,7 +475,7 @@ After that, the algorithm continues to iterate through all its features and put 
 \section{Performance Evaluation}
 \label{sec:performance_evaluation}
 We have implemented the proposed loading algorithm on top of an implementation\footnote{The prototype and the tests used in the evaluation are available under [hidden for review] for reproducibility. %\url{https://github.com/epsilonlabs/emf-cbp}
-} of the change-based model persistence approach -- based on the Eclipse Modelling Framework -- from the work of Yohannis et al. \cite{yohannis2017turning}. We evaluate the algorithms model loading  performance, as well as its memory footprint and its impact on the time required to save changes made to CBP models. The evaluation was performed on Windows Server 2008 R2 64-bit with an Intel Xeon E5530 @2.40 GHz (2 processors) processor, 36 GB of memory, and the Java SE Runtime Environment (build 1.8.0\_66-b18).
+} of the change-based model persistence approach -- based on the Eclipse Modelling Framework -- from the work of Yohannis et al. \cite{yohannis2017turning}. We evaluate the algorithm's model loading  performance, as well as its memory footprint and its impact on the time required to save changes made to CBP models. The evaluation was performed on Windows Server 2008 R2 64-bit with an Intel Xeon E5530 @2.40 GHz (2 processors) processor, 36 GB of memory, and the Java SE Runtime Environment (build 1.8.0\_66-b18).
 
 \begin{figure}[htbp]
     \centering
@@ -566,17 +566,14 @@ TODO: Discuss threats to the validity/generalisability of these findings e.g. us
 
 \section{Related Work}
 \label{sec:related_work}
-Several works have been done in alternative model persistence mechanisms, mainly by using databases (both relational and NoSQL).
-Connected Data Objects (CDO) \cite{eclipse2017cdo} and EMF Teneo\,\cite{eclipse2017teneo} reduces resources and the time needed to parse XMI documents by persisting models into relational databases.
-Both approaches use the metamodel to generate the database schema and provide a high-level abstraction API for developers to seamlessly interact with the databases.
-The main drawback of using relational databases is that highly interrelated models result in expensive joins of multiple tables during construction of a view that represents the model\,\cite{barmpis2014evaluation}. 
+Several works have investigated alternative model persistence mechanisms to XMI, mainly by using databases (both relational and NoSQL). Connected Data Objects (CDO) \cite{eclipse2017cdo} and EMF Teneo\,\cite{eclipse2017teneo} persist EMF models into relational databases. Both approaches use the metamodel to generate the database schema and provide a high-level abstraction API for developers to seamlessly interact with the databases. The main drawback of using relational databases is that highly interconnected models result in expensive joins over multiple tables \cite{barmpis2014evaluation}. 
 
 Morsa\,\cite{pagan2011morsa} and NeoEMF\,\cite{daniel2016neoemf} persist models in NoSQL databases.
-Morsa uses MongoDB\,\cite{mongodb2017what} to persist models as a collection of documents by storing every element of a model (and its metamodel) as entries in an index document that refer to the root elements of their documents.%No comprendo!!
-However, due to the nature of the document-based database, storing model's references as serialised documents limits its query and insertion performance\,\cite{barmpis2014evaluation}.
+Morsa uses MongoDB\,\cite{mongodb2017what} to persist models as a collection of documents by storing every element of a model (and its metamodel) as entries in an index document that refers to the root elements of their documents.%No comprendo!!
+However, due to the nature of document-based databases, storing model element references as serialised documents limits their querying and insertion performance\,\cite{barmpis2014evaluation}.
 NeoEMF can persist models in different NoSQL databases and provides a lazy-loading mechanism to improve accessing, loading, and removing model elements.
 
-Nevertheless, non of these approaches has addressed the issues of collaboration, versioning, and fast model differencing.
+Nevertheless, none of these approaches has addressed the issues of collaboration, versioning \dk{This is not accurate. CDO supports both collaboration and versioning}, and fast model differencing.
 EMFStore\,\cite{koegel2010emfstore} is a version control system (VCS) that stores changes of models as operations applied to the models, which facilitates collaboration and identify changes of models easier.
 However, support to use its operation-based approach with more common VCSs (e.g. GitHub, SVN) is not yet available. Several papers mention it does not scale\,\cite{pagan2011morsa,kolovos2013research} and no optimisation has been proposed to arrive at the eventual versions of models, except replaying all stored operations. 
 
