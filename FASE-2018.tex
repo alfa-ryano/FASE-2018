@@ -412,8 +412,8 @@ The algorithm starts by checking flag \emph{elementIsMoved} to determine whether
 
 \section{Performance Evaluation}
 \label{sec:performance_evaluation}
-We have implemented a prototype\footnote{The prototype and the tests used in the evaluation are available under [hidden for review] for reproducibility. %\url{https://github.com/epsilonlabs/emf-cbp}
-} of the change-based model persistence using the Eclipse Modelling Framework that we extends from the work of Yohannis et al. \cite{yohannis2017turning}. We evaluate the prototype's performance on saving time, loading time, and memory consumption. For the saving time, we contrast the saving time between optimised CBP, non-optimised CBP, and XMI. For the loading time, we perform comparison on loading time between optimised CBP, non-optimised CBP, and XMI. For memory consumption, we compare the performance of optimised CBP and XMI on memory consumption. The evaluation is performed on Windows Server 2008 R2 64-bit with processor Intel Xeon E5530 @2.40 GHz (2 processors), memory 36 GB, and Java SE Runtime Environment (build 1.8.0\_66-b18).
+We have implemented the proposed loading algorithm on top of an implementation\footnote{The prototype and the tests used in the evaluation are available under [hidden for review] for reproducibility. %\url{https://github.com/epsilonlabs/emf-cbp}
+} of the change-based model persistence approach -- based on the Eclipse Modelling Framework -- from the work of Yohannis et al. \cite{yohannis2017turning}. We evaluate the algorithms model loading  performance, as well as its memory footprint and its impact on the time required to save changes made to CBP models. The evaluation was performed on Windows Server 2008 R2 64-bit with an Intel Xeon E5530 @2.40 GHz (2 processors) processor, 36 GB of memory, and the Java SE Runtime Environment (build 1.8.0\_66-b18).
 
 \begin{figure}[htbp]
     \centering
@@ -422,7 +422,34 @@ We have implemented a prototype\footnote{The prototype and the tests used in the
     \label{fig:node_metamodel}
 \end{figure}
 
-In the evaluation, we introduce a conference metamodel, a more representable metamodel to evaluate the optimised loading. The metamodel has wider EMF feature coverage. It has more than one class (Conference, People, Room, etc. classes) and it applies inheritance. Figure \ref{fig:node_metamodel} shows its metamodel. We need to use contrived example because as a new approach there are no real-world change-based models available. 
+For our evaluation experiments, we have used synthetic models of different sizes conforming to the conference metamodel in Fig. \ref{fig:node_metamodel}. We have selected this metamodel as it provides good coverage of the features of EMF's metamodelling language (Ecore) such as single- and multi-valued features, inheritance, and containment and non-containment references. We had little option other than to use synthetic models for our experiments given that CBP is a very recent approach and we are not aware of any existing datasets containing real-world models expressed in CBP. Synthesising such models from existing state-based models (e.g. in XMI) was not an option either as state-based models do not capture editing-related information.    
+
+\subsection{Loading Time}
+\label{subsec:loading_time_test}
+
+For this experiment, we created and persisted change-based models of different sizes (from 500 up to 33,000 elements) conforming to the metamodel of Figure \ref{fig:node_metamodel} through a random model generator that simulates the actions of a human modeller (i.e. creates/deletes elements, sets/unsets values of their features). We then used the proposed and the naive loading algorithms to reconstruct the state of these models and measured their execution time. The results are shown in Fig. \ref{fig:loading_speed_conf} and demonstrate the considerable time savings delivered by the proposed loading algorithm (almost 80\% for our largest models).
+
+For reference, we also contrast the execution time for the new algorithm against that of loading the equivalent state-based model in XMI. As can be observed in Fig. \ref{fig:loading_speed_conf_ocbp_xmi}, despite the improvements delivered by the new algorithm, loading change-based models is still roughly 10 times slower than their state-based counterparts. However, as discussed in \cite{yohannis2017turning}, this can be an acceptable trade-off considering the other benefits that change-based model persistence can offer (e.g. more precise differencing and hence more efficient incremental execution of model management programs and more effective model merging).
+
+% We compare optimised CBP, non-optimised CBP, and XMI on their loading time to evaluate the performance of the optimisation algorithm. The  comparison is depicted in Fig. \ref{fig:loading_speed}. We seek the relationship between number of elements of a model and time required to load it. 
+
+% In performing the simulation, we create initial elements for the model and generate a number of random operations (create, set, unset, add, move, delete) to manipulate it. The number of the random operations is as many as the number of the initial elements. Also, the probability of the different types of operations to occur is set to 1:1:1:10:5:1 respectively. The probability of \emph{add} and \emph{move} operations are set to 10 and 5 because in a conference typically tracks and talks are of often shifted between days and slots. We start with 7 elements and then increase the number of the initial elements by 500 for each next iteration. For conference model, since it has several classes (Person, Day, Room, Break, Track, Talk), we set ratio 40:1:3:6:8:24 respectively for them to be created in the initial elements and \emph{create} operation to ensure that the model is generated proportionally and closer to real-world conference models. For both CBPs, we measure the time to replay all its events. For XMI, we measure the time consumed to load its model. At the end of each iteration, we check the equivalence of the model loaded from the CBPs against its XMI format to ensure the correctness of the loaded model.
+
+\begin{figure}[ht]	
+    \begin{subfigure}[t]{0.5\linewidth}
+		\includegraphics[width=\linewidth]{loading_speed_conf}
+		\caption{Optmised CBP vs Non-optimised CBP}\label{fig:loading_speed_conf}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.5\linewidth}
+		\includegraphics[width=\linewidth]{loading_speed_conf_ocbp_xmi}
+		\caption{Optimised CBP vs XMI}\label{fig:loading_speed_conf_ocbp_xmi}		
+	\end{subfigure}	
+	\caption{A comparison on load time between optimised CBP, non-optimised CBP, and XMI.}
+	\label{fig:loading_speed}
+\end{figure}
+
+% Fig. \ref{fig:loading_speed_conf} shows a pattern that the optimised CBP consumes less time than the non-optimised CBP on loading model. Even though the optimised CBP is faster than the non-optimised CBP on loading models, still it is outperformed by XMI (Fig. \ref{fig:loading_speed_conf_ocbp_xmi}) since it is state-based---no need to replay the construction of its models. For XMI, from our measurement, we obtain that it takes only 5 microseconds in average to load each element in a model. Thus, an XMI with 33,440 elements can be loaded in 0.165 seconds, around 10 times faster than optimised CBP which takes 1.6 seconds for the same number of elements. 
 
 \subsection{Saving Time}
 \label{subsec:saving_time_test}
@@ -444,31 +471,7 @@ We seek the relationship between number of elements in a model and the time requ
 	\label{fig:append_speed}
 \end{figure}
 
-In Fig. \ref{fig:append_speed_conf}, the time consumed to persist events in both CBPs is nearly constant, whereas for XMI, the time consumed to persist a model increases linearly along the growth of elements (Fig. \ref{fig:append_speed_conf_ocbp_xmi}). The append time of optimised CBP is slightly higher than the non-optimised CBP's since it has to perform extra computation to populate the \emph{ModelHistory} and \emph{IgnoreList}. Based on our measurement, the average time to append in optimised and non-optimised CBPs is 1.83 and 1.33 miliseconds respectively. The average time required to save model in XMI is increased 6.22 microseconds for every additional element. This finding suggests persisting changes of a model is significantly faster than persisting its complete eventual state after the model is modified.    
-
-\subsection{Loading Time}
-\label{subsec:loading_time_test}
-We compare optimised CBP, non-optimised CBP, and XMI on their loading time to evaluate the performance of the optimisation algorithm. The  comparison is depicted in Fig. \ref{fig:loading_speed}. We seek the relationship between number of elements of a model and time required to load it. 
-
-In performing the simulation, we create initial elements for the model and generate a number of random operations (create, set, unset, add, move, delete) to manipulate it. The number of the random operations is as many as the number of the initial elements. Also, the probability of the different types of operations to occur is set to 1:1:1:10:5:1 respectively. The probability of \emph{add} and \emph{move} operations are set to 10 and 5 because in a conference typically tracks and talks are of often shifted between days and slots. We start with 7 elements and then increase the number of the initial elements by 500 for each next iteration. For conference model, since it has several classes (Person, Day, Room, Break, Track, Talk), we set ratio 40:1:3:6:8:24 respectively for them to be created in the initial elements and \emph{create} operation to ensure that the model is generated proportionally and closer to real-world conference models. For both CBPs, we measure the time to replay all its events. For XMI, we measure the time consumed to load its model. At the end of each iteration, we check the equivalence of the model loaded from the CBPs against its XMI format to ensure the correctness of the loaded model.
-
-\begin{figure}[ht]	
-    \begin{subfigure}[t]{0.5\linewidth}
-		\includegraphics[width=\linewidth]{loading_speed_conf}
-		\caption{Optmised CBP vs Non-optimised CBP}\label{fig:loading_speed_conf}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.5\linewidth}
-		\includegraphics[width=\linewidth]{loading_speed_conf_ocbp_xmi}
-		\caption{Optimised CBP vs XMI}\label{fig:loading_speed_conf_ocbp_xmi}		
-	\end{subfigure}	
-	\caption{A comparison on load time between optimised CBP, non-optimised CBP, and XMI.}
-	\label{fig:loading_speed}
-\end{figure}
-
-Fig. \ref{fig:loading_speed_conf} shows a pattern that the optimised CBP consumes less time than the non-optimised CBP on loading model. Even though the optimised CBP is faster than the non-optimised CBP on loading models, still it is outperformed by XMI (Fig. \ref{fig:loading_speed_conf_ocbp_xmi}) since it is state-based---no need to replay the construction of its models. For XMI, from our measurement, we obtain that it takes only 5 microseconds in average to load each element in a model. Thus, an XMI with 33,440 elements can be loaded in 0.165 seconds, around 10 times faster than optimised CBP which takes 1.6 seconds for the same number of elements. 
-
-%Based on our investigation, we found out that the time cost of removing an element from a containment reference (delete or move/add it to another reference) of an EMF model grows linearly with the number of elements that it directly contains. So, it is more time consuming to remove an element from a containment reference that has hundreds of members than remove it from a reference that only has ten members. This happens in the three model where a node can contain many other nodes, while in the conference model the proportion of its containment (a day can contain tracks and breaks, a track can contain talks) is kept balanced by the configuration of probability of the instantiation of its classes that is set before. That is why the loading time of the non-optimised CBP in the tree model grows more exponential than the one in the conference model. Thus, the performance of the optimisation on loading time against the non-optimised CBP depends on the structure of models, types of operations that frequently executed, and the amount of operations executed to modify models (more efficiency can be gained if a model is frequently modified).       
+In Fig. \ref{fig:append_speed_conf}, the time consumed to persist events in both CBPs is nearly constant, whereas for XMI, the time consumed to persist a model increases linearly along the growth of elements (Fig. \ref{fig:append_speed_conf_ocbp_xmi}). The append time of optimised CBP is slightly higher than the non-optimised CBP's since it has to perform extra computation to populate the \emph{ModelHistory} and \emph{IgnoreList}. Based on our measurement, the average time to append in optimised and non-optimised CBPs is 1.83 and 1.33 miliseconds respectively. The average time required to save model in XMI is increased 6.22 microseconds for every additional element. This finding suggests persisting changes of a model is significantly faster than persisting its complete eventual state after the model is modified.     
          
 \subsection{Memory Consumption}
 \label{subsec:memory_consumption}
