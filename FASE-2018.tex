@@ -583,11 +583,33 @@ However, support to use its operation-based approach with more common VCSs (e.g.
 
 \section{Limitations and Future Work}
 \label{sec:limitations_and_future_work}
-So far, we only address feature that can only contain unique members---no duplicate values or elements. Duplicate members means that removal of a value/element does not mean the removal of other same values/elements since values/elements with different positions contained in the feature are perceived different. Therefore, we can update Alg. \ref{alg:add_remove_move_optimisation} to take positions of values/elements as one of its parameters to filter lists of \emph{Line} (Alg. \ref{alg:add_remove_move_optimisation}, lines 6-7). We also have not addressed features that has default values. Default value of a feature might not trigger any event. Failure to address this might produce different eventual models. 
+So far, we only address feature that can only contain ordered, unique members---no duplicate values or elements.
+Duplicate members means that removal of a member does not result in the member not being present in the feature value.
+Additional information must be captured during insertion to persist the number of copies and positions of the feature members.
+In the algorithms this information can be used to properly generate the ignore list.
+In the case of unordered features, the moved event does not exist and hence analysis will be required to determine how this affects the use of the \emph{featureIsMoved} flag.
+%Can we do metamodel eveolution too? 
 
-Models in the real world are most likely different from the random models generated in the evaluation. Their optimised CBP's loading can consume more or less time than the ones presented in this paper. There are conditions that the optimised CBP does not always outperform the non-optimised CBP. One condition where optimised CBP is not faster than the non-optimised CBP that is when only \emph{create} operation that is performed, without performing other types of operation, since there is no event that can be ignored. One feasible way to better reflect real-world models is to ask modellers to construct complex models using different modelling languages, persist their histories, scale them up, simulate the loading optimisation, and analyse the results to gain insight whether the optimisation really works for real-world models. 
+%Additionally, we have not considered the case in which a features has a default value.
+%Default value of a feature might not trigger any event.
+%Failure to address this might produce different eventual models. 
 
-Since our prototype consumes significant amount of memory in executing the algorithm and still performs more than 10 times slower than XMI in loading models, number of approaches has been identified to reduce memory consumption and loading time. The first approach is optimising the format of CBP so that it consumes less memory and can be parsed faster. The second approach is persisting all events into databases therefore can reduce the use of main memory and NoSQL databases can be considered to improve the loading performance. The third approach is to develop a hybrid persistence representation that is a combination of state-based and change-based persistence. The NeoEMF\,\cite{daniel2016neoemf} has been successfully implemented NoSQL databases to handle large-scale, state-based model persistence. We plan to extend it to support change-based persistence. Moreover, we also plan to extend the CBP to enable change detection, model merging, conflict resolution of models in the context of collaborative modelling.
+%Models in the real world are most likely different from the random models generated in the evaluatio.
+It is impossible to generalize a metamodel structure and as such, the examples used in this work will only represent a subset of the possible/existing metamodels.
+As a result we expect different metamodels to exhibit different gains when using the optimized CBP model. 
+Future work can include experiments in which modellers are asked to construct complex models using different modelling languages, persist their histories, scale them up, simulate the loading optimisation, and analyse the results to gain insight whether the optimisation really works for real-world models. 
+%Further, we have identified one particular case in which the optimised CBP model does not provide performance gains over the  original CBP.
+%If the model events only 
+
+Since our prototype consumes significant amount of memory in executing the algorithm and still performs more than 10 times slower than XMI in loading models, another are of future work is the optimization of our algorithms.
+A number of approaches has been identified to reduce memory consumption and loading time.
+Possible areas of interest are:
+Optimising the format of CBP so that it consumes less memory and can be parsed faster.
+Persisting all events into databases therefore can reduce the use of main memory and NoSQL databases can be considered to improve the loading performance.
+Develop a hybrid persistence representation that is a combination of state-based and change-based persistence.
+
+Finally, given that NeoEMF can handle large-scale models, we plan to extend it to support change-based persistence.
+Moreover, we also plan to extend the CBP to enable change detection, model merging, conflict resolution of models in the context of collaborative modelling, among others. 
 
 \section{Conclusions}
 \label{sec:conclusions}
