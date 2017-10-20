@@ -542,6 +542,10 @@ As the proposed loading algorithm requires the maintenance of an additional in-m
 
 For reference, we also contrast the memory footprint of the CBP representation under the new algorithm against that of XMI. As observed in Figure \ldots
 
+\subsection{Threats to Validity}
+
+TODO: Discuss threats to the validity/generalisability of these findings e.g. using synthesised models, not running the experiments in multiple iterations etc.
+
 % We also compare optimised CBP, non-optimised CBP, and XMI on their memory consumption after loading models. We seek the relationship between number of elements of a model and memory used to after loading the model. The results are shown in Figure \ref{fig:memory_use}. In performing the simulation, we performed the same procedure as in the loading time evaluation (subsection \ref{subsec:loading_time_test}), except for the increment and the dimension that we measure. We set the increment to 100, and instead of measuring the loading time, we measure the memory consumption by subtracting the memory after loading a model with the memory before loading the model.   
 
 % Figure \ref{fig:memory_use_conf_ocbp_xmi} shows that optimised CBP consumes more memory than non-optimised CBP, while XMI performs a slightly better than non-optimised CBP in terms of memory saving (Fig. \ref{fig:memory_use_conf_cbp_xmi}). The large memory consumption of optimised CBP is caused by the ignore list which is used for checking events in a CBP if they can be ignored for replay or not. %This condition leads us to another future work that is to identify and remove elements, events, and events numbers from the model history once they are not any longer required. For example, once a element is deleted from a model, all its records in the model history are removed to release space in memory. 
