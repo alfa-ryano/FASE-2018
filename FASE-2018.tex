@@ -115,11 +115,11 @@ Some work on persisting models in change-based format, as an alternative to stat
 \label{sec:introduction}
 Existing approaches for file-based persistence of models in metamodelling architectures such as MOF and EMF are predominately state-based. In such approaches, model files contain snapshots of the models' contents and activities such as version control and change detection are left to external systems such as file-based version-control systems and model differencing facilities. Activities such as model comparison and change detection are computationally consuming for state-based models and can become a burden as larger models are developed in a collaborative setting. 
 
-In contrast to persisting the states of models, we harness a change-based approach that persists \textit{changes} made to models instead. The change-based approach comes with a number of envisioned benefits over stated-based persistence, such as the ability to detect changes much faster and more precisely \cite{yohannis2017turning}, which can then have positive knock-on effects on helping developers to diff/merge models in collaborative modelling environments, as well as supporting faster incremental model validation and transformation \cite{rath2012derived}, \cite{ogunyomi2015property}. However, change-based persistence comes with a downside---an increased load cost---since all recorded changes need to be replayed to reconstruct a model's state \cite{yohannis2017turning}.   
+In contrast to persisting the \emph{states} of models, we harness a change-based approach that persists the full sequence of \emph{changes} made to models instead. The change-based approach comes with a number of envisioned benefits over stated-based persistence, such as the ability to detect changes much faster and more precisely \cite{yohannis2017turning}, which can then have positive knock-on effects on helping developers to diff/merge models in collaborative modelling environments, as well as supporting faster incremental model validation and transformation \cite{rath2012derived}, \cite{ogunyomi2015property}. However, change-based persistence comes with a downside---an increased load cost---since all recorded changes need to be replayed to reconstruct a model's state \cite{yohannis2017turning}.   
 
-Our work extends the previous work of Yohannis et al. \cite{yohannis2017turning} that implements a change-based persistence (CBP) format, which has not addressed the load cost problem, by proposing and evaluating an algorithm that reduces loading time of change-based models by avoiding replaying changes that have no impact on the eventual state of the model (e.g. that are cancelled out by subsequent changes). We assess the efficiency of the algorithm in terms of persistence and loading time, and memory footprint. Our approach demonstrates considerable savings in time for persisting and identifying changes made to models, at a higher, but linear, model loading cost, compared to state-based models when tested on large scale models. %\dk{If the contribution we're proposing in this paper is the optimised loading algorithm, starting that loading cost is higher can be confusing.}
+Our work extends the previous work of Yohannis et al. \cite{yohannis2017turning} that implements a change-based persistence (CBP) format by proposing and evaluating an algorithm that reduces loading time of change-based models by avoiding replaying changes that have no impact on the eventual state of the model (e.g. that are cancelled out by subsequent changes). We assess the efficiency of the algorithm in terms of persistence and loading time, and memory footprint. Our approach demonstrates considerable savings in time for persisting changes made to models, at a higher, but linear, model loading cost, compared to state-based models when tested on large scale models. %\dk{If the contribution we're proposing in this paper is the optimised loading algorithm, starting that loading cost is higher can be confusing.}
 
-The rest of the paper is structured as follows. Section \ref{sec:case_study} introduces two running examples and provides a brief overview of the change-based model persistence we extend. Section \ref{sec:loading_time_optimisation} presents an algorithm that intends to speed up loading of change-based models, and its supporting data structures %\dk{Merge Sections 3 and 4}.  
+The rest of the paper is structured as follows. Section \ref{sec:case_study} introduces a running example and provides a brief overview of the change-based model persistence we extend. Section \ref{sec:loading_time_optimisation} presents an algorithm that intends to speed up loading of change-based models, and its supporting data structures. %\dk{Merge Sections 3 and 4}.  
 Sect. \ref{sec:performance_evaluation} shows the results of controlled evaluation experiments for assessing the benefits of the proposed algorithm. Section \ref{sec:related_work} provides an overview of existing related work. Section \ref{sec:limitations_and_future_work} discusses the limitations of our approach and potential future work, and Sect. \ref{sec:conclusions} concludes this paper.
 
 \section{Running Example}
@@ -177,7 +177,22 @@ For a large model, this approach is beneficial since we only need to persist the
 
 \section{Loading Time Optimisation}
 \label{sec:loading_time_optimisation}
-The algorithm needs a data structure that memorise elements' events and their position (line number) in a CBP representation so it knows which events that are cancelled out (later on, the line number/the position of an event in a CBP representation is called event number). We call the data structure "model history", a data structure that memorise elements, their events, and their event numbers. Figure \ref{fig:object_history} shows its class diagram.  
+Figure \ref{fig:flowchart} illustrates the context of our work, when and where we use the proposed algorithm to optimise the loading of CBP. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{flowchart}
+\caption{The context flowchart of optimising loading performance of CBP.}
+\label{fig:flowchart}
+\end{figure}
+
+
+During the construction of a model by an agent (i.e. man, software), all the relevant events for CBP are captured and put into a list of change events. When the agent saves the model, the saving process persists all the change events into a CBP representation. While iterating through all the change events to append each of them into the CBP, a model history is populated (the model history is explained in the following subsection). The proposed algorithm are executed and uses the model history as a ``memory" to determine the unnecessary events---events that can be ignored when loading the CBP. The event numbers of the unnecessary events are put into an ignore list and then persisted. 
+
+CBP that already saved can be reloaded to continue the construction of the model. In loading the CBP, the loading process reload the ignore list first and use it as a reference to determine which events in the CBP that do not need to be replayed. If the event number of an event in the CBP exists in the ignore list then the event can be ignored and the load process can continue to subsequent events. 
+
+\subsection{Model History}
+The algorithm needs a data structure that memorises elements' events and their position (line number) in a CBP representation so it knows which events that are cancelled out (later on, the line number/the position of an event in a CBP representation is called event number). We call the data structure "model history", a data structure that memorise elements, their events, and their event numbers. Figure \ref{fig:object_history} shows its class diagram.  
 
 \begin{figure}[ht]
 \centering
@@ -224,7 +239,7 @@ unset n3.parent     //n3.parent=null
 \end{lstlisting}
 \end{minipage}
 
-The event numbers where the attribute \emph{name} affected in Lst. \ref{lst:set_unset_example} are stored into its respective \emph{EventHistory} in \emph{FeatureHistory} in \emph{ElementHistory}. For example, lines for \emph{set} and \emph{unset} events in their event histories are \emph{setEventHistory.lines = setEventLines =} [[2], [3]] and \emph{unsetEventHistory.lines = unsetEventLines} = [[4]] respectively. Since only the last value of set or unset operations that is significant, using the two lists, we can identify that line 4 is the last line of set and unset operations that is significant for the attribute \emph{name}. Therefore, lines 2 and 3 can be put into an ignore list (\emph{ignoreList} = [2, 3]). The \emph{ignoreList} acts as a lookup reference when a CBP is loaded. If an event's event number is contained in the \emph{ignoreList}, the event is not replayed and the load process continue to the next event.
+The event numbers where the attribute \emph{name} affected in Lst. \ref{lst:set_unset_example} are stored into its respective \emph{EventHistory} in \emph{FeatureHistory} in \emph{ElementHistory}. For example, lines for \emph{set} and \emph{unset} events in their event histories are \emph{setEventHistory.lines = setEventLines =} [[2], [4]] and \emph{unsetEventHistory.lines = unsetEventLines} = [[3]] respectively. Since only the last value of set or unset operations that is significant, using the two lists, we can identify that line 4 is the last line of set and unset operations that is significant for the attribute \emph{name}. Therefore, lines 2 and 3 can be put into an ignore list (\emph{ignoreList} = [2, 3]). The \emph{ignoreList} acts as a lookup reference when a CBP is loaded. If an event's event number is contained in the \emph{ignoreList}, the event is not replayed and the load process continue to the next event.
 
 \begin{algorithm}[H]
 \begin{small}
@@ -261,20 +276,16 @@ The algorithm to execute the rationale is shown in Alg. \ref{alg:set_unset_optim
 
 \subsection{Add, Remove, and Move Events}
 \label{subsec:add_remove_and_move_operations}
-An attribute can also have many values. For example in Listing \ref{lst:add_remove_move_attribute},  We add values 11, 12, and 13 subsequently to the attribute \emph{values} and remove the value 12 at line 5  (the commented parts show the states of \emph{node.values}). The replay of the CBP can be optimised by ignoring the add and remove events of the value 12 since we can produce the same eventual model only by adding 11 and 13. To identify that lines 3 and 5 can be ignored, we execute algorithm that is shown in Alg. \ref{alg:add_remove_move_optimisation}.  
+A feature can also have many values. For example in Listing \ref{lst:add_remove_move_reference},  We add nodes \emph{n2} and \emph{n3} subsequently to the attribute \emph{children} and remove the node \emph{n3} at line 6  (the commented parts show the states of \emph{node.children}). The replay of the CBP can be optimised by ignoring the add and remove events of node \emph{n3} since we can produce the same eventual model only by adding node \emph{n2}. To identify that lines 5 and 6 can be ignored, we execute algorithm that is shown in Alg. \ref{alg:add_remove_move_optimisation}.  
 
-\begin{lstlisting}[style=eol,caption={Example of CBP representation of attribute \emph{values}'s add and remove operations.},label=lst:add_remove_move_attribute]
-create node of Node
-add 11 to node.values      //node.values=[11] 
-add 12 to node.values      //node.values=[11,12] 
-add 13 to node.values      //node.values=[11,12,13] 
-remove 12 from node.values //node.values=[11,13] 
+\begin{lstlisting}[style=eol,caption={Example of CBP representation of attribute \emph{values}'s add and remove operations.},label=lst:add_remove_move_reference]
+create n1 of Node
+create n2 of Node
+create n3 of Node
+add n2 to n1.children      //n1.children=[n2] 
+add n3 to n1.children      //n1.children=[n2,n3] 
+remove n3 from n1.children //n1.children=[n2] 
 \end{lstlisting}
-
-
-The algorithm works similar to the algorithm for \emph{set} an \emph{unset} events, except that a feature can contain many values. Therefore, two lists of \emph{Line}---\emph{addEventLines} and \emph{removeEventLines}, excluding \emph{moveEventLines} (the reason for exclusion is explained later)---that it takes as inputs have to be filtered first according to the value that involved in the events using function \emph{filterbyValue}, so that when putting them into the \emph{ignoreList} does not include event numbers for other values (lines 6-7). Lines 8-16 of the algorithm runs similar to the algorithm for \emph{set} an \emph{unset} events. 
- 
-However, this logics can only be executed if there is no \emph{move} event has been applied to the feature (the reason is explained later in this section) and it is indicated by false value of the flag \emph{featureIsMoved} (line 5). That is why excluding \emph{moveEventLines} is excluded from filtering because no \emph{move} event has been made. The flag \emph{featureIsMoved} is set to true (false is the default value) when the first \emph{move} event is applied to the feature and is set back to false when the feature is empty or has no value. If the feature is empty then all event numbers in the \emph{addEventLines}, \emph{removeEventLines}, and \emph{moveEventLines} into the \emph{ignoreList}. After that, \emph{attributeIsMoved} is set to false. Finally, the \emph{ignoreList} is returned for further operations. Listing \ref{lst:add_remove_move_reference} is another example for reference type of feature for \emph{add} and \emph{remove} events. Using the same approach, we can derive that, by the end of the process, \emph{ignoreList} = [5, 6].       
 
 \begin{algorithm}[H]
 \begin{small}
@@ -314,14 +325,13 @@ $removeLastLine$ $\leftarrow$ getLastLine($filteredRemoveLines$)\;
 \label{alg:add_remove_move_optimisation}
 \end{algorithm}
 
-\begin{lstlisting}[style=eol,caption={Example of CBP representation of attribute \emph{values}'s add and remove operations.},label=lst:add_remove_move_reference]
-create n1 of Node
-create n2 of Node
-create n3 of Node
-add n2 to n1.children      //n1.children=[n2] 
-add n3 to n1.children      //n1.children=[n2,n3] 
-remove n3 from n1.children //n1.children=[n2] 
-\end{lstlisting}
+The algorithm works similar to the algorithm for \emph{set} an \emph{unset} events, except that a feature can contain many values. Therefore, two lists of \emph{Line}---\emph{addEventLines} and \emph{removeEventLines}, excluding \emph{moveEventLines} (the reason for exclusion is explained later)---that it takes as inputs have to be filtered first according to the value that involved in the events using function \emph{filterbyValue}, so that when putting them into the \emph{ignoreList} does not include event numbers for other values (lines 6-7). Lines 8-16 of the algorithm runs similar to the algorithm for \emph{set} an \emph{unset} events. 
+ 
+However, this logics can only be executed if there is no \emph{move} event has been applied to the feature (the reason is explained later in this section) and it is indicated by false value of the flag \emph{featureIsMoved} (line 5). That is why excluding \emph{moveEventLines} is excluded from filtering because no \emph{move} event has been made. The flag \emph{featureIsMoved} is set to true (false is the default value) when the first \emph{move} event is applied to the feature and is set back to false when the feature is empty or has no value. If the feature is empty then all event numbers in the \emph{addEventLines}, \emph{removeEventLines}, and \emph{moveEventLines} into the \emph{ignoreList}. After that, \emph{attributeIsMoved} is set to false. Finally, the \emph{ignoreList} is returned for further operations.
+
+
+
+
 
 The flag \emph{featureIsMoved} at line 5 in Alg. \ref{alg:add_remove_move_optimisation} is required to prevent error when replaying a CBP that already optimised. If the feature has been applied a move event that move a certain value based on defined \emph{from} and \emph{to} indexes, ignoring previous events can place a value that is different from the non-optimised CBP on the defined \emph{from} index. Thus, replaying the optimised CBP can produce an eventual model that is different from the non-optimised one. For example, when replaying Listing \ref{lst:move_attribute_example_error}, the optimised CBP of Listing \ref{lst:move_attribute_example}, it produces \emph{node.values} = [13, 11], which is different from \emph{node.values} = [11,13]  that is produced from replaying original CBP, since ``\emph{add 12 to node.values}" and ``\emph{remove 12 from node.values}" events are already excluded in the optimisation process if there is no flag \emph{featureIsMoved} that prevents the exclusion.
 
@@ -344,7 +354,7 @@ move from 0 to 1 in node.values  //(5) node.values=[13,11]
 
 \subsection{Create and Delete Events}
 \label{subsec:create_and_delete_operations}
-While \emph{create} event has been demonstrated in almost every Listing in this paper, \emph{delete} event is demonstrated in Lst. \ref{lst:cbpmodel}. When an element is deleted, it means that the element is completely removed from the model. Therefore, all events (create, set, unset, move, add, remove, delete) related to the element can be ignored, including all events related to its features. For example, when node \emph{n3} in Lst. \ref{lst:cbpmodel}  in the first example is deleted, replaying lines 5-6 and 8-10 is unnecessary and therefore the event numbers of the lines can be put into \emph{ignoreList} producing \emph{ignoreList} = [5, 6, 9, 8, 9, 10]. The optimised CBP of Listing \ref{lst:cbpmodel} is presented in Listing \ref{lst:cbpmodel_optimised}. The numbers that are in the brackets in the commented parts are the lines' previous event numbers in the non-optimised CBP.  
+A \emph{delete} event has been demonstrated in Lst. \ref{lst:cbpmodel}. When an element is deleted, it means that the element is completely removed from the model. Therefore, all events (create, set, unset, move, add, remove, delete) related to the element can be ignored, including all events related to its features. For example, when node \emph{n3} in Lst. \ref{lst:cbpmodel}  in the first example is deleted, replaying lines 5-6 and 8-10 is unnecessary and therefore the event numbers of the lines can be put into \emph{ignoreList} producing \emph{ignoreList} = [5, 6, 9, 8, 9, 10]. The optimised CBP of Listing \ref{lst:cbpmodel} is presented in Listing \ref{lst:cbpmodel_optimised}. The numbers that are in the brackets in the commented parts are the lines' previous event numbers in the non-optimised CBP.  
 
 \begin{lstlisting}[style=eol,caption={Change-based representation of the model of Figure \ref{fig:initial_model} after removal of node \emph{n5}.},label=lst:cbpmodel_optimised]
 create n1 of Node       //(1)
@@ -353,11 +363,6 @@ create n2 of Node       //(3)
 set n2.name to "B"      //(4) n2.name="B"
 add n2 to n1.children   //(7) n1.children={n2}
 \end{lstlisting}
-
-We use Alg. \ref{alg:create_delete_optimisation} to determine lines that are ignored after a \emph{delete} event. The algorithm
-works by iterating through all the \emph{EventHistory} of all its {FeatureHistory} and all its direct {EventHistory}, and putting all the event numbers found into the \emph{ignoreList}.
-
-The algorithm starts by checking flag \emph{elementIsMoved} to determine whether the \emph{deletedelement} is already moved or not (line 2). If it is false then it is safe to remove all lines that refer to the element (line 3) (the reason for use of the flag has been explained in subsection \ref{subsec:add_remove_and_move_operations}). Otherwise, no action is executed. The algorithm then retrieves all event histories \emph{eventHistoryList} that refer to the element (line 4) and iterates through each event history (line 5-8). For every event history \emph{eventHistory} (line 5), the algorithm retrieves its lines \emph{lineList} (line 6) and put all their event numbers into the \emph{ignoreList} (line 7). After that, the algorithm continues to iterate through all its features and put all lines' event numbers of their events into the \emph{ignoreList} (lines 12-15). Finally, the algorithm returns the \emph{ignoreList} as its output.
 
 \begin{algorithm}[H]
 \begin{small}
@@ -389,12 +394,19 @@ $elementIsMoved$ $\leftarrow$ isElementMoved($deletedElement$)\;
 \label{alg:create_delete_optimisation}
 \end{algorithm}
 
+We use Alg. \ref{alg:create_delete_optimisation} to determine lines that are ignored after a \emph{delete} event. The algorithm
+works by iterating through all the \emph{EventHistory} of all its {FeatureHistory} and all its direct {EventHistory}, and putting all the event numbers found into the \emph{ignoreList}.
+
+The algorithm starts by checking flag \emph{elementIsMoved} to determine whether the \emph{deletedElement} is already moved or not (line 2). If it is false then it is safe to remove all lines that refer to the element (line 3) (the reason for use of the flag has been explained in subsection \ref{subsec:add_remove_and_move_operations}). Otherwise, no action is executed. The algorithm then retrieves all event histories \emph{eventHistoryList} that refer to the element (line 4) and iterates through each event history (line 5-8). For every event history \emph{eventHistory} (line 5), the algorithm retrieves its lines \emph{lineList} (line 6) and put all their event numbers into the \emph{ignoreList} (line 7). After that, the algorithm continues to iterate through all its features and put all lines' event numbers of their events into the \emph{ignoreList} (lines 12-15). Finally, the algorithm returns the \emph{ignoreList} as its output.
+
+
+
 
 
 \section{Performance Evaluation}
 \label{sec:performance_evaluation}
-We have implemented a prototype\footnote{The prototype is available under [hidden for review] %\url{https://github.com/epsilonlabs/emf-cbp}
-} of the change-based model persistence using the Eclipse Modelling Framework. We evaluate the prototype's performance on saving time, loading time, and memory consumption. For the saving time, we contrast the saving time between optimised CBP, non-optimised CBP, and XMI. For the loading time, we perform comparison on loading time between optimised CBP, non-optimised CBP, and XMI. For memory consumption, we compare the performance of optimised CBP and XMI on memory consumption. The evaluation is performed on Windows Server 2008 R2 64-bit with processor Intel Xeon E5530 @2.40 GHz (2 processors) and memory 36 GB.
+We have implemented a prototype\footnote{The prototype and the tests used in the evaluation are available under [hidden for review] for reproducibility. %\url{https://github.com/epsilonlabs/emf-cbp}
+} of the change-based model persistence using the Eclipse Modelling Framework that we extends from the work of Yohannis et al. \cite{yohannis2017turning}. We evaluate the prototype's performance on saving time, loading time, and memory consumption. For the saving time, we contrast the saving time between optimised CBP, non-optimised CBP, and XMI. For the loading time, we perform comparison on loading time between optimised CBP, non-optimised CBP, and XMI. For memory consumption, we compare the performance of optimised CBP and XMI on memory consumption. The evaluation is performed on Windows Server 2008 R2 64-bit with processor Intel Xeon E5530 @2.40 GHz (2 processors), memory 36 GB, and Java SE Runtime Environment (build 1.8.0\_66-b18).
 
 \begin{figure}[htbp]
     \centering
@@ -403,74 +415,72 @@ We have implemented a prototype\footnote{The prototype is available under [hidde
     \label{fig:node_metamodel}
 \end{figure}
 
-In the evaluation, we introduce conference model to evaluate the optimisation closer to the real-world problem since the tree model in our examples is trivial and not common used in the real-world. The conference model covers more of EMF features; it has more than one class (Conference, People, Room, etc. classes) and it applies inheritance. Figure \ref{fig:node_metamodel} shows its metamodel. 
+In the evaluation, we introduce a conference metamodel, a more representable metamodel to evaluate the optimised loading. The metamodel has wider EMF feature coverage. It has more than one class (Conference, People, Room, etc. classes) and it applies inheritance. Figure \ref{fig:node_metamodel} shows its metamodel. We need to use contrived example because as a new approach there are no real-world change-based models available. 
 
 \subsection{Saving Time}
 \label{subsec:saving_time_test}
 We evaluate the performance of our prototype on saving time to gain insight on the efficiency that can be gained from the optimised CBP against the non-optimised CBP and XMI as the comparison baselines. The comparison is depicted in Fig. \ref{fig:append_speed}.
 
-We seek the relationship between number of elements in a model and the time required to persist the model. We create courses of random operations in Epsilon Object Language \cite{kolovos2006epsilon} for each tree and conference domains and executed them to simulate the development of models. In the random operations, we set the probability of different types (create, set, unset, add, move, delete) of operations to occur to 10:1:1:1:1:1 respectively. For the conference model, since it has several classes (Person, Day, Room, Break, Track, Talk), we set ratio 40:1:3:6:8:24 respectively for them to be created in the \emph{create} operation to ensure that the model is generated proportionally. Along the growing of the model, we count the number of the elements. Every increase in 100 elements, we measure the time. For  the optimised and non-optimised CBPs, we measure the time consumed to append events generated for each operation, while for XMI, we measure the time used to persist the eventual state of the model after each operation. Also, we check the equivalence of the model loaded from the CBPs against its XMI format to ensure that our approach produces the correct eventual model.
+We seek the relationship between number of elements in a model and the time required to persist the model. We create courses of random operations in Epsilon Object Language \cite{kolovos2006epsilon} for each tree and conference domains and executed them to simulate the development of models. In the random operations, we set the probability of different types (create, set, unset, add, move, delete) of operations to occur to 10:1:1:1:1:1 respectively. Such configuration is selected because we want the model to grow faster while other operations are still executed. Since the conference metamodel has several classes (Person, Day, Room, Break, Track, Talk), we set ratio 40:1:3:6:8:24 respectively for them to be created in the \emph{create} operation to ensure that the model is generated proportionally and closer to the the real-world conference models. We start with an empty and execute the random operations to grow the model. Along the growing of the model, we count the number of the elements. Every increase in 100 elements, we measure the time. For  the optimised and non-optimised CBPs, we measure the time consumed to append events generated for each operation, while for XMI, we measure the time used to persist the eventual state of the model after each operation. Also, we check the equivalence of the model loaded from the CBPs against its XMI format to ensure that our approach produces the correct  model.
 
 \begin{figure}[ht]	
-	\begin{subfigure}[t]{0.5\linewidth}
-		\includegraphics[width=\linewidth]{append_speed_tree}
-		\caption{Tree domain}\label{fig:append_speed_tree}		
+    \begin{subfigure}[t]{0.5\linewidth}
+		\includegraphics[width=\linewidth]{append_speed_conf}
+		\caption{Optimised vs non-optimised CBPs}\label{fig:append_speed_conf}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{0.5\linewidth}
-		\includegraphics[width=\linewidth]{append_speed_conf}
-		\caption{Conference model}\label{fig:append_speed_conference}
-	\end{subfigure}
-	\caption{A comparison on time used to persist models between optimised and non-optimised CBPs. The y-axis is $log_2$ scaled.}
+		\includegraphics[width=\linewidth]{append_speed_conf_ocbp_xmi}
+		\caption{Optimised CBP vs XMI}\label{fig:append_speed_conf_ocbp_xmi}		
+	\end{subfigure}	
+	\caption{A comparison on time used to persist models between optimised CBP, non-optimised CBP, and XMI. The y-axis is $log_2$ scaled.}
 	\label{fig:append_speed}
 \end{figure}
 
-In Fig. \ref{fig:append_speed}, for both tree and conference domains, the time consumed to persist events in both CBPs is nearly constant, whereas for XMI, the time consumed to persist a model increases linearly along the growth of elements (its graph is not displayed since it is outperformed by both CBPs). The append time of optimised CBP is slightly higher than the non-optimised CBP's since it has additional computation to populate the \emph{ModelHistory} and \emph{IgnoreList}. Based on our measurement, for tree model, the average time consumed to append events into optimised and non-optimised CBPs is 1.08 and 0.98 miliseconds respectively. For conference model, the average time is 1.83 and 1.33 miliseconds respectively. The average time required to save model in XMI for tree and conference models is increased 1.93 and 6.22 microseconds respectively for every additional element. This finding suggests persisting changes of a model is significantly faster than persisting its complete eventual state after the model is modified.    
+In Fig. \ref{fig:append_speed_conf}, the time consumed to persist events in both CBPs is nearly constant, whereas for XMI, the time consumed to persist a model increases linearly along the growth of elements (Fig. \ref{fig:append_speed_conf_ocbp_xmi}). The append time of optimised CBP is slightly higher than the non-optimised CBP's since it has to perform extra computation to populate the \emph{ModelHistory} and \emph{IgnoreList}. Based on our measurement, the average time to append in optimised and non-optimised CBPs is 1.83 and 1.33 miliseconds respectively. The average time required to save model in XMI is increased 6.22 microseconds for every additional element. This finding suggests persisting changes of a model is significantly faster than persisting its complete eventual state after the model is modified.    
 
 \subsection{Loading Time}
 \label{subsec:loading_time_test}
 We compare optimised CBP, non-optimised CBP, and XMI on their loading time to evaluate the performance of the optimisation algorithm. The  comparison is depicted in Fig. \ref{fig:loading_speed}. We seek the relationship between number of elements of a model and time required to load it. 
 
-In performing the simulation, we create initial elements for the model and generate a number of random operations (create, set, unset, add, move, delete) to manipulate it. The number of the random operations is as many as the number of the initial elements. Also, the probability of the different types of operations to occur is set to 1:1:1:10:5:1 respectively. For each iteration, we increase the number of the initial elements and random operations each by 500. For conference model, since it has several classes (Person, Day, Room, Break, Track, Talk), we set ratio 40:1:3:6:8:24 respectively for them to be created in the initial elements and \emph{create} operation to ensure that the model is generated proportionally. For both CBPs, we measure the time to replay all its events. For XMI, we measure the time consumed to load its model. At the end of each iteration, we check the equivalence of the model loaded from the CBPs against its XMI format to ensure the correctness of the eventual model.
+In performing the simulation, we create initial elements for the model and generate a number of random operations (create, set, unset, add, move, delete) to manipulate it. The number of the random operations is as many as the number of the initial elements. Also, the probability of the different types of operations to occur is set to 1:1:1:10:5:1 respectively. The probability of \emph{add} and \emph{move} operations are set to 10 and 5 because in a conference typically tracks and talks are of often shifted between days and slots. We start with 7 elements and then increase the number of the initial elements by 500 for each next iteration. For conference model, since it has several classes (Person, Day, Room, Break, Track, Talk), we set ratio 40:1:3:6:8:24 respectively for them to be created in the initial elements and \emph{create} operation to ensure that the model is generated proportionally and closer to real-world conference models. For both CBPs, we measure the time to replay all its events. For XMI, we measure the time consumed to load its model. At the end of each iteration, we check the equivalence of the model loaded from the CBPs against its XMI format to ensure the correctness of the loaded model.
 
 \begin{figure}[ht]	
-	\begin{subfigure}[t]{0.5\linewidth}
-		\includegraphics[width=\linewidth]{loading_speed_tree}
-		\caption{Tree model}\label{fig:append_speed_tree}		
+    \begin{subfigure}[t]{0.5\linewidth}
+		\includegraphics[width=\linewidth]{loading_speed_conf}
+		\caption{Optmised CBP vs Non-optimised CBP}\label{fig:loading_speed_conf}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{0.5\linewidth}
-		\includegraphics[width=\linewidth]{loading_speed_conf}
-		\caption{Conference model}\label{fig:append_speed_conference}
-	\end{subfigure}
-	\caption{A comparison on load time between optimised and non-optimised CBP.}
+		\includegraphics[width=\linewidth]{loading_speed_conf_ocbp_xmi}
+		\caption{Optimised CBP vs XMI}\label{fig:loading_speed_conf_ocbp_xmi}		
+	\end{subfigure}	
+	\caption{A comparison on load time between optimised CBP, non-optimised CBP, and XMI.}
 	\label{fig:loading_speed}
 \end{figure}
 
-Fig. \ref{fig:loading_speed} shows a pattern that the optimised CBP consumes less time than the non-optimised CBP on loading models (XMI's loading time is not displayed in Fig. \ref{fig:loading_speed} since it outperforms CBP). In the case of tree model, the loading time of the non-optimised CBP tends to grow exponentially which makes it less efficient than the optimised CBP that increases linearly. The same pattern is also shown in the conference model although the rate of the exponential growth of the non-optimised CBP is less subtle than the one in the tree model. 
+Fig. \ref{fig:loading_speed_conf} shows a pattern that the optimised CBP consumes less time than the non-optimised CBP on loading model. Even though the optimised CBP is faster than the non-optimised CBP on loading models, still it is outperformed by XMI (Fig. \ref{fig:loading_speed_conf_ocbp_xmi}) since it is state-based---no need to replay the construction of its models. For XMI, from our measurement, we obtain that it takes only 5 microseconds in average to load each element in a model. Thus, an XMI with 33,440 elements can be loaded in 0.165 seconds, around 10 times faster than optimised CBP which takes 1.6 seconds for the same number of elements. 
 
-Based on our investigation, we found out that the time cost of removing an element from a containment reference (delete or move/add it to another reference) of an EMF model grows linearly with the number of elements that it directly contains. So, it is more time consuming to remove an element from a containment reference that has hundreds of members than remove it from a reference that only has ten members. This happens in the three model where a node can contain many other nodes, while in the conference model the proportion of its containment (a day can contain tracks and breaks, a track can contain talks) is kept balanced by the configuration of probability of the instantiation of its classes that is set before. That is why the loading time of the non-optimised CBP in the tree model grows more exponential than the one in the conference model. Thus, the performance of the optimisation on loading time against the non-optimised CBP depends on the structure of models, types of operations that frequently executed, and the amount of operations executed to modify models (more efficiency can be gained if a model is frequently modified).       
+%Based on our investigation, we found out that the time cost of removing an element from a containment reference (delete or move/add it to another reference) of an EMF model grows linearly with the number of elements that it directly contains. So, it is more time consuming to remove an element from a containment reference that has hundreds of members than remove it from a reference that only has ten members. This happens in the three model where a node can contain many other nodes, while in the conference model the proportion of its containment (a day can contain tracks and breaks, a track can contain talks) is kept balanced by the configuration of probability of the instantiation of its classes that is set before. That is why the loading time of the non-optimised CBP in the tree model grows more exponential than the one in the conference model. Thus, the performance of the optimisation on loading time against the non-optimised CBP depends on the structure of models, types of operations that frequently executed, and the amount of operations executed to modify models (more efficiency can be gained if a model is frequently modified).       
          
-Even though the optimised CBP is faster than the non-optimised CBP on loading models, still it is outperformed by XMI since it is state-based---no need to replay the construction of its models. For XMI, from our measurement, we obtain that it takes only 5 microseconds in average to load each element in a model. Thus, an XMI with 33,440 elements can be loaded in 0.165 seconds, around 10 times faster than optimised CBP which takes 1.6 seconds for the same number of elements. 
-
 \subsection{Memory Consumption}
 \label{subsec:memory_consumption}
 
-Another evaluation that we perform is we optimised CBP and XMI on their memory consumption after loading models. We use the Jamm \cite{brosius2017jamm}, a tool that uses Java agent for memory measurement. It turns out that the results are not significantly different and still follow the same trend). We use a deep measure, every other element referenced in the measured element is also calculated, to calculate the total consume. 
+We also compare optimised CBP, non-optimised CBP, and XMI on their memory consumption after loading models. We seek the relationship between number of elements of a model and memory used to after loading the model. The results are shown in Figure \ref{fig:memory_use}. In performing the simulation, we performed the same procedure as in the loading time evaluation (subsection \ref{subsec:loading_time_test}), except for the increment and the dimension that we measure. We set the increment to 100, and instead of measuring the loading time, we measure the memory consumption by subtracting the memory after loading a model with the memory before loading the model.   
 
-The results are shown in Figure \ref{fig:memory_use}. In both tree and conference domains, XMI significantly outperforms CBP in terms of memory consumption after loading models. The large memory consumption of CBP is caused by the model history that consumes space in memory to holds elements, their events, and their event numbers. This condition leads us to another future work that is to identify and remove elements, events, and events numbers from the model history once they are not any longer required. For example, once a element is deleted from a model, all its records in the model history are removed to release space in memory. 
+Figure \ref{fig:memory_use_conf_ocbp_xmi} shows that optimised CBP consumes more memory than non-optimised CBP, while XMI performs a slightly better than non-optimised CBP in terms of memory saving (Fig. \ref{fig:memory_use_conf_cbp_xmi}). The large memory consumption of optimised CBP is caused by the ignore list which is used for checking events in a CBP if they can be ignored for replay or not. %This condition leads us to another future work that is to identify and remove elements, events, and events numbers from the model history once they are not any longer required. For example, once a element is deleted from a model, all its records in the model history are removed to release space in memory. 
 
 \begin{figure}[ht]	
 	\begin{subfigure}[t]{0.5\linewidth}
-		\includegraphics[width=\linewidth]{memory_use_tree}
-		\caption{Tree model}\label{fig:append_speed_tree}		
+		\includegraphics[width=\linewidth]{memory_use_conf}
+		\caption{Optimised vs non-optimised CBPs}\label{fig:memory_use_conf_ocbp_xmi}		
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{0.5\linewidth}
-		\includegraphics[width=\linewidth]{memory_use_conf}
-		\caption{Conference model}\label{fig:append_speed_conference}
+		\includegraphics[width=\linewidth]{memory_use_conf_cbp_xmi}
+		\caption{Non-optimised CBP vs XMI}\label{fig:memory_use_conf_cbp_xmi}
 	\end{subfigure}
-	\caption{A comparison on memory consumption between CBP and XMI.}
+	\caption{Memory consumption of optimised CBP, non-optimised CBP, and XMI.}
 	\label{fig:memory_use}
 \end{figure}
 
