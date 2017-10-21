@@ -13,3 +13,4 @@ tmp
 *.xlsx
 data/Comparison.xlsx
 data/Load Analysis.xlsx
+*.dvi
