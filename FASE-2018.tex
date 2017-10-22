@@ -128,7 +128,13 @@ Our approach demonstrates considerable savings in loading times when compared to
 
 The rest of the paper is structured as follows. Section \ref{sec:case_study} introduces the running example and provides a brief overview of the original change-based model persistence.
 Section \ref{sec:loading_time_optimisation} presents an algorithm that intends to speed up loading of change-based models, and its supporting data structures. %\dk{Merge Sections 3 and 4}.  
-Sect. \ref{sec:performance_evaluation} shows the results of controlled evaluation experiments for assessing the benefits of the proposed algorithm. Section \ref{sec:related_work} provides an overview of existing related work. Section \ref{sec:limitations_and_future_work} discusses the limitations of our approach and potential future work, and Sect. \ref{sec:conclusions} concludes this paper.
+Sect. \ref{sec:performance_evaluation} shows the results of controlled evaluation experiments for assessing the benefits of the proposed algorithm. Section \ref{sec:related_work} provides an overview of existing related work. Section \ref{sec:limitations_and_future_work} discusses the threats of validity and limitations of our approach, and Sect. \ref{sec:conclusions} concludes this paper and present some future work.
+
+\section{Running Example}
+\label{sec:case_study}
+To explain the proposed algorithm, we use the minimal tree metamodel and model illustrated in Figures \ref{fig:tree_metamodel} and \ref{fig:initial_model}.
+We chose this example to avoid unnecessary repetition in our discussion, while providing a reasonable coverage of the basic features of the EMF modelling capabilities (classes, single/multi-valued features, references and attributes).
+In our example, tree models consist of named nodes which can -- optionally -- contain other nodes (\emph{children} reference).
 
 \begin{figure}[ht]
     \begin{subfigure}[t]{0.4\linewidth}
@@ -147,12 +153,6 @@ Sect. \ref{sec:performance_evaluation} shows the results of controlled evaluatio
     \caption{A tree metamodel and its model as the running example.}
     \label{fig:append_speed}
 \end{figure}
-
-\section{Running Example}
-\label{sec:case_study}
-To explain the proposed algorithm, we use the minimal tree metamodel and model illustrated in Figures \ref{fig:tree_metamodel} and \ref{fig:initial_model}.
-We chose this example to avoid unnecessary repetition in our discussion, while providing a reasonable coverage of the basic features of the EMF modelling capabilities (classes, single/multi-valued features, references and attributes).
-In our example, tree models consist of named nodes which can -- optionally -- contain other nodes (\emph{children} reference).
 
 The model in Fig. \ref{fig:initial_model} consists of two nodes \emph{n1}, \emph{n2}.
 To construct this model, we started by creating and naming three nodes (\emph{n1}, \emph{n2} and \emph{n3}).
@@ -515,8 +515,6 @@ For our evaluation experiments, we have used synthetic models of different sizes
 
 For this experiment, we created and persisted change-based models of different sizes (from 500 up to 33,000 elements) conforming to the metamodel of Figure \ref{fig:node_metamodel} through a random model generator that simulates the actions of a human modeller (i.e. creates/deletes elements, sets/unsets values of their features). We then used the proposed and the naive loading algorithms to reconstruct the state of these models and measured their execution time. The results are shown in Fig. \ref{fig:loading_speed_conf} and demonstrate the considerable time savings delivered by the proposed loading algorithm (it can reduce loading times up to around 44\% of the times need by the naive CBP loading algorithm for our largest models).
 
-For reference, we also contrast the execution time for the new algorithm against that of loading the equivalent state-based model in XMI. As can be observed in Fig. \ref{fig:loading_speed_conf_ocbp_xmi}, despite the improvements delivered by the new algorithm, loading change-based models is still roughly 10 times slower than their state-based counterparts. However, as discussed in\,\cite{yohannis2017turning}, this can be an acceptable trade-off considering the other benefits that change-based model persistence can offer (e.g. more precise differencing and hence more efficient incremental execution of model management programs and more effective model merging).
-
 \begin{figure}[ht]	
     \begin{subfigure}[t]{0.5\linewidth}
 		\includegraphics[width=\linewidth]{loading_speed_conf}
@@ -530,6 +528,8 @@ For reference, we also contrast the execution time for the new algorithm against
 	\caption{A comparison on load time between optimised CBP, non-optimised CBP, and XMI.}
 	\label{fig:loading_speed}
 \end{figure}
+
+For reference, we also contrast the execution time for the new algorithm against that of loading the equivalent state-based model in XMI. As can be observed in Fig. \ref{fig:loading_speed_conf_ocbp_xmi}, despite the improvements delivered by the new algorithm, loading change-based models is still roughly 10 times slower than their state-based counterparts. However, as discussed in\,\cite{yohannis2017turning}, this can be an acceptable trade-off considering the other benefits that change-based model persistence can offer (e.g. more precise differencing and hence more efficient incremental execution of model management programs and more effective model merging).
 
 \subsection{Saving Time}
 \label{subsec:saving_time_test}
@@ -566,17 +566,13 @@ As the proposed loading algorithm requires the maintenance of an additional in-m
 
 For reference, we also include the memory footprints of XMI in Figure \ref{fig:memory_ocbp_cbp_xmi} to contrast it with both CBP implementations. As observed, XMI outperforms the optimised CBP representation and performs slightly better than the original CBP representation on less memory footprints. 
 
-\begin{figure}[ht]	
+\begin{figure}[b]	
 \centering
 \includegraphics[width=\linewidth]{memory_ocbp_cbp_xmi}
 		\caption{A comparison on memory footprints between optimised CBP, non-optimised CBP, and XMI after loading models.}\label{fig:memory_ocbp_cbp_xmi}
 \end{figure}
 
 %For reference, we also contrast the memory footprint of the CBP representation under the new algorithm against that of XMI. As observed in Figure \ref{fig:memory_ocbp_cbp_xmi}, 
-
-\subsection{Threats to Validity}
-In this work, we still cannot generalise our findings since the algorithm is only tested on synthesised conference models which might not perfectly represent real-world models. Diverse characteristics of models in different domains can affect the effectiveness of the algorithm and therefore yields different outcomes. Also, we have not run the experiments on multiple iterations to obtain more consistent and stable results. Moreover, we have not performed the experiments on different types of environments (e.g. machines, operating systems, Java versions, modelling frameworks). Different environments might affect the experiments to produce different results. 
-
 
 %TODO: Discuss threats to the validity/generalisability of these findings e.g. using synthesised models, not running the experiments in multiple iterations etc.
 
@@ -598,6 +594,18 @@ In this work, we still cannot generalise our findings since the algorithm is onl
 %	\label{fig:memory_use}
 %\end{figure}
 
+\section{Threats to Validity and Limitations}
+\label{sec:limitations_and_future_work}
+In this work, we have only tested the algorithm on synthesised conference models which do not perfectly represent real-world models. Diverse characteristics of models in different domains can affect the effectiveness of the algorithm and therefore yields different outcomes. Also, we have not run the experiments on multiple iterations to obtain more consistent and stable results. Moreover, we have not performed the experiments on different types of environments (e.g. machines, operating systems, Java versions, modelling frameworks). Different environments might affect the experiments to produce different results. 
+
+We only address feature that can only contain ordered, unique members -- no duplicate values or elements.
+The `duplicate members' means that removal of a member does not result in the member not being present in the feature value.
+Additional information must be captured during insertion to persist the number of copies and positions of the feature members.
+In the algorithms, this information can be used to properly generate the Ignore List.
+In the case of unordered features, the moved event does not exist, and hence analysis will be required to determine how this affects the use of the \emph{featureIsMoved} flag. 
+
+Given that it is impossible to generalise a metamodel structure and as such, the examples used in this work will only represent a subset of the possible/existing metamodels. As a result, we expect different metamodels to exhibit different gains when using the optimized CBP. Moreover, our prototype still consumes a significant amount of memory in executing the algorithm and still performs more than 10 times slower than XMI in loading models. Thus, we have identified several approaches to improve more of the performance in section \ref{sec:conclusions}.
+
 \section{Related Work}
 \label{sec:related_work}
 Several works have investigated alternative model persistence mechanisms to XMI, mainly by using databases (both relational and NoSQL). Connected Data Objects \cite{eclipse2017cdo} and EMF Teneo\,\cite{eclipse2017teneo} persist EMF models in relational databases.
@@ -614,42 +622,21 @@ NeoEMF can persist models in different NoSQL databases and provides a lazy-loadi
 EMFStore\,\cite{koegel2010emfstore} is a version control system (VCS) that stores changes of models as operations applied to the models, which facilitates collaboration and identify changes of models easier.
 However, support to use its operation-based approach with more common VCSs (e.g. GitHub, SVN) is not yet available. Several papers mention it does not scale\,\cite{pagan2011morsa,kolovos2013research} and no optimisation has been proposed to load the eventual versions of models, except replaying all stored operations. 
 
-
-\section{Limitations and Future Work}
-\label{sec:limitations_and_future_work}
-So far, we only address feature that can only contain ordered, unique members -- no duplicate values or elements.
-Duplicate members means that removal of a member does not result in the member not being present in the feature value.
-Additional information must be captured during insertion to persist the number of copies and positions of the feature members.
-In the algorithms, this information can be used to properly generate the Ignore List.
-In the case of unordered features, the moved event does not exist, and hence analysis will be required to determine how this affects the use of the \emph{featureIsMoved} flag.
-%Can we do metamodel eveolution too? 
-
-%Additionally, we have not considered the case in which a features has a default value.
-%Default value of a feature might not trigger any event.
-%Failure to address this might produce different eventual models. 
-
-%Models in the real world are most likely different from the random models generated in the evaluatio.
-It is impossible to generalize a metamodel structure and as such, the examples used in this work will only represent a subset of the possible/existing metamodels.
-As a result, we expect different metamodels to exhibit different gains when using the optimized CBP. 
-Future work can include experiments in which modellers are asked to construct complex models using different modelling languages, persist their histories, scale them up, simulate the loading optimisation, and analyse the results to gain insight whether the optimisation really works for real-world models. 
-%Further, we have identified one particular case in which the optimised CBP model does not provide performance gains over the  original CBP.
-%If the model events only 
-
-Since our prototype consumes significant amount of memory in executing the algorithm and still performs more than 10 times slower than XMI in loading models, another area of future work is the optimization of our algorithms.
-A number of approaches has been identified to reduce memory consumption and loading time.
-Possible areas of interest are:
-Optimising the format of CBP so that it consumes less memory and can be parsed faster.
-Persisting all events into databases therefore can reduce the use of main memory, and NoSQL databases can be considered to improve the loading performance.
-Develop a hybrid persistence representation that is a combination of state-based and change-based persistence.
-
-Finally, given that NeoEMF can handle large-scale models, we plan to extend it to support change-based persistence.
-Moreover, we also plan to extend the CBP to enable change detection, model merging, conflict resolution of models in the context of collaborative modelling, among others. 
-
-\section{Conclusions}
+\section{Conclusions and Future Work}
 \label{sec:conclusions}
 In this paper, we have proposed an optimization to the CBP model in order to improve its performance, in particular to the loading time.
 We evaluated our approach against the original CBP model and the de-facto XMI persistence, on loading but also on store time and memory consumption of the load process. 
 Our results show considerable savings in terms of store times and identifying changes made to models at an increased -- but linear -- model loading cost. 
+
+For future work, we plan to perform experiments in which modellers are asked to construct complex models using different modelling languages, persist their histories, scale them up, simulate the loading optimisation, and analyse the results to gain insight whether the optimisation really works for real-world models. 
+A number of approaches also has been identified to reduce the memory consumption and loading time.
+Possible areas of interest are:
+Optimising the format of CBP so that it consumes less memory and can be parsed faster.
+Persisting all events into databases therefore can reduce the use of main memory, and NoSQL databases can be considered to improve the loading performance.
+Develop a hybrid persistence representation that is a combination of state-based and change-based persistence.
+Finally, given that NeoEMF can handle large-scale models, we plan to extend it to support change-based persistence.
+Moreover, we also plan to extend the CBP to enable change detection, model merging, conflict resolution of models in the context of collaborative modelling, among others. 
+Accommodating the evolution of metamodel into change-based persistence is also an interesting challenge to investigate.
 
 %\subsubsection*{Acknowledgments.} This work was partly supported through a scholarship managed by \emph{Lembaga Pengelola Dana Pendidikan Indonesia} (Indonesia Endowment Fund for Education).
 
