@@ -106,9 +106,8 @@
 \maketitle              % typeset the title of the contribution
 %The first states the problem. The second states why the problem is a problem. The third is my startling sentence. The fourth states the implication of my startling sentence.
 \begin{abstract}
-% The benefits obtained from using changed-based persistence (CBP) for object-oriented (MOF/Ecore) models comes at the cost of increased load costs. The additional cost can outweigh the benefits and as a result CBP may not be widely adopted. By providing an optimized loading mechanism the load times of CBP can be improved. By reducing the load times, CBP will be widely adopted and allow tools to provide better collaborative modelling environments, support faster incremental model validation and transformation, among others. Our results show show that the proposed optimizations can improve loading times up to 80\% compared to the original CBP; further, the results show improved store performance against the existing CBP solution while preserving constant store times.
 
-Recent work proposed a language-independent change-based persistence (CBP) approach for models conforming to object-oriented metamodelling architectures such as MOF and EMF. In this approach, instead of persisting the state of a model, its full editing history is persisted, and the state of the model is reconstructed at loading time by replaying this history. Storing the entire editing history can be beneficial for precise change detection -- and hence e.g. model merging, incremental execution of model management programs -- but comes at the cost of larger and ever-growing model files and slower loading. In this paper, we contribute a more efficient algorithm for loading models stored in a change-based format. The proposed algorithm identifies and skips changes that are superseded by latter changes -- and which therefore have no impact on the eventual state of the model. We evaluate the performance of the new loading algorithm experimentally and we assess the impact it has on saving change-based models. Our results show that the proposed algorithm can reduce loading times by up to 44\% compared to the naive CBP loading algorithm, with a negligible impact on saving.
+Recent work proposed a language-independent change-based persistence (CBP) approach for models conforming to object-oriented metamodelling architectures such as MOF and EMF. In this approach, instead of persisting the state of a model, its full editing history is persisted, and the state of the model is reconstructed at loading time by replaying this history. Storing the entire editing history can be beneficial for precise change detection -- and hence e.g. model merging, incremental execution of model management programs -- but comes at the cost of larger and ever-growing model files and slower loading. In this paper, we contribute a more efficient algorithm for loading models stored in a change-based format. The proposed algorithm identifies and skips changes that are superseded by latter changes -- and which therefore have no impact on the eventual state of the model. We evaluate the performance of the new loading algorithm experimentally and we assess the impact it has on saving change-based models. Our results show that the proposed algorithm can reduce loading times by up to 44\% compared to the baseline CBP loading algorithm, with a negligible impact on saving.
 
 \end{abstract}
 
@@ -262,7 +261,7 @@ Each \emph{ElementHistory} can have many \emph{EventHistories} to represent even
 %For events that involve the element individually (e.g. create, add) element's feature but only affect the element (i.e. ``\emph{create n1 of Node}" event has no feature involved), or events in which an element acts as an operand for a multi-valued feature (i.e. ``\emph{add n3 to n1.children}" event has the \emph{n3} as the operand).
 %These kinds of events can have their \emph{EventHistory} belong to their \emph{ElementHistory} directly.
 
-Figure \ref{fig:history_structure} shows the object diagram of the model history of the CBP model in Listing \ref{lst:cbpmodel}. The grey rectangles are \emph{History} objects related to the deleted node \emph{n3}. The rectangles with the dashed outline are \emph{Line} objects that represent superseded changes. Next, we present the algorithms that use the information stored in the model history data structure to identify events that have no impact in the final state of the model, i.e. superseded events. The algorithms produce the ignore list that is used in the proposed CBP loading algorithm.
+Fig. \ref{fig:history_structure} shows the object diagram of the model history of the CBP model in Listing \ref{lst:cbpmodel}. The grey rectangles are \emph{History} objects related to the deleted node \emph{n3}. The rectangles with the dashed outline are \emph{Line} objects that represent superseded changes. Next, we present the algorithms that use the information stored in the model history data structure to identify events that have no impact in the final state of the model, i.e. superseded events. The algorithms produce the ignore list that is used in the proposed CBP loading algorithm.
 %WE ARE MISSING SOMETHING THAT SAYS HOW EACH ALGORITHM IS INVOKED FOR EACH FEATURE/ELEMENT AND THAT THE COMPLETE Ignore List IS THE UNION OF ALL IGNORE LSITS?
 
 \subsection{Set and Unset Events}
@@ -403,10 +402,10 @@ The rest of the algorithm works similar to Alg. \ref{alg:set_unset_optimisation}
 %However, this logics can only be executed if there is no \emph{move} event has been applied to the feature (the reason is explained later in this section) and it is indicated by false value of the flag \emph{featureIsMoved} (line 5). That is why excluding \emph{moveEventLines} is excluded from filtering because no \emph{move} event has been made. The flag \emph{featureIsMoved} is set to true (false is the default value) when the first \emph{move} event is applied to the feature and is set back to false when the feature is empty or has no value. If the feature is empty then all event numbers in the \emph{addEventLines}, \emph{removeEventLines}, and \emph{moveEventLines} into the \emph{ignoreList}. After that, \emph{attributeIsMoved} is set to false. Finally, the \emph{ignoreList} is returned for further operations.
 
 The flag \emph{featureIsMoved} in line 5 in Alg. \ref{alg:add_remove_move_optimisation} is required to prevent ordering errors in the final state.
-As an illustration, we compare the final states of the original CBP model presented in Listing  \ref{lst:move_attribute_example} and the optimised CBP model of Listing \ref{lst:move_attribute_example_error} which \emph{does not} consider the \emph{featureIsMoved} flag.
-In the optimized CBP model, the events related to \emph{n2} have been ignored.
-Notice that the final state of the optimized version is $p.values = [13, 11]$  which is different from the original version $p.values = [11,13]$.
-The reason is that the move event in line 8 in the original version works of a different value than the one in the optimized version.
+As an illustration, we compare the final states of the original CBP model presented in Listing  \ref{lst:move_attribute_example} and the effective CBP model of Listing \ref{lst:move_attribute_example_error} which \emph{does not} consider the \emph{featureIsMoved} flag.
+In the effective CBP model, the events related to \emph{n2} have been ignored.
+Notice that the final state of the effective version is $p.values = [n3, n1]$  which is different from the original version $p.values = [n1, n3]$.
+The reason is that the move event in line 8 in the original version works on a different value than the one in the effective version.
 
 \noindent
 \begin{minipage}[t]{0.48\linewidth}
@@ -424,7 +423,7 @@ remove n2 from p.children
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.48\linewidth}
-\begin{lstlisting}[style=eol,caption={The optimised CBP representation of reference \emph{children}'s move event.},label=lst:move_attribute_example_error]
+\begin{lstlisting}[style=eol,caption={The effective CBP representation of reference \emph{children}'s move event.},label=lst:move_attribute_example_error]
 create p of Node
 create n1
 create n2
@@ -438,12 +437,12 @@ move from 0 to 1 in p.children
 
 \subsection{Create and Delete Events}
 \label{subsec:create_and_delete_operations}
-When an element is deleted, it means that the element is completely removed from the model.
-Therefore, all events (create, set, unset, move, add, remove, delete) related to the element that happen before the event can be ignored, including all events related to its features, unless the element has been moved.
+When an element is deleted, it is completely removed from the model.
+Therefore, all events (create, set, unset, move, add, remove, delete) related to the element that happened before the event can be ignored, including all events related to its features, unless the element has been moved.
 For example, when node \emph{n3} in Listing \ref{lst:cbpmodel}  is deleted, the events in lines 5-6 and 8-10 are superseded.
-The optimised CBP model of Listing \ref{lst:cbpmodel} is presented in Listing \ref{lst:cbpmodel_optimised}.
+The effective CBP model of Listing \ref{lst:cbpmodel} is presented in Listing \ref{lst:cbpmodel_optimised}.
 
-\begin{lstlisting}[style=eol,caption={Change-based representation of the model of Figure \ref{fig:initial_model} after removal of node \emph{n5}.},label=lst:cbpmodel_optimised]
+\begin{lstlisting}[style=eol,caption={Change-based representation of the model of Fig. \ref{fig:initial_model} after removal of node \emph{n5}.},label=lst:cbpmodel_optimised]
 create n1 of Node
 set n1.name to "A"
 create n2 of Node
@@ -456,10 +455,10 @@ The algorithm has one input: the deleted element.
 The output of the algorithm is an \emph{ignoreList} that includes the event numbers that are superseded.
 The inputs lists can be trivially constructed from the model history data structure.
 
-The algorithm starts by checking flag \emph{elementIsMoved} to determine whether the \emph{deletedElement} is already moved or not (line 2).
+The algorithm starts by computing flag \emph{elementIsMoved} to determine whether the \emph{deletedElement} is already moved or not (line 2).
 If it is false then it is safe to remove all lines that refer to the element (line 3) (the reason for using this flag was explained in section \ref{subsec:add_remove_and_move_operations}), otherwise, no action is taken.
-The algorithm then retrieves all event histories (\emph{eventHistoryList}) that refer to the element (line 4) and iterates through each event history (line 5-8).
-For every event history (\emph{eventHistory} - line 5), the algorithm retrieves its lines \emph{lineList} (line 6) and puts all their event numbers into the \emph{ignoreList} (line 7).
+The algorithm then retrieves all event histories (\emph{eventHistoryList}) that refer to the element (line 4) and iterates through each event history (lines 5-8).
+For every event history (\emph{eventHistory} -- line 5), the algorithm retrieves its lines \emph{lineList} (line 6) and puts all their event numbers into the \emph{ignoreList} (line 7).
 After that, the algorithm continues to iterate through all its features and puts all lines' event numbers into the \emph{ignoreList} (lines 12-15). Finally, the algorithm returns the \emph{ignoreList} as its output.
 
 \begin{algorithm}[H]
@@ -497,8 +496,8 @@ $elementIsMoved$ $\leftarrow$ isElementMoved($deletedElement$)\;
 
 \section{Performance Evaluation}
 \label{sec:performance_evaluation}
-We have developed the proposed loading algorithm on top of an implementation\footnote{The prototype and the tests used in the evaluation are available under [hidden for review] for reproducibility. %\url{https://github.com/epsilonlabs/emf-cbp}
-} of the change-based model persistence approach -- based on the Eclipse Modelling Framework -- from the work of Yohannis et al. \cite{yohannis2017turning}. We evaluate the algorithm's model loading  performance, as well as its memory footprint and its impact on the time required to save changes made to CBP models. The evaluation was performed on Windows Server 2008 R2 64-bit with an Intel Xeon E5530 @2.40 GHz (2 processors) processor, 36 GB of memory, and the Java SE Runtime Environment (build 1.8.0\_66-b18).
+We developed the proposed efficient loading algorithm on top of the original CBP implementation\footnote{The prototype and the tests used in the evaluation are available under [hidden for review] for reproducibility. %\url{https://github.com/epsilonlabs/emf-cbp}
+} from \cite{yohannis2017turning} and evaluated the algorithm's model loading performance, as well as its memory footprint and its impact on the time required to save changes made to CBP models. The evaluation was performed on Windows Server 2008 R2 64-bit with an Intel Xeon E5530 @2.40 GHz (2 processors) processor, 36 GB of memory, and the Java SE Runtime Environment (build 1.8.0\_66-b18).
 
 \begin{figure}[htbp]
     \centering
@@ -507,12 +506,12 @@ We have developed the proposed loading algorithm on top of an implementation\foo
     \label{fig:node_metamodel}
 \end{figure}
 
-For our evaluation experiments, we have used synthetic models of different sizes conforming to the \emph{conference} metamodel in Fig. \ref{fig:node_metamodel}. We have selected this metamodel as it provides good coverage of the features of the EMF modelling capabilities such as single- and multi-valued features, inheritance, and containment and non-containment references. We had little option other than to use synthetic models for our experiments given that CBP is a very recent approach and we are not aware of any existing datasets containing real-world models expressed in CBP. Synthesising such models from existing state-based models (e.g. in XMI) was not an option either as state-based models do not capture editing-history-related information.    
+For our evaluation experiments, we have used synthetic models of different sizes conforming to the \emph{conference} metamodel in Fig. \ref{fig:node_metamodel}. We have selected this metamodel as it provides reasonable coverage of the features of the EMF modelling capabilities such as single- and multi-valued features, inheritance, and containment and non-containment references. We had little option other than to use synthetic models for our experiments given that CBP is a very recent contribution and we are not aware of any existing datasets containing real-world models expressed in a change-based format. Synthesising such models from existing state-based models (e.g. in XMI) was not an option either as state-based models do not capture editing-history-related information.    
 
 \subsection{Loading Time}
 \label{subsec:loading_time_test}
 
-For this experiment, we created and persisted change-based models of different sizes (from 500 up to 33,000 elements) conforming to the conference metamodel of Figure \ref{fig:node_metamodel} through a random model generator that simulates the actions of a human modeller (i.e. creates/deletes elements, sets/unsets values of their features). We then used the proposed and the naive loading algorithms to reconstruct the state of these models and measured their execution time. The results are shown in Fig. \ref{fig:loading_speed_conf} and demonstrate the considerable time savings (up to 44\% faster compared to the original CPB implementation for the largest models) delivered by the proposed loading algorithm.
+For this experiment, we created and persisted change-based models of different sizes (from 500 up to 33,000 elements) conforming to the conference metamodel of Fig. \ref{fig:node_metamodel} through a random model generator that simulates the actions of a human modeller (i.e. creates/deletes elements, sets/unsets values of their features). We then used the proposed and the baseline loading algorithms to reconstruct the state of these models and measured their execution time. The results are shown in Fig. \ref{fig:loading_speed_conf} and demonstrate the considerable time savings (up to 44\% faster compared to the original CPB implementation for the largest models) delivered by the proposed loading algorithm.
 
 \begin{figure}[ht]	
     \begin{subfigure}[t]{0.5\linewidth}
@@ -533,7 +532,7 @@ For reference, we also contrast the execution time for the proposed algorithm ag
 \subsection{Saving Time}
 \label{subsec:saving_time_test}
 
-To achieve the benefits in terms of loading time demonstrated in Section \ref{subsec:loading_time_test}, our algorithm requires additional work to be done (i.e. to assemble the model history data structure and compute the ignore list delta) during the model saving phase as discussed in Section \ref{sec:loading_time_optimisation}. To assess the impact of this additional work on the overall time required to save changes in models, we used a random model generator to build up multiple versions of a conference model through random sequences of creating, deleting and modifying model elements, starting with an empty model and growing it up to 22,000 elements. Every 100 new elements, the generator would save the changes and measure the time required for this activity to complete. We repeated the experiment with our prototype, with the existing baseline CBP implementation and with state-based models stored in XMI.
+To achieve the benefits in terms of loading time demonstrated in Section \ref{subsec:loading_time_test}, our algorithm requires additional work to be done (i.e. to assemble the model history data structure and compute the ignore list delta) during the model saving phase as discussed in Section \ref{sec:loading_time_optimisation}. To assess the impact of this additional work on the overall time required to save changes in models, we used a random model generator to build up multiple versions of a conference model through random sequences of creating, deleting and modifying model elements, starting with an empty model and growing it up to 21,000 elements. Every 100 new elements, the generator would save the changes and measure the time required for this activity to complete. We repeated the experiment with our prototype, with the existing baseline CBP implementation and with state-based models stored in XMI.
 
 \begin{figure}[ht]	
     \begin{subfigure}[t]{0.5\linewidth}
@@ -549,7 +548,7 @@ To achieve the benefits in terms of loading time demonstrated in Section \ref{su
 	\label{fig:append_speed}
 \end{figure}
 
-As shown in Figure \ref{fig:append_speed_conf} the performance of the two CBP implementations is almost indistinguishable, which indicates that the cost of the extra work needed by the proposed algorithm at this stage is negligible. On the other hand, CBP implementations are significantly faster at saving changes than XMI. This is expected as the CBP implementations only need to save the last set of changes every time by appending them to the existing model file (and hence their performance is relative to the number of changes since last saved), while the XMI implementation needs to reconstruct an XML document for the entire state of the model and replace the contents of the model file every time (and hence its performance is relative to the size of the entire model). 
+As shown in Fig. \ref{fig:append_speed_conf} the performance of the two CBP implementations is almost indistinguishable, which indicates that the cost of the extra work needed by the proposed algorithm at this stage is negligible. On the other hand, CBP implementations are significantly faster at saving changes than XMI. This is expected as the CBP implementations only need to save the last set of changes every time by appending them to the existing model file (and hence their performance is relative to the number of changes since last saved), while the XMI implementation needs to reconstruct an XML document for the entire state of the model and replace the contents of the model file every time (and hence its performance is relative to the size of the entire model). 
 
 % We evaluate the performance of our prototype on saving time to gain insight on the efficiency that can be gained from the optimised CBP against the non-optimised CBP and XMI as the comparison baselines. The comparison is depicted in Fig. \ref{fig:append_speed}.
 
@@ -561,9 +560,9 @@ As shown in Figure \ref{fig:append_speed_conf} the performance of the two CBP im
          
 \subsection{Memory Footprint}
 \label{subsec:memory_consumption}
-As the proposed loading algorithm requires the maintenance of an additional in-memory data structure that keeps track of element and feature editing histories (see Fig. \ref{fig:history_structure}), we have conducted an additional experiment to measure its memory footprint. As with the experiment in Sect. \ref{subsec:saving_time_test}, we used a random model generator to build up a conference model through random sequences of creating, deleting and modifying model elements, starting with an empty model and growing it up to 10,000 elements. Every 100 new elements, we measured the memory consumed by the program. The results are plotted in Figure \ref{fig:memory_ocbp_cbp_xmi} and demonstrate the significant overhead of the used data structure.
+As the proposed loading algorithm requires the maintenance of an additional in-memory data structure that keeps track of element and feature editing histories (see Fig. \ref{fig:history_structure}), we have conducted an additional experiment to measure its memory footprint. As with the experiment in Sect. \ref{subsec:saving_time_test}, we used a random model generator to build up a conference model through random sequences of creating, deleting and modifying model elements, starting with an empty model and growing it up to 10,000 elements. Every 100 new elements, we measured the memory consumed by the program. The results are plotted in Fig. \ref{fig:memory_ocbp_cbp_xmi} and demonstrate the significant overhead of the used data structure.
 
-For reference, we also include the memory footprints of XMI in Figure \ref{fig:memory_ocbp_cbp_xmi} to contrast it with both CBP implementations. As observed, XMI outperforms the optimised CBP representation and performs slightly better than the original CBP representation in terms of its memory footprint. 
+For reference, we also include the memory footprints of XMI in Fig. \ref{fig:memory_ocbp_cbp_xmi} to contrast it with both CBP implementations. As observed, XMI outperforms the optimised CBP representation and performs slightly better than the original CBP representation in terms of its memory footprint. 
 
 \begin{figure}[b]	
 \centering
@@ -597,13 +596,7 @@ For reference, we also include the memory footprints of XMI in Figure \ref{fig:m
 \label{sec:limitations_and_future_work}
 In this work, we have only tested the algorithm on synthesised conference models which may not be representative of the complexity and interconnectedness of models in other domains. Diverse characteristics of models in different domains can affect the effectiveness of the algorithm and therefore yield different outcomes. %Also, we have not run the experiments on multiple iterations to obtain more consistent and stable results. Moreover, we have not performed the experiments on different types of environments (e.g. machines, operating systems, Java versions, modelling frameworks). Different environments might affect the experiments to produce different results. 
 
-We only support features that can only contain ordered and unique values (i.e. no duplicates).
-Support for duplicate values means that removal of an item does not necessarily result in the item not being present in the feature value.
-Additional information must be captured to persist the number of copies and positions of the feature members.
-In the algorithms, this information can be used to properly generate the ignore list.
-In the case of unordered features, ``moved'' event do not exist, and hence analysis will be required to determine how this affects the use of the \emph{featureIsMoved} flag. 
-
-%Given that it is impossible to generalise a metamodel structure and as such, the examples used in this work will only represent a subset of the possible/existing metamodels. As a result, we expect different metamodels to exhibit different gains when using the optimized CBP. Moreover, our prototype still consumes a significant amount of memory in executing the algorithm and still performs more than 10 times slower than XMI in loading models. Thus, we have identified several approaches to improve more of the performance in section \ref{sec:conclusions}.
+We only support ordered and unique features so far. Support for duplicate values means that removal of an item does not necessarily result in the item not being present in the feature value. Additional information must be captured to persist the number of copies and positions of the feature members. In the algorithms, this information can be used to properly generate the ignore list. In the case of unordered features, ``moved'' events do not exist, and hence further analysis is required to determine how this affects the use of the \emph{featureIsMoved} flag. 
 
 \section{Related Work}
 \label{sec:related_work}
