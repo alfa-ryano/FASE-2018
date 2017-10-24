@@ -108,32 +108,32 @@
 \begin{abstract}
 % The benefits obtained from using changed-based persistence (CBP) for object-oriented (MOF/Ecore) models comes at the cost of increased load costs. The additional cost can outweigh the benefits and as a result CBP may not be widely adopted. By providing an optimized loading mechanism the load times of CBP can be improved. By reducing the load times, CBP will be widely adopted and allow tools to provide better collaborative modelling environments, support faster incremental model validation and transformation, among others. Our results show show that the proposed optimizations can improve loading times up to 80\% compared to the original CBP; further, the results show improved store performance against the existing CBP solution while preserving constant store times.
 
-Recent work proposed a language-independent change-based persistence (CBP) approach for models conforming to object-oriented metamodelling architectures such as MOF and EMF. In this approach, instead of persisting the state of a model, its full editing history is persisted, and the state of the model is reconstructed at loading time by replaying this history. Storing the entire editing history is beneficial for precise change detection -- and hence e.g. model merging, incremental execution of model management programs -- but comes at the cost of larger and ever-growing model files and slower loading. In this paper, we contribute a more efficient algorithm for loading models stored in a change-based format. The proposed algorithm identifies and skips changes that are superseded by latter changes -- and which therefore have no impact on the eventual state of the model. We evaluate the performance of the new loading algorithm experimentally and we assess the impact it has on saving change-based models. Our results show that the proposed algorithm can reduce loading times by up to 44\% compared to the naive CBP loading algorithm, with a negligible impact on saving.
+Recent work proposed a language-independent change-based persistence (CBP) approach for models conforming to object-oriented metamodelling architectures such as MOF and EMF. In this approach, instead of persisting the state of a model, its full editing history is persisted, and the state of the model is reconstructed at loading time by replaying this history. Storing the entire editing history can be beneficial for precise change detection -- and hence e.g. model merging, incremental execution of model management programs -- but comes at the cost of larger and ever-growing model files and slower loading. In this paper, we contribute a more efficient algorithm for loading models stored in a change-based format. The proposed algorithm identifies and skips changes that are superseded by latter changes -- and which therefore have no impact on the eventual state of the model. We evaluate the performance of the new loading algorithm experimentally and we assess the impact it has on saving change-based models. Our results show that the proposed algorithm can reduce loading times by up to 44\% compared to the naive CBP loading algorithm, with a negligible impact on saving.
 
 \end{abstract}
 
 \section{Introduction}
 \label{sec:introduction}
-Existing approaches for file-based persistence of models in metamodelling architectures such as MOF and EMF are predominately state-based.
-In such approaches, model files contain snapshots of the models' contents, and activities such as version control and change detection are left to external systems such as file-based version-control systems and model differencing facilities.
-Activities such as model comparison and change detection are computationally consuming for state-based models and can become a burden as larger models are developed in a collaborative setting. 
+Existing approaches for file-based model persistence in metamodelling architectures such as MOF and EMF are predominately state-based.
+In such approaches, model files contain snapshots of the models' contents, and activities like version control and change detection are left to external systems such as file-based version-control systems and model differencing facilities.
+Activities such as model comparison and change detection are computationally consuming for state-based models and can become a burden when larger models are developed in a collaborative setting. 
 
-In contrast to persisting the \emph{state} of models, we harness a change-based approach that persists the full sequence of \emph{changes} made to models instead.
-The change-based approach comes with a number of envisioned benefits over stated-based persistence, such as the ability to detect changes much faster and more precisely\,\cite{yohannis2017turning}, which can then have positive knock-on effects on helping developers to diff/merge models in collaborative modelling environments, as well as on facilitating faster incremental model validation and transformation\,\cite{rath2012derived,ogunyomi2015property}.
+In contrast to persisting the \emph{state} of models, the authors of \cite{yohannis2017turning} proposed a change-based approach that persists the full sequence of \emph{changes} made to models instead.
+The change-based approach comes with a number of envisioned benefits over stated-based persistence, such as the ability to detect changes much faster and more precisely, which can then have positive knock-on effects on helping developers to diff/merge models in collaborative modelling environments, as well as on facilitating faster incremental model validation and transformation\,\cite{rath2012derived,ogunyomi2015property}.
 However, change-based persistence comes at the cost of larger and ever-growing model files, and increased model loading time since all recorded changes need to be replayed to reconstruct a model's state\,\cite{yohannis2017turning}.   
 
-Our work extends the work of Yohannis et al. \cite{yohannis2017turning} that implements a change-based persistence (CBP) format, and proposes and evaluates an algorithm that reduces loading time of change-based models by avoiding replaying changes that have no impact on the eventual state of the model (e.g. that are superseded by subsequent changes).
+Our work extends the change-based persistence (CBP) approach introduced in \cite{yohannis2017turning}, and proposes and evaluates an algorithm that reduces loading time of change-based models by avoiding replaying changes that have no impact on the eventual state of the model (e.g. that are superseded by subsequent changes).
 % We assess the efficiency of the algorithm in terms of loading and persistence time, and memory footprint.
 % Our approach demonstrates considerable savings in loading times when compared to the previous work, while the effects on the store time are negligible. %\dk{If the contribution we're proposing in this paper is the optimised loading algorithm, starting that loading cost is higher can be confusing.}%\hh{This this was copied form the previous paper, so fixed now.}
 
 The rest of the paper is structured as follows. Section \ref{sec:case_study} introduces a running example and provides a brief overview of the original change-based model persistence approach.
 Section \ref{sec:loading_time_optimisation} presents an algorithm that intends to speed up loading of change-based models, and its supporting data structures. %\dk{Merge Sections 3 and 4}.  
-Sect. \ref{sec:performance_evaluation} discusses the results of controlled evaluation experiments for assessing the benefits of the proposed algorithm. Section \ref{sec:related_work} provides an overview of related work, and Sect. \ref{sec:conclusions} concludes this paper and discusses directions for future work.
+Sect. \ref{sec:performance_evaluation} discusses the results of evaluation experiments for assessing the benefits of the proposed algorithm. Section \ref{sec:related_work} provides an overview of related work, and Sect. \ref{sec:conclusions} concludes this paper and discusses directions for future work.
 
 \section{Running Example}
 \label{sec:case_study}
 To explain change-based model persistence and the contribution of this work, we use the minimal tree metamodel (expressed in the Eclipse Modelling Framework's Ecore metamodelling language) and model illustrated in Figures \ref{fig:tree_metamodel} and \ref{fig:initial_model}.
-We chose EMF/Ecore as the de-facto standard in object-oriented metamodelling, and this contrived example to avoid superseded repetition in our discussion, while providing a reasonable coverage of the core features of Ecore (classes, single/multi-valued features, references and attributes).
+We chose EMF/Ecore as the de-facto standard for object-oriented metamodelling, and this contrived example to avoid unnecessary repetition in our discussion, while providing a reasonable coverage of the core features of Ecore (classes, single/multi-valued features, references and attributes).
 In this example, tree models consist of named nodes which can -- optionally -- contain other nodes (\emph{children} reference).
 
 \begin{figure}[ht]
@@ -161,16 +161,15 @@ Finally, node \emph{n3} was deleted from the model.
 The final state of the model is presented in a simplified (state-based) XMI representation in Listing \ref{lst:xmimodel}.
 
 \noindent
-\begin{minipage}[t]{0.34\linewidth}
+\begin{minipage}[t]{0.5\linewidth}
 \begin{lstlisting}[style=xmi,caption={State-based representation of the tree model in (simplified) XMI.},label=lst:xmimodel]
 <Node id="n1" name="A">
-  <children id="n2" 
-    name="B"/>
+  <children id="n2" name="B"/>
 </Node>
 \end{lstlisting}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.635\linewidth}
+\begin{minipage}[t]{0.5\linewidth}
 \begin{lstlisting}[style=eol,caption={Change-based representation of the tree model.},label=lst:cbpmodel]
 create n1 of Node
 set n1.name to "A"      
@@ -186,20 +185,20 @@ delete n3
 \end{minipage}
 
 In contrast to the state-based representation, a CBP representation of the model is illustrated in Listing \ref{lst:cbpmodel} (the syntax is a simplified version of the one introduced in\,\cite{yohannis2017turning}).
-Lines 1-6 record the creation and naming of the three nodes, lines 7 and 8 record the addition of \emph{n2} and \emph{n3} as children of \emph{n1} and lines 9-10 capture the deletion of \emph{n3} (deletion effectively involves two events).
+Lines 1-6 record the creation and naming of the three nodes, lines 7 and 8 record the addition of \emph{n2} and \emph{n3} as children of \emph{n1} and lines 9-10 capture the deletion of \emph{n3} (deletion effectively involves a removal and a deletion event).
 
 % Instead of treating the model as a state based, we records all events generated by the the consecutive  operations and persist them into a CBP representation (Listing \ref{lst:cbpmodel}), which contains at least as much information as the state-based representation. Replaying all these events produces the same state as the one captured in the Listing \ref{lst:xmimodel}.  
 
 For small changes made to large models, this approach can be beneficial since we only need to persist the change events every time -- as opposed to the entire model.
-However, loading the model by naively replaying all the events,\cite{yohannis2017turning} is not optimal particularly for models with long editing histories where prior events are effectively superseded by subsequent events. For example, creating \emph{n3} in line 5, naming it in line 6, and adding it to the children of \emph{n1} in line 8 are cancelled by the subsequent deletion of \emph{n3} in line 10. As such, the events in lines 5, 6, 8, 9 and 10 could be ignored during the loading process without affecting the eventual state of the model.
+However, loading the model by naively replaying all the events is not optimal particularly for models with long editing histories where prior events are often superseded by subsequent events. For example, creating \emph{n3} in line 5, naming it in line 6, and adding it to the children of \emph{n1} in line 8 are cancelled by the subsequent deletion of \emph{n3} in line 10. As such, the events in lines 5, 6, 8, 9 and 10 could be ignored during the loading process without affecting the eventual state of the model.
 
 %An optimisation can be performed by ignoring the superseded events. For example, the deletion of node \emph{n3} makes events (Listing \ref{lst:xmimodel}, lines 5-6, 8-10) related to the node superseded to be replayed. 
 
 \section{Towards Efficient Loading of Change-Based Models}
 \label{sec:loading_time_optimisation}
-The flowchart in Fig. \ref{fig:flowchart} provides an overview of the editing lifecycle of a model under the proposed approach, and the different artefacts involved in it. It also highlights (starred blocks) the extensions proposed compared to the original CBP approach in \cite{yohannis2017turning}.
+The flowchart in Fig. \ref{fig:flowchart} provides an overview of the editing lifecycle of a CBP model, and the artefacts and data structures involved in it. It also highlights (starred blocks) the extensions proposed compared to the original CBP approach in \cite{yohannis2017turning}.
 
-In the original CBP approach in \cite{yohannis2017turning}, a modelling session involves three activities: loading a model, editing it, and saving changes back to the model file. After saving a model, the user can make further edits and save them again. Loading is achieved by reading and replaying a sequence of change events stored in a CBP-formatted file. During the editing process, changes to the model are stored in a memory-based data structure (``Change events''), which are serialised and appended at the end of the CBP-formatted model file, and then flushed from memory, every time the model is saved.
+In the original CBP approach, a model editing session involves three activities: loading a model, editing it, and saving new changes back to the model file\footnote{After saving a model, the user can make further changes and save it again.}. Loading is achieved by reading and replaying a sequence of change events stored in a CBP-formatted file. During the editing process, changes to the model are stored in a memory-based data structure (``Change events''), which are serialised and appended at the end of the CBP-formatted model file, and then flushed from memory, every time the model is saved.
 
 The proposed approach adds two new artefacts: a ``Model History'' data structure which is populated with change events and which is used to detect superseded events prior to saving, and an ``Ignore List'' file for each CBP model, which persists the position (i.e. line numbers) of superseded events so that they can be ignored the next time the model is loaded.
 
@@ -227,7 +226,7 @@ The proposed approach adds two new artefacts: a ``Model History'' data structure
 
 \subsection{Model History}
 \label{subsec:model_history}
-The proposed algorithm uses a data structure that memorises elements' events and their position (line number) in a CBP representation so it can reason about the events of a particular element and determine which of them are superseded.
+The proposed approach uses a data structure that memorises elements' events and their position (line number) in a CBP representation so it can reason about the events of a particular element and determine which of them are superseded.
 For the rest of the discussion the line number in the CBP representation is referred to as the \emph{event number}.
 The proposed data structure is presented in Fig. \ref{fig:object_history} as a class diagram.  
 
@@ -249,13 +248,13 @@ The proposed data structure is presented in Fig. \ref{fig:object_history} as a c
 \end{figure}
 
 A \emph{ModelHistory} has a \emph{URI} attribute to identify the model for which it records changes and can have many \emph{ElementHistory} elements.
-An \emph{ElementHistory} has an \emph{element} field that identifies the element that it refers to and an \emph{elementIsMoved} boolean flag. The  \emph{elementIsMoved} flag is used to indicate a \emph{move} event for the element (section \ref{subsec:add_remove_and_move_operations} provides details of its use).
+An \emph{ElementHistory} has an \emph{element} field that identifies the element that it refers to and an \emph{elementIsMoved} boolean flag. The  \emph{elementIsMoved} flag is used to indicate a \emph{move} event for the element (Sect. \ref{subsec:add_remove_and_move_operations} provides details of its use).
 Every \emph{ElementHistory} can have many \emph{FeatureHistories} to represent the editing histories of individual features (i.e. references/attributes) of the element. 
 %that are involved in certain events (i.e. ``\emph{add n2 to n1.children}" event has the \emph{children} as the feature).
-A \emph{FeatureHistory} has three fields: \emph{type} to identify its type (attribute or reference), \emph{name} to identify the feature's name, and \emph{featureIsMoved} that has the same role as attribute \emph{elementIsMoved} in \emph{ElementHistory}.
+A \emph{FeatureHistory} has three fields: \emph{type} to identify the feature's type (attribute or reference), \emph{name} to identify the feature's name, and \emph{featureIsMoved} that has the same role as attribute \emph{elementIsMoved} in \emph{ElementHistory}.
 
-An \emph{EventHistory} represents an event in the CBP model.
-An \emph{EventHistory} has an attribute \emph{type} to identify the event's type and can have many \emph{Line}s.
+An \emph{EventHistory} represents series of events of the same type in the CBP model.
+An \emph{EventHistory} has an attribute \emph{type} to identify the events' type and can have many \emph{Line}s.
 A \emph{Line} has a \emph{number} attribute to store the event number in the CBP model and a \emph{value} that is used to store the element involved in the event (it is only used for \emph{ADD}, \emph{REMOVE} and \emph{MOVE} events).
 
 Each \emph{FeatureHistory} can have many \emph{EventHistories} to represent the events that modify the value of the feature.
@@ -263,9 +262,7 @@ Each \emph{ElementHistory} can have many \emph{EventHistories} to represent even
 %For events that involve the element individually (e.g. create, add) element's feature but only affect the element (i.e. ``\emph{create n1 of Node}" event has no feature involved), or events in which an element acts as an operand for a multi-valued feature (i.e. ``\emph{add n3 to n1.children}" event has the \emph{n3} as the operand).
 %These kinds of events can have their \emph{EventHistory} belong to their \emph{ElementHistory} directly.
 
-Figure \ref{fig:history_structure} shows the object diagram of the model history of the CBP model in Listing \ref{lst:cbpmodel} (some attribute values are not shown). The grey rectangles are \emph{History} objects that belong to the deleted node \emph{n3}. The  rectangles with the dashed outline are \emph{Line} objects that represent superseded events.
-
-Next, we present the algorithms that use the information stored in the model history data structure to identify events that have no impact in the final state of the model, i.e. superseded events. The algorithms produce the ignore that is used in the proposed CBP loading algorithm.
+Figure \ref{fig:history_structure} shows the object diagram of the model history of the CBP model in Listing \ref{lst:cbpmodel}. The grey rectangles are \emph{History} objects related to the deleted node \emph{n3}. The rectangles with the dashed outline are \emph{Line} objects that represent superseded changes. Next, we present the algorithms that use the information stored in the model history data structure to identify events that have no impact in the final state of the model, i.e. superseded events. The algorithms produce the ignore list that is used in the proposed CBP loading algorithm.
 %WE ARE MISSING SOMETHING THAT SAYS HOW EACH ALGORITHM IS INVOKED FOR EACH FEATURE/ELEMENT AND THAT THE COMPLETE Ignore List IS THE UNION OF ALL IGNORE LSITS?
 
 \subsection{Set and Unset Events}
@@ -331,15 +328,15 @@ $unsetLastLine$ $\leftarrow$ getLastLine($unsetEventNumbers$)\;
 \end{algorithm}
 
 The \emph{ignoreList} is populated as follows.
-In lines 4 and 5, the last event number of each input list is stored in \emph{setLastLine} and \emph{unsetLastLine} respectively.
-If $setLastLine > unsetLastLine$ (line 7) then $ignoreList = (setEventNumbers \cup unsetEventNumbers) \setminus  \{setLastLine\} $, i.e. all events except the last \emph{SET} event can be ignored.
-If $setLastLine > unsetLastLine$ (line 9) then $ignoreList = (setEventNumbers \cup unsetEventNumbers)$, i.e. all events can be ignored.
-For the \emph{name} feature in Listing \ref{lst:set_unset_example} $ignoreList = \{2, 3\}$.
+In lines 2 and 3, the last event number of each input list is stored in \emph{setLastLine} and \emph{unsetLastLine} respectively.
+If $setLastLine > unsetLastLine$ (line 4) then $ignoreList = (setEventNumbers \cup unsetEventNumbers) \setminus  \{setLastLine\} $, i.e. all events except the last \emph{SET} event can be ignored.
+If $setLastLine < unsetLastLine$ (line 6) then $ignoreList = (setEventNumbers \cup unsetEventNumbers)$, i.e. all events can be ignored.
+For the \emph{name} feature in Listing \ref{lst:set_unset_example}, $ignoreList = \{2, 3\}$.
 
 \subsection{Add, Remove, and Move Events}\label{subsec:add_remove_and_move_operations}
 %DO WE SAY HERE THAT THE LIMITATION IS THAT IT ONLY WORKS IN UNIQUE COLLECTIONS?
 Similarly, the contents of a multi-valued feature can be modified many times.
-If the same element is added and removed multiple times,  only that last event is necessary to determine if the element should appear in the multi-valued feature values in the final state of the feature.
+If the same element is added and removed multiple times,  only that last event is necessary to determine if the element should appear in the values of the feature.
 For example, in Listing \ref{lst:add_remove_move_reference},  nodes \emph{n2} and \emph{n3} are added to the \emph{children} feature of \emph{n1} (lines 4-5), and then \emph{n3} is removed (line 6).
 That is, in the last state of the model: \emph{n1.children = [n2]}.
 As a result, the loading process could ignore the events that represent the \emph{ADD} and \emph{REMOVE} events of \emph{n3}. So far, the algorithm only supports unique features (i.e. features that do not allow duplicate values). An extension to support duplicate values is part of our future work. 
