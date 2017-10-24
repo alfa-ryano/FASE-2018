@@ -256,7 +256,7 @@ A \emph{FeatureHistory} has three fields: \emph{type} to identify its type (attr
 
 An \emph{EventHistory} represents an event in the CBP model.
 An \emph{EventHistory} has an attribute \emph{type} to identify the event's type and can have many \emph{Line}s.
-A \emph{Line} has an \emph{eventNumber} attribute to store the line number in the CBP model and a \emph{value} that is used to store the element involved in the event (it is only used for \emph{ADD}, \emph{REMOVE} and \emph{MOVE} events).
+A \emph{Line} has a \emph{number} attribute to store the event number in the CBP model and a \emph{value} that is used to store the element involved in the event (it is only used for \emph{ADD}, \emph{REMOVE} and \emph{MOVE} events).
 
 Each \emph{FeatureHistory} can have many \emph{EventHistories} to represent the events that modify the value of the feature.
 Each \emph{ElementHistory} can have many \emph{EventHistories} to represent events that affect the state of the element (life-cycle and relations to multivalued features).
